@@ -25,7 +25,7 @@ public class WindowGame extends BasicGame {
 	public void init(GameContainer container) throws SlickException {
 		
 		this.container = container;
-		this.map = new TiledMap("res/terrain.tmx");
+		this.map = new TiledMap("res/terrain2.tmx");
 	
 	}
 
@@ -65,7 +65,7 @@ public class WindowGame extends BasicGame {
 		 */
 		
 		WindowGame game = new WindowGame();
-		AppGameContainer container = new AppGameContainer(game, 640, 480, false);// True pour faire du fullscreen
+		AppGameContainer container = new AppGameContainer(game, 704, 576, false);// True pour faire du fullscreen
 		container.setShowFPS(false);//on affiche pas les FPS
 		container.start();
 		

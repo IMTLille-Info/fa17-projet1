@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="11" height="9" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tilea3" tilewidth="64" tileheight="64">
+  <image source="tilea3.png" width="512" height="256"/>
+ </tileset>
+ <tileset firstgid="33" name="tilea45" tilewidth="64" tileheight="64">
+  <image source="../../../Images/tilea45.png" width="512" height="480"/>
+ </tileset>
+ <tileset firstgid="89" name="chibihikaru-tilea2" tilewidth="64" tileheight="64">
+  <image source="../../../Images/chibihikaru-tilea2.png" width="512" height="384"/>
+ </tileset>
+ <layer name="Calque de Tile 1" width="11" height="9">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA/NnYGDwJwHnEIGR1bYToEeCucRiAApXxJuMAQAA
+  </data>
+ </layer>
+</map>
