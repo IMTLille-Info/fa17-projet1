@@ -57,7 +57,11 @@ public class WindowGame extends BasicGame {
 		/**GameContainer, ce container permet de configurer environnement 
 		 * d’exécution de la boucle.
 		 */
-		new AppGameContainer(new WindowGame(), 640, 480, false).start();
+		
+		WindowGame game = new WindowGame();
+		AppGameContainer container = new AppGameContainer(game, 640, 480, false);// True pour faire du fullscreen
+		container.setShowFPS(false);//on affiche pas les FPS
+		container.start();
 	}
 
 }
