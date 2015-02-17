@@ -1,5 +1,7 @@
 package uvinfo.bomberman;
 
+import java.awt.Font;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,6 +38,7 @@ public class BombermanGame extends BasicGame {
 		{
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new BombermanGame("Projet 1 : Bomberman"));
+			appgc.setShowFPS(false);
 			appgc.setDisplayMode(640, 480, false);//if true = fullscreen
 			
 			appgc.start();
