@@ -47,15 +47,16 @@ public class WindowGame extends BasicGame {
 			throws SlickException {
 	}
 	
+	@Override
 	/** methode appelé à chaque relâchement de touche 
 	 * 
 	 * @param key 
 	 * @param c
 	 */
-	public void KeyRealeased(int key, char c){
-		 if (Input.KEY_ESCAPE == key) {
-	            container.exit();
-	        }
+	public void keyReleased(int key, char c) {
+		if (Input.KEY_ESCAPE == key) {
+			container.exit();
+		}
 	}
 	
 	public static void main(String[] args) throws SlickException {
