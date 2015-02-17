@@ -5,10 +5,11 @@
 	<classpathentry kind="lib" path="bomberman/lib/jinput.jar"/>
 	<classpathentry kind="lib" path="bomberman/lib/lwjgl.jar"/>
 	<classpathentry kind="lib" path="bomberman/lib/slick.jar"/>
-+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Slick2D">
-+		<attributes>
-+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="projet1/bomberman/lib/natives"/>
-+		</attributes>
-+	</classpathentry>
-    <classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Slick2D">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="projet1/bomberman/lib/natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
