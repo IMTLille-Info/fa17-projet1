@@ -1,21 +1,27 @@
 package uvinfo.bomberman;
 
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class WindowGame extends BasicGame {
+	
+	
 	private GameContainer container;
 	private TiledMap map;
-
+	
+	private Avatar perso;
 
 	public WindowGame() {
-		super("Lesson 1 :: window Game");
+		super("Projet 1 : Bomberman");
 	}
 
 	@Override
@@ -26,8 +32,12 @@ public class WindowGame extends BasicGame {
 		
 		this.container = container;
 		this.map = new TiledMap("res/terrain2.tmx");
-	
+		
+		perso = new Avatar();
+		
 	}
+	
+	
 
 	@Override
 	/**render(GameContainer, Graphics) : doit afficher le 
@@ -36,6 +46,11 @@ public class WindowGame extends BasicGame {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		this.map.render(0, 0);
+		
+		g.setColor(new Color(0, 0, 0, .5f));
+	    g.fillOval(perso.posX() - 16, perso.posY() - 8, 32, 16);
+	    g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
+		
 	}
 
 	@Override
@@ -45,6 +60,15 @@ public class WindowGame extends BasicGame {
 	 */
 	public void update(GameContainer container, int delta)
 			throws SlickException {
+		
+		if (perso.isMoving()) {
+	        switch (perso.GetDirection()) {
+	            case 0: perso.moveDown(); break;
+	            case 1: perso.moveLeft(); break;
+	            case 2: perso.moveUp(); break;
+	            case 3: perso.moveRight(); break;
+	        }
+	    }
 	}
 	
 	@Override
@@ -54,9 +78,22 @@ public class WindowGame extends BasicGame {
 	 * @param c
 	 */
 	public void keyReleased(int key, char c) {
+		
+		perso.SetMoving(false);
+		
 		if (Input.KEY_ESCAPE == key) {
 			container.exit();
 		}
+	}
+	
+	@Override
+	public void keyPressed(int key, char c) {
+	    switch (key) {
+	        case Input.KEY_UP:    perso.SetDirection(0); perso.SetMoving(true); break;
+	        case Input.KEY_LEFT:  perso.SetDirection(1); perso.SetMoving(true); break;
+	        case Input.KEY_DOWN:  perso.SetDirection(2); perso.SetMoving(true); break;
+	        case Input.KEY_RIGHT: perso.SetDirection(3); perso.SetMoving(true); break;
+	    }
 	}
 	
 	public static void main(String[] args) throws SlickException {

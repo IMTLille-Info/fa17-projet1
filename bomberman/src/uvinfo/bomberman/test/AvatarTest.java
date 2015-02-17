@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.newdawn.slick.SlickException;
 
 import uvinfo.bomberman.Avatar;
 
@@ -14,7 +15,7 @@ public class AvatarTest {
 	}
 
 	@Test
-	public void testMoveUp() {
+	public void testMoveUp() throws SlickException {
 		Avatar toto = new Avatar();
 		int x = toto.posX();
 		int y = toto.posY();
