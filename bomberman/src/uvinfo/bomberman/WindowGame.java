@@ -1,5 +1,6 @@
 package uvinfo.bomberman;
 
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -24,7 +25,7 @@ public class WindowGame extends BasicGame {
 	public void init(GameContainer container) throws SlickException {
 		
 		this.container = container;
-		this.map = new TiledMap("C:/Users/E34575/Images/terrain.tmx");
+		this.map = new TiledMap("res/terrain.tmx");
 	
 	}
 
