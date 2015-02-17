@@ -6,5 +6,5 @@ public class Test {
 	String antho = "aaaaaaaahh abahvbh";
 	String anthony = "commit depuis pc boulot";
 	String vincent = "commit depuis pc boulot vincent";
-	String François = "Test";
+	String François = "2eme test";
 }
