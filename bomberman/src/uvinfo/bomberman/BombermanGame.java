@@ -25,7 +25,7 @@ public class BombermanGame extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-		g.drawString("Bomberman!", 50, 50);
+		g.drawString("Go!", 50, 50);
 	}	
 	
 	
