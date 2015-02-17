@@ -6,9 +6,11 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.tiled.TiledMap;
 
 public class WindowGame extends BasicGame {
 	private GameContainer container;
+	private TiledMap map;
 
 
 	public WindowGame() {
@@ -22,6 +24,7 @@ public class WindowGame extends BasicGame {
 	public void init(GameContainer container) throws SlickException {
 		
 		this.container = container;
+		this.map = new TiledMap("C:/Users/E34575/Images/terrain.tmx");
 	
 	}
 
@@ -31,6 +34,7 @@ public class WindowGame extends BasicGame {
 	 */
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
+		this.map.render(0, 0);
 	}
 
 	@Override
@@ -62,6 +66,8 @@ public class WindowGame extends BasicGame {
 		AppGameContainer container = new AppGameContainer(game, 640, 480, false);// True pour faire du fullscreen
 		container.setShowFPS(false);//on affiche pas les FPS
 		container.start();
+		
+		game.render(container, new Graphics());
 	}
 
 }
