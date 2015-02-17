@@ -25,7 +25,7 @@ public class BombermanGame extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-		g.drawString("Howdy!", 50, 50);
+		g.drawString("Bomberman!", 50, 50);
 	}	
 	
 	
@@ -36,7 +36,8 @@ public class BombermanGame extends BasicGame {
 		{
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new BombermanGame("Projet 1 : Bomberman"));
-			appgc.setDisplayMode(640, 480, true);
+			appgc.setDisplayMode(640, 480, false);//if true = fullscreen
+			
 			appgc.start();
 		}
 		catch (SlickException ex)
