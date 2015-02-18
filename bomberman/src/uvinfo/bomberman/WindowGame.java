@@ -83,11 +83,9 @@ public class WindowGame extends BasicGame {
 			if (collision) {
 				perso.SetMoving(false);
 
-				perso.posX(futurX);
-				perso.posY(futurY);
-
-
-				//perso.SetMoving(true);
+	            perso.posX(perso.getFuturX());
+	            perso.posY(perso.getFuturY());
+				
 			}
 
 		}

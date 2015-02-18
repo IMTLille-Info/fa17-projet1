@@ -95,5 +95,24 @@ public class Avatar {
 	{
 		return this.animations[anim];
 	}
+	
+	public int getFuturX() {
+	    int futurX = this.posX;
+	    switch (this.direction) {
+	    case 1: futurX = this.posX - 1; break;
+	    case 3: futurX = this.posX + 1; break;
+	    }
+	    return futurX;
+	}
+
+	public int getFuturY() {
+	    int futurY = this.posY;
+	    switch (this.direction) {
+	    case 0: futurY = this.posY - 1; break;
+	    case 2: futurY = this.posY + 1; break;
+	    }
+	    return futurY;
+	}
+	
 
 }
