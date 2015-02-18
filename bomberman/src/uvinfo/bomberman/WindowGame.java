@@ -7,14 +7,14 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.tiled.TiledMap;
-
 public class WindowGame extends BasicGame {
 	
-	
+
 	private GameContainer container;
 	private TiledMap map;
 	
@@ -67,6 +67,30 @@ public class WindowGame extends BasicGame {
 	            case 1: perso.moveLeft(); break;
 	            case 2: perso.moveUp(); break;
 	            case 3: perso.moveRight(); break;
+	        }
+	        if (perso.isMoving()) {
+	            int futurX = perso.posX();
+	            int futurY = perso.posY();
+	            switch (perso.GetDirection()) {
+	      
+	            case 0: futurY = (int) (perso.posY() - .1f * delta); break;
+	            case 1: futurX = (int) (perso.posX() - .1f * delta); break;
+	            case 2: futurY = (int) (perso.posY() + .1f * delta); break;
+	            case 3: futurX = (int) (perso.posX() + .1f * delta); break;
+	            }
+	           perso.posX(futurX);
+	           perso.posY(futurY);
+	            Image tile = this.map.getTileImage(
+	                    (int) futurX / this.map.getTileWidth(), 
+	                    (int) futurY / this.map.getTileHeight(), 
+	                    this.map.getLayerIndex("test"));
+	            boolean collision = tile != null;
+	            if (collision) {
+	            	perso.SetMoving(false); 
+	            } else {
+	                perso.posX(futurX);
+	                perso.posY(futurY);
+	            }
 	        }
 	    }
 	}
