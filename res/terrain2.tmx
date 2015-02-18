@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="11" height="9" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="11" height="9" tilewidth="64" tileheight="64" nextobjectid="1">
  <tileset firstgid="1" name="tilea3" tilewidth="64" tileheight="64">
   <image source="tilea3.png" width="512" height="256"/>
  </tileset>
  <tileset firstgid="33" name="tilea45" tilewidth="64" tileheight="64">
-  <image source="tilea45.png" width="512" height="480"/>
+  <image source="tilea45.png" width="512" height="384"/>
  </tileset>
- <tileset firstgid="89" name="chibihikaru-tilea2" tilewidth="64" tileheight="64">
+ <tileset firstgid="81" name="chibihikaru-tilea2" tilewidth="64" tileheight="64">
   <image source="chibihikaru-tilea2.png" width="512" height="384"/>
  </tileset>
+ <layer name="Logic" width="11" height="9">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NmYGBgJgETA5DVEkMPd3OJxQCxJGJfjAEAAA==
+  </data>
+ </layer>
  <layer name="Calque de Tile 1" width="11" height="9">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA/NnYGDwJwHnEIGR1bYToEeCucRiAApXxJuMAQAA
+   H4sIAAAAAAAAC/NnYGDwJwGnEIGR1dYToEeCucRiAOB9dVSMAQAA
   </data>
  </layer>
 </map>
