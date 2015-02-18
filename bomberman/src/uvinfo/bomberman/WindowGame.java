@@ -62,10 +62,6 @@ public class WindowGame extends BasicGame {
 
 		if (perso.isMoving()) {
 
-			int futurX = perso.posX();
-			int futurY = perso.posY();
-
-
 			switch (perso.GetDirection()) {
 			case 0: perso.moveDown(); break;
 			case 1: perso.moveLeft(); break;
@@ -75,8 +71,8 @@ public class WindowGame extends BasicGame {
 			}
 
 			Image tile = this.map.getTileImage(
-					(int) futurX / this.map.getTileWidth(), 
-					(int) futurY / this.map.getTileHeight(), 
+					perso.getFuturX() / this.map.getTileWidth(), 
+					perso.getFuturY() / this.map.getTileHeight(), 
 					this.map.getLayerIndex("Logic"));
 
 			boolean collision = tile != null;
