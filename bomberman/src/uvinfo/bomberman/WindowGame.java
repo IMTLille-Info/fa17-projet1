@@ -31,10 +31,9 @@ public class WindowGame extends BasicGame {
 	public void init(GameContainer container) throws SlickException {
 		
 		this.container = container;
-		this.map = new TiledMap("res/terrain2.tmx");
+		this.map = new TiledMap("res/terrain.tmx");
 		
 		perso = new Avatar();
-		
 	}
 	
 	
@@ -68,7 +67,6 @@ public class WindowGame extends BasicGame {
 	            case 2: perso.moveUp(); break;
 	            case 3: perso.moveRight(); break;
 	        }
-	        if (perso.isMoving()) {
 	            int futurX = perso.posX();
 	            int futurY = perso.posY();
 	            switch (perso.GetDirection()) {
@@ -93,7 +91,7 @@ public class WindowGame extends BasicGame {
 	            }
 	        }
 	    }
-	}
+	
 	
 	@Override
 	/** methode appelé à chaque relâchement de touche 
