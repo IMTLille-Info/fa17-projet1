@@ -17,16 +17,18 @@ public class Avatar {
 	
 	public Avatar() throws SlickException
 	{
-		SpriteSheet spriteSheet = new SpriteSheet("sprites/ninja.png", 64, 64);
+		SpriteSheet spriteSheet = new SpriteSheet("sprites/drag.png", 96, 96);
 		
-		this.animations[0] = loadAnimation(spriteSheet, 0, 1, 0);
+		//                                 debut case, fin case,ligne 
+		this.animations[0] = loadAnimation(spriteSheet, 0, 1, 3);
 	    this.animations[1] = loadAnimation(spriteSheet, 0, 1, 1);
-	    this.animations[2] = loadAnimation(spriteSheet, 0, 1, 2);
-	    this.animations[3] = loadAnimation(spriteSheet, 0, 1, 3);
-	    this.animations[4] = loadAnimation(spriteSheet, 1, 9, 0);
-	    this.animations[5] = loadAnimation(spriteSheet, 1, 9, 1);
-	    this.animations[6] = loadAnimation(spriteSheet, 1, 9, 2);
-	    this.animations[7] = loadAnimation(spriteSheet, 1, 9, 3);
+	    this.animations[2] = loadAnimation(spriteSheet, 0, 1, 0);
+	    this.animations[3] = loadAnimation(spriteSheet, 0, 1, 2);
+	    this.animations[4] = loadAnimation(spriteSheet, 0, 3, 3);
+	    this.animations[5] = loadAnimation(spriteSheet, 0, 3, 1);
+	    this.animations[6] = loadAnimation(spriteSheet, 0, 3, 0);
+	    this.animations[7] = loadAnimation(spriteSheet, 0, 3, 2);
+		
 	}
 	
     private Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {
