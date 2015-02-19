@@ -43,10 +43,6 @@ public class Avatar {
 		return this.posX;
 	}
 
-	public void moveUp() {
-		this.posY += 1;
-	}
-
 	public int posY() {
 		return this.posY;
 	}
@@ -58,6 +54,11 @@ public class Avatar {
 	public void posY(int y) {
 		this.posY = y;
 	}
+	
+	public void moveUp() {
+		this.posY += 1;
+	}
+	
 	
 	public void moveDown() {
 		this.posY -= 1;
