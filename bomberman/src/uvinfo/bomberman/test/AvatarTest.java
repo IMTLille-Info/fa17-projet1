@@ -99,38 +99,6 @@ public class AvatarTest {
 		assertEquals(moov, true);
 	}
 
-	/*@Test
-	public void testGetFuturX() throws SlickException {
-		Avatar toto = new Avatar();
-		int direction = 1;
-		int x = toto.posX();
-		
-		int futurX = toto.getFuturX();
-		
-		assertEquals(futurX, x-1);
-		
-		direction = 3;
-		
-		futurX = toto.getFuturX();
-		assertEquals(futurX, x+1);
 
-	}
-	
-	public void testGetFuturY() throws SlickException {
-		Avatar toto = new Avatar();
-		int direction = 0;
-		int y = toto.posY();
-		
-		int futurY = toto.getFuturY();
-		
-		assertEquals(futurY,y-1);
-		
-		direction = 2;
-		
-		futurY = toto.getFuturY();
-		
-		assertEquals(futurY,y+1);
-		
-	}*/
 
 }
