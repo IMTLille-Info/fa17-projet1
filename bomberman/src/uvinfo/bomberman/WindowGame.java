@@ -54,9 +54,6 @@ public class WindowGame extends BasicGame {
 		g.setColor(new Color(0, 0, 0, .5f));
 		g.fillOval(perso.posX() - 16, perso.posY() - 8, 32, 16);
 		g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
-		g.fillOval(bomb.getPosX() - 16, bomb.getPosY() - 8, 32, 16);
-		g.drawAnimation(bomb.getAnimation(0), bomb.getPosX() , bomb.getPosY()-60);
-
 	}
 
 	@Override
@@ -92,6 +89,14 @@ public class WindowGame extends BasicGame {
 			}
 
 		}
+		
+		if (this.bomb.isPosed()){
+			Graphics g = new Graphics();
+			g.fillOval(bomb.getPosX() - 16, bomb.getPosY() - 8, 32, 16);
+			g.drawAnimation(bomb.getAnimation(0), bomb.getPosX() , bomb.getPosY()-60);
+			this.render(container, g);
+			this.bomb.exploser();
+		}
 	}
 
 
@@ -117,7 +122,7 @@ public class WindowGame extends BasicGame {
 		case Input.KEY_LEFT:  perso.SetDirection(1); perso.SetMoving(true); break;
 		case Input.KEY_DOWN:  perso.SetDirection(2); perso.SetMoving(true); break;
 		case Input.KEY_RIGHT: perso.SetDirection(3); perso.SetMoving(true); break;
-		case Input.KEY_SPACE: bomb.exploser(); break;
+		case Input.KEY_SPACE: bomb.setIsPosed(true); break;
 		}
 	}
 

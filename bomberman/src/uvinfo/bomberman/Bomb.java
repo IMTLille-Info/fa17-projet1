@@ -8,12 +8,15 @@ import org.newdawn.slick.SpriteSheet;
 public class Bomb {
 	
 	/******* attributs ******/
+	
 	private int puissance = 2;
 	private int posX;
 	private int posY;
+	private boolean isPosed = false;
 	private Animation[] animations = new Animation[8];
 	
 	/******* constructeur *********/
+	
 	public Bomb(int posX, int posY) throws SlickException{
 		this.setPosX(posX);
 		this.setPosY(posY);
@@ -40,6 +43,7 @@ public class Bomb {
 	}
 
 	/******** getter, setter ********/
+	
 	public int getPuissance() {
 		return puissance;
 	}
@@ -48,15 +52,6 @@ public class Bomb {
 		this.puissance = puissance;
 	}
 	
-	/******** methodes *******/
-	public void poser(){
-		
-	}
-	
-	public void exploser(){
-		
-	}
-
 	public int getPosX() {
 		return posX;
 	}
@@ -73,9 +68,24 @@ public class Bomb {
 		this.posY = posY;
 	}
 	
+	public boolean isPosed(){
+		return this.isPosed;
+	}
+	
+	public void setIsPosed(boolean pose){
+		this.isPosed = pose;
+	}
+	
 	public Animation getAnimation(int anim){
 		return this.animations[anim];
 	}
+	
+	/******** methodes  *******/
+	public void exploser() {
+		this.setIsPosed(false);
+	}
+
+	
 	
 	
 }
