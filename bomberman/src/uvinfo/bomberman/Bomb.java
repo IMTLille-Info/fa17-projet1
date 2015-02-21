@@ -11,32 +11,23 @@ public class Bomb {
 	private int puissance = 2;
 	private int posX;
 	private int posY;
-	private Animation[] animations = new Animation[8];
+	private boolean isPosed = false;
+	private Animation animation = new Animation();
 	
-	/******* constructeur *********/
-	public Bomb(int posX, int posY) throws SlickException{
-		this.setPosX(posX);
-		this.setPosY(posY);
-		Animation anim = new Animation();
-		// image de la bombe
+	/******* constructeurs *********/
+	public Bomb() throws SlickException{
+		// animation de la bombe
 		Image image = new Image("sprites/bomb.png");
-		anim.addFrame(image, 100);
-		this.animations[0] = anim;
-		// explosion
+		this.animation.addFrame(image, 3000);
 		SpriteSheet spriteSheet = new SpriteSheet("sprites/explosion.png", 100, 100);
-		this.animations[1] = loadAnimation(spriteSheet, 0, 9, 1);
-		this.animations[2] = loadAnimation(spriteSheet, 0, 9, 2);
-		this.animations[3] = loadAnimation(spriteSheet, 0, 9, 3);
-		this.animations[4] = loadAnimation(spriteSheet, 0, 9, 4);
-		this.animations[5] = loadAnimation(spriteSheet, 0, 9, 5);
-	}
-	
-	private Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {
-	    Animation animation = new Animation();
-	    for (int x = startX; x < endX; x++) {
-	        animation.addFrame(spriteSheet.getSprite(x, y), 100);
-	    }
-	    return animation;
+		this.animation.addFrame(spriteSheet.getSprite(8, 0), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 1), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 2), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 3), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 4), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 5), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 6), 100);
+		this.animation.stopAt(8);
 	}
 
 	/******** getter, setter ********/
@@ -48,15 +39,6 @@ public class Bomb {
 		this.puissance = puissance;
 	}
 	
-	/******** methodes *******/
-	public void poser(){
-		
-	}
-	
-	public void exploser(){
-		
-	}
-
 	public int getPosX() {
 		return posX;
 	}
@@ -73,8 +55,27 @@ public class Bomb {
 		this.posY = posY;
 	}
 	
-	public Animation getAnimation(int anim){
-		return this.animations[anim];
+	public Animation getAnimation(){
+		return this.animation;
+	}
+
+	public boolean isPosed() {
+		return isPosed;
+	}
+
+	public void setPosed(boolean isPosed) {
+		this.isPosed = isPosed;
+	}
+	
+	/******** methodes *******/
+	
+	public void exploser(int x, int y){
+		this.animation.draw(x, y);
+	}
+
+	public void setCoordonnees(int x, int y){
+		this.setPosX(x);
+		this.setPosY(y);
 	}
 	
 	
