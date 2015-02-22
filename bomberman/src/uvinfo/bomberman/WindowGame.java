@@ -91,12 +91,6 @@ public class WindowGame extends BasicGame {
 			}
 
 		}
-		
-		// arret de l'animation de la bombe
-		if(perso.getBomb().getAnimation().getFrame() == 7){
-			perso.getBomb().setPosed(false);
-			perso.getBomb().getAnimation().restart();
-		}
 	}
 
 

@@ -69,8 +69,14 @@ public class Bomb {
 	
 	/******** methodes *******/
 	
+	// gère l'animation de l'explosion de la bombe
 	public void exploser(int x, int y){
 		this.animation.draw(x, y);
+		// vérifie si l'animation est finie et la stoppe si oui
+		if(this.getAnimation().getFrame() == this.getAnimation().getFrameCount() - 1){
+			this.setPosed(false);
+			this.getAnimation().restart();
+		}
 	}
 
 	public void setCoordonnees(int x, int y){
