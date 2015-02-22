@@ -12,6 +12,7 @@ public class Avatar {
 	private int direction = 0;
 	private boolean moving = false;
 	private Bomb bomb; // bombe "normale", utilisation infinie
+	private boolean hasPutABomb = false;
 	
 	
 	private Animation[] animations = new Animation[8];
@@ -117,12 +118,13 @@ public class Avatar {
 	    return futurY;
 	}
 	
-	public void poserBomb(){ 
-		if(!this.bomb.isPosed()){
-			this.bomb.setPosed(true);
-			this.bomb.setCoordonnees(this.posX, this.posY);
-		}
-		
+	public boolean HasPutABomb() {
+		return hasPutABomb;
+	}
+	
+	public void putBomb(int x, int y){ 	
+		this.bomb.setCoordonnees(x, y);
+		this.bomb.setPosed(true);
 	}
 
 	public Bomb getBomb() {
