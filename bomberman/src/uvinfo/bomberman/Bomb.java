@@ -78,5 +78,9 @@ public class Bomb {
 		this.setPosY(y);
 	}
 	
+	// paramètre le temps avant l'explosion de la bombe (temps en millisecondes)
+	public void setTimeBeforeExplosion(int temps){
+		this.animation.setDuration(0, temps);
+	}
 	
 }

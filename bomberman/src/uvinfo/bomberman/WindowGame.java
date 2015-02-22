@@ -51,6 +51,7 @@ public class WindowGame extends BasicGame {
 		g.setColor(new Color(0, 0, 0, .5f));
 		g.fillOval(perso.posX() - 16, perso.posY() - 8, 32, 16);
 		g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
+		
 		if(perso.getBomb().isPosed()){
 			perso.getBomb().exploser(perso.getBomb().getPosX(), perso.getBomb().getPosY()-20);
 		}
