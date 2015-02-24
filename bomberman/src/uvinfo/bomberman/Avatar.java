@@ -14,6 +14,7 @@ public class Avatar {
 	private Bomb bomb; // bombe "normale", utilisation infinie
 	private boolean hasPutABomb = false;
 	
+	private int PointDeVie = 10;	
 	
 	private Animation[] animations = new Animation[8];
 	
@@ -30,6 +31,7 @@ public class Avatar {
 	    this.animations[5] = loadAnimation(spriteSheet, 0, 3, 1);
 	    this.animations[6] = loadAnimation(spriteSheet, 0, 3, 0);
 	    this.animations[7] = loadAnimation(spriteSheet, 0, 3, 2);
+	    
 	    
 		this.bomb = new SuperBomb();
 	}
@@ -133,6 +135,16 @@ public class Avatar {
 
 	public void setBomb(Bomb bomb) {
 		this.bomb = bomb;
+	}
+	
+	public int Life()
+	{
+		return this.PointDeVie;
+	}
+	
+	public void Hurt(int degats)
+	{
+		this.PointDeVie -= degats;
 	}
 
 }
