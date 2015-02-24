@@ -59,6 +59,9 @@ public class WindowGame extends BasicGame {
 			perso.getSuperBomb().cycleBomb();
 		}
 		
+
+		monstre.Start(perso);
+		
 		
 	}
 
@@ -81,7 +84,7 @@ public class WindowGame extends BasicGame {
 		
 		if (collisionPerso) 
 		{
-			perso.SetMoving(false);
+			//perso.SetMoving(false);//désactiv l'affichage du deplacement du personnage
 		}	
 		else
 		{
@@ -93,7 +96,6 @@ public class WindowGame extends BasicGame {
 		}		
 		
 
-		monstre.Start(perso);
 		testMonstre();
 		
 	}
@@ -140,6 +142,7 @@ public class WindowGame extends BasicGame {
 
 	@Override
 	public void keyPressed(int key, char c) {
+		
 		switch (key) {
 		case Input.KEY_UP:    perso.SetDirection(0); perso.SetMoving(true); break;
 		case Input.KEY_LEFT:  perso.SetDirection(1); perso.SetMoving(true); break;
