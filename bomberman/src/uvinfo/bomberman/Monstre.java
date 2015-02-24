@@ -3,10 +3,6 @@ package uvinfo.bomberman;
 import org.newdawn.slick.SlickException;
 
 public class Monstre extends Avatar {
-
-	
-	
-	
 	
 	public Monstre() throws SlickException {
 
