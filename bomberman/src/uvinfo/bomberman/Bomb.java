@@ -113,7 +113,7 @@ public class Bomb {
 	}
 	
 	// vérifie si l'animation est finie et si oui, la bombe a fini d'exploser et on remet l'animation à 0
-	private void finish() {
+	public void finish() {
 		if(this.getAnimation().getFrame() == this.getAnimation().getFrameCount() - 1){
 			this.setExploding(false);
 			this.getAnimation().restart();
@@ -144,6 +144,12 @@ public class Bomb {
 		if(this.exploding){
 			// à remplir une fois qu'un ennemi sera prêt
 		}
+	}
+	
+	// vider l'animation
+	public void emptyAnim(){
+		this.animation = null;
+		this.animation = new Animation();
 	}
 	
 }

@@ -31,7 +31,7 @@ public class Avatar {
 	    this.animations[6] = loadAnimation(spriteSheet, 0, 3, 0);
 	    this.animations[7] = loadAnimation(spriteSheet, 0, 3, 2);
 	    
-		this.bomb = new Bomb();
+		this.bomb = new SuperBomb();
 	}
 	
     private Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {
