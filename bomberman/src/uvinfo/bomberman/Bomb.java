@@ -101,7 +101,13 @@ public class Bomb {
 	
 	// gère les évènements de la bombe
 	public void cycleBomb(){
-		this.animation.draw(this.getPosX(), this.getPosY());
+		this.animation.draw(this.getPosX()-32, this.getPosY()-30);
+		if(this.animation.getFrame() >= 6){
+			this.animation.draw(this.getPosX()-32, this.getPosY()-100);
+			this.animation.draw(this.getPosX()-32, this.getPosY()+40);
+			this.animation.draw(this.getPosX()-102, this.getPosY()-30);
+			this.animation.draw(this.getPosX()+38, this.getPosY()-30);
+		}
 		this.explode();
 		this.finish();	
 	}

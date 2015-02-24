@@ -16,8 +16,6 @@ public class WindowGame extends BasicGame {
 	private TiledMap map;
 
 	private Avatar perso;
-	
-	long time;
 
 	public WindowGame() {
 		super("Projet 1 : Bomberman");
@@ -112,7 +110,7 @@ public class WindowGame extends BasicGame {
 		case Input.KEY_DOWN:  perso.SetDirection(2); perso.SetMoving(true); break;
 		case Input.KEY_RIGHT: perso.SetDirection(3); perso.SetMoving(true); break;
 		case Input.KEY_SPACE: 
-			if(!perso.getBomb().isPosed()){
+			if(!perso.getBomb().isPosed() && !perso.getBomb().isExploding()){
 				perso.putBomb(perso.posX(), perso.posY()); 
 			}
 			break;
