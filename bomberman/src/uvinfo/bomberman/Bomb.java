@@ -36,7 +36,15 @@ public class Bomb {
 		this.animation.addFrame(spriteSheet.getSprite(8, 4), 100);
 		this.animation.addFrame(spriteSheet.getSprite(8, 5), 100);
 		this.animation.addFrame(spriteSheet.getSprite(8, 6), 100);
-		//this.animation.stopAt(8);
+	}
+	
+	// constructeur pour les tests
+	public Bomb(int j) throws SlickException{
+		/*Image bomb = new Image("sprites/bomb.png");
+		for(int i = 1;i<j;i++){
+			this.animation.addFrame(bomb, 50);
+		}*/
+		
 	}
 
 	/******** getter, setter ********/
@@ -98,7 +106,7 @@ public class Bomb {
 		this.finish();	
 	}
 	
-	// vérifie si l'animation est finie et la stoppe si oui
+	// vérifie si l'animation est finie et si oui, la bombe a fini d'exploser et on remet l'animation à 0
 	private void finish() {
 		if(this.getAnimation().getFrame() == this.getAnimation().getFrameCount() - 1){
 			this.setExploding(false);
@@ -121,7 +129,7 @@ public class Bomb {
 	}
 	
 	// paramètre le temps avant que la bombe passe une 1ere fois au rouge (temps en millisecondes)
-	public void setTimeBeforeExplosion(int temps){
+	public void setTimeBeforeExplode(int temps){
 		this.animation.setDuration(0, temps);
 	}
 	
