@@ -16,6 +16,7 @@ public class WindowGame extends BasicGame {
 	private TiledMap map;
 
 	private Avatar perso;
+	private Monstre monstre;
 
 	public WindowGame() {
 		super("Projet 1 : Bomberman");
@@ -31,6 +32,7 @@ public class WindowGame extends BasicGame {
 		this.map = new TiledMap("res/terrain2.tmx");
 
 		perso = new Avatar();		
+		monstre = new Monstre();
 	}
 
 	@Override
@@ -40,11 +42,12 @@ public class WindowGame extends BasicGame {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		this.map.render(0, 0);
-
-		g.setColor(new Color(0, 0, 0, .5f));
-		g.fillOval(perso.posX() - 16, perso.posY() - 8, 32, 16);
+		
 		g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
 
+		g.drawAnimation(monstre.GetAnimation(monstre.GetDirection() + (monstre.isMoving() ? 4 : 0)), monstre.posX()-32, monstre.posY()-60);
+
+		
 		g.setColor(Color.red); 
 		g.drawString("Life : " + perso.Life(), 20, 20);//affichage des points de vie
 		

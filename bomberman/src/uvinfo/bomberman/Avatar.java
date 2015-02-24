@@ -14,25 +14,29 @@ public class Avatar {
 	private Bomb bomb; // bombe "normale", utilisation infinie
 	private boolean hasPutABomb = false;
 	
-	private int PointDeVie = 10;	
+	private int PointDeVie = 10;
+	
 	
 	private Animation[] animations = new Animation[8];
 	
-	public Avatar() throws SlickException
+	protected void CreateAnimation(String img,int largeur,int hauteur) throws SlickException
 	{
-		SpriteSheet spriteSheet = new SpriteSheet("sprites/drag.png", 96, 96);
-		
-		//                                 debut case, fin case,ligne 
+		SpriteSheet spriteSheet = new SpriteSheet(img, largeur, hauteur);
+				
+				//                                 debut case, fin case,ligne 
 		this.animations[0] = loadAnimation(spriteSheet, 0, 1, 3);
-	    this.animations[1] = loadAnimation(spriteSheet, 0, 1, 1);
-	    this.animations[2] = loadAnimation(spriteSheet, 0, 1, 0);
-	    this.animations[3] = loadAnimation(spriteSheet, 0, 1, 2);
-	    this.animations[4] = loadAnimation(spriteSheet, 0, 3, 3);
-	    this.animations[5] = loadAnimation(spriteSheet, 0, 3, 1);
-	    this.animations[6] = loadAnimation(spriteSheet, 0, 3, 0);
-	    this.animations[7] = loadAnimation(spriteSheet, 0, 3, 2);
-	    
-	    
+		this.animations[1] = loadAnimation(spriteSheet, 0, 1, 1);
+		this.animations[2] = loadAnimation(spriteSheet, 0, 1, 0);
+		this.animations[3] = loadAnimation(spriteSheet, 0, 1, 2);
+		this.animations[4] = loadAnimation(spriteSheet, 0, 3, 3);
+		this.animations[5] = loadAnimation(spriteSheet, 0, 3, 1);
+		this.animations[6] = loadAnimation(spriteSheet, 0, 3, 0);
+		this.animations[7] = loadAnimation(spriteSheet, 0, 3, 2);
+	}
+	
+	public Avatar() throws SlickException
+	{   
+		CreateAnimation("sprites/drag.png",96,96);
 		this.bomb = new SuperBomb();
 	}
 	
