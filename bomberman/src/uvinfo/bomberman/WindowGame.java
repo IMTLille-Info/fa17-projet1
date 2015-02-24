@@ -55,6 +55,7 @@ public class WindowGame extends BasicGame {
 			perso.getBomb().cycleBomb();
 		}
 		
+		
 	}
 
 	@Override
@@ -67,34 +68,53 @@ public class WindowGame extends BasicGame {
 
 		Image tilePerso = this.map.getTileImage(
 				perso.getFuturX() / this.map.getTileWidth(), 
-				perso.getFuturY() / this.map.getTileHeight(), 
+				perso.getFuturY()/ this.map.getTileHeight(), 
 				this.map.getLayerIndex("Logic"));			
+		
+		
 
 		boolean collisionPerso = tilePerso != null;
 		
 		if (collisionPerso) 
 		{
 			perso.SetMoving(false);
-
-			if (perso.isMoving()) 
-			{
-				switch (perso.GetDirection()) {
-				case 0: perso.moveDown(); break;
-				case 1: perso.moveLeft(); break;
-				case 2: perso.moveUp(); break;
-				case 3: perso.moveRight(); break;
-				
-				}							
-			}
 		}	
 		else
 		{
 			if (perso.isMoving()) 
 			{
-            perso.posX(perso.getFuturX());
-            perso.posY(perso.getFuturY());
+	            perso.posX(perso.getFuturX());
+	            perso.posY(perso.getFuturY());
 			}
-		}	
+		}		
+		
+
+		monstre.Start(perso);
+		testMonstre();
+		
+	}
+	
+	public void testMonstre()
+	{
+		Image tilemonstre = this.map.getTileImage(
+				monstre.getFuturX() / this.map.getTileWidth(), 
+				monstre.getFuturY() / this.map.getTileHeight(), 
+				this.map.getLayerIndex("Logic"));			
+
+		boolean collisionMonstre = tilemonstre != null;
+		
+		if (collisionMonstre) 
+		{
+			monstre.SetMoving(false);
+		}
+		else 
+		{
+			if(monstre.isMoving())
+			{
+				monstre.posX(monstre.getFuturX());
+				monstre.posY(monstre.getFuturY());
+			}
+		}
 
 	}
 
@@ -138,7 +158,7 @@ public class WindowGame extends BasicGame {
 		AppGameContainer container = new AppGameContainer(game, 704, 576, false);// True pour faire du fullscreen
 		container.setShowFPS(false);//on affiche pas les FPS
 		container.start();
-
+		
 		game.render(container, new Graphics());
 	}
 
