@@ -17,11 +17,15 @@ public class Avatar extends Personnage {
 	
 	public Avatar() throws SlickException
 	{   
-		CreateAnimation("sprites/drag.png", 96, 96);
+		
 	}
 	
-	/***************  methodes  ***************/
+	/***************  methodes  
+	 * @throws SlickException ***************/
 	
+	public void initAnimation() throws SlickException{
+		CreateAnimation("sprites/drag.png", 96, 96);
+	}
 	public Bomb getBomb() {
 		return bomb;
 	}

@@ -31,7 +31,8 @@ public class WindowGame extends BasicGame {
 		this.container = container;
 		this.map = new TiledMap("res/terrain2.tmx");
 
-		perso = new Avatar();		
+		perso = new Avatar();
+		perso.initAnimation();
 		monstre = new Monstre();
 	}
 
