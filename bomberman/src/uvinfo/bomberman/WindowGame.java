@@ -59,31 +59,37 @@ public class WindowGame extends BasicGame {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 
-		if (perso.isMoving()) {
+		Image tilePerso = this.map.getTileImage(
+				perso.getFuturX() / this.map.getTileWidth(), 
+				perso.getFuturY() / this.map.getTileHeight(), 
+				this.map.getLayerIndex("Logic"));			
 
-			switch (perso.GetDirection()) {
-			case 0: perso.moveDown(); break;
-			case 1: perso.moveLeft(); break;
-			case 2: perso.moveUp(); break;
-			case 3: perso.moveRight(); break;
-			
-			}
+		boolean collisionPerso = tilePerso != null;
+		
+		if (collisionPerso) 
+		{
+			perso.SetMoving(false);
 
-			Image tile = this.map.getTileImage(
-					perso.getFuturX() / this.map.getTileWidth(), 
-					perso.getFuturY() / this.map.getTileHeight(), 
-					this.map.getLayerIndex("Logic"));
-
-			boolean collision = tile != null;
-			if (collision) {
-				perso.SetMoving(false);
-
-	            perso.posX(perso.getFuturX());
-	            perso.posY(perso.getFuturY());
+			if (perso.isMoving()) 
+			{
+				switch (perso.GetDirection()) {
+				case 0: perso.moveDown(); break;
+				case 1: perso.moveLeft(); break;
+				case 2: perso.moveUp(); break;
+				case 3: perso.moveRight(); break;
 				
+				}							
 			}
+		}	
+		else
+		{
+			if (perso.isMoving()) 
+			{
+            perso.posX(perso.getFuturX());
+            perso.posY(perso.getFuturY());
+			}
+		}	
 
-		}
 	}
 
 
