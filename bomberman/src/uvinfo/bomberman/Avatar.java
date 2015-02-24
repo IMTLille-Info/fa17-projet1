@@ -1,5 +1,8 @@
 package uvinfo.bomberman;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
@@ -11,8 +14,12 @@ public class Avatar {
 	private int posY = 300;
 	private int direction = 0;
 	private boolean moving = false;
-	private Bomb bomb; // bombe "normale", utilisation infinie
+	private Bomb bomb = new Bomb(); // bombe "normale", utilisation infinie
 	private boolean hasPutABomb = false;
+	
+	private SuperBomb superBomb = new SuperBomb();
+
+	private int nbSuperBomb = 3; 
 	
 	private int PointDeVie = 10;
 	
@@ -37,7 +44,7 @@ public class Avatar {
 	public Avatar() throws SlickException
 	{   
 		CreateAnimation("sprites/drag.png",96,96);
-		this.bomb = new SuperBomb();
+		
 	}
 	
     private Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {
@@ -129,26 +136,53 @@ public class Avatar {
 	}
 	
 	public void putBomb(int x, int y){ 	
-		this.bomb.setCoordonnees(x, y);
-		this.bomb.setPosed(true);
+		if(!this.checkBombPosed()){
+			this.bomb.setCoordonnees(x, y);
+			this.bomb.setPosed(true);
+		}
 	}
+	
+	
 
 	public Bomb getBomb() {
 		return bomb;
 	}
-
+	
 	public void setBomb(Bomb bomb) {
 		this.bomb = bomb;
 	}
 	
-	public int Life()
+	public int getLife()
 	{
 		return this.PointDeVie;
 	}
 	
-	public void Hurt(int degats)
+	public void Hurted(int degats)
 	{
 		this.PointDeVie -= degats;
+	}
+	
+	public SuperBomb getSuperBomb() {
+		return superBomb;
+	}
+
+	public void setSuperBomb(SuperBomb superBomb) {
+		this.superBomb = superBomb;
+	}
+	
+	public void putSuperBomb(int x, int y){
+		if(!this.checkBombPosed()){
+			this.superBomb.setCoordonnees(x, y);
+			this.superBomb.setPosed(true);
+		}
+	}
+	
+	public boolean checkBombPosed(){
+		if(!this.bomb.isPosed() && !this.bomb.isExploding() && !this.superBomb.isPosed() && !this.superBomb.isExploding()){
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 }
