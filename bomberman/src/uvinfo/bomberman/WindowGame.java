@@ -56,12 +56,10 @@ public class WindowGame extends BasicGame {
 		g.setColor(Color.red); 
 		g.drawString("Life : " + perso.getLife(), 20, 20);//affichage des points de vie
 		
-		
-		if(perso.getBomb().isPosed() || perso.getBomb().isExploding()){
+		if(perso.hasPutBomb()){
 			perso.getBomb().cycleBomb();
 		}
-		
-		if(perso.getSuperBomb().isPosed() || perso.getSuperBomb().isExploding()){
+		if(perso.hasPutSuperBomb()){
 			perso.getSuperBomb().cycleBomb();
 		}
 		

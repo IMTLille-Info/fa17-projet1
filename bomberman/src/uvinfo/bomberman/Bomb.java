@@ -38,14 +38,7 @@ public class Bomb {
 		this.animation.addFrame(spriteSheet.getSprite(8, 6), 100);
 	}
 	
-	// constructeur pour les tests
-	public Bomb(int j) throws SlickException{
-		/*Image bomb = new Image("sprites/bomb.png");
-		for(int i = 1;i<j;i++){
-			this.animation.addFrame(bomb, 50);
-		}*/
-		
-	}
+	
 
 	/******** getter, setter ********/
 	

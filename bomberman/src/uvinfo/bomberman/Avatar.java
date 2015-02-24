@@ -72,5 +72,21 @@ public class Avatar extends Personnage {
 			return true;
 		}
 	}
+	
+	public boolean hasPutBomb(){
+		if(this.bomb.isPosed() || this.bomb.isExploding()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean hasPutSuperBomb(){
+		if(this.superBomb.isPosed() || this.superBomb.isExploding()){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 }
