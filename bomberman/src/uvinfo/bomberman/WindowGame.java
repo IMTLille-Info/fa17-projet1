@@ -45,6 +45,9 @@ public class WindowGame extends BasicGame {
 		g.fillOval(perso.posX() - 16, perso.posY() - 8, 32, 16);
 		g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
 
+		g.setColor(Color.red); 
+		g.drawString("Life : " + perso.Life(), 20, 20);//affichage des points de vie
+		
 		if(perso.getBomb().isPosed() || perso.getBomb().isExploding()){
 			perso.getBomb().cycleBomb();
 		}
