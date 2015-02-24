@@ -56,6 +56,7 @@ public class WindowGame extends BasicGame {
 		g.setColor(Color.red); 
 		g.drawString("Life : " + perso.getLife(), 20, 20);//affichage des points de vie
 		
+		
 		if(perso.getBomb().isPosed() || perso.getBomb().isExploding()){
 			perso.getBomb().cycleBomb();
 		}
@@ -153,11 +154,8 @@ public class WindowGame extends BasicGame {
 		case Input.KEY_LEFT:  perso.SetDirection(1); perso.SetMoving(true); break;
 		case Input.KEY_DOWN:  perso.SetDirection(2); perso.SetMoving(true); break;
 		case Input.KEY_RIGHT: perso.SetDirection(3); perso.SetMoving(true); break;
-		case Input.KEY_SPACE: 
-			perso.putBomb(perso.posX(), perso.posY()); 
-			break;
-		case Input.KEY_ENTER: 
-			perso.putSuperBomb(perso.posX(), perso.posY()); break;
+		case Input.KEY_SPACE: perso.putBomb(); break;
+		case Input.KEY_ENTER: perso.putSuperBomb(); break;
 		}
 	}
 
