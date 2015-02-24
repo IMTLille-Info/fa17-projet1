@@ -10,19 +10,23 @@ import uvinfo.bomberman.Avatar;
 
 public class AvatarTest {
 
-	// @Test
-	/*
-	 * public void testMoveUp() throws SlickException { Avatar toto = new
-	 * Avatar(); int x = toto.posX(); int y = toto.posY();
-	 * 
-	 * toto.moveUp();
-	 * 
-	 * assertEquals(y+1, toto.posY()); assertEquals(x, toto.posX());
-	 * 
-	 * dragTest.moveUp(); dragTest.moveUp();
-	 * 
-	 * assertEquals(y+3,dragTest.posY()); assertEquals(x,dragTest.posX()); }
-	 */
+	@Test
+	public void testMoveUp() throws SlickException {
+		Avatar toto = new Avatar();
+		int x = toto.posX();
+		int y = toto.posY();
+
+		toto.moveUp();
+
+		assertEquals(y + 1, toto.posY());
+		assertEquals(x, toto.posX());
+
+		toto.moveUp();
+		toto.moveUp();
+
+		assertEquals(y + 3, toto.posY());
+		assertEquals(x, toto.posX());
+	}
 
 	@Test
 	public void testMoveDown() throws SlickException {
@@ -83,22 +87,18 @@ public class AvatarTest {
 	public void testIsMoving() throws SlickException {
 		Avatar toto = new Avatar();
 		boolean moov;
-		boolean moov2=true;
-		
+		boolean moov2 = true;
+
 		moov = toto.isMoving();
 
 		assertEquals(moov, false);
 
 		toto.SetMoving(moov2);
 		moov = toto.isMoving();
-		
+
 		assertEquals(moov, true);
 	}
-	
-	/*@Test
-	public void testGetFuturX() throws SlickException {
-		Avatar toto = new Avatar();
-		
-	}*/
+
+
 
 }

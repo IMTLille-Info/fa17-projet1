@@ -11,6 +11,8 @@ public class Avatar {
 	private int posY = 300;
 	private int direction = 0;
 	private boolean moving = false;
+	private Bomb bomb; // bombe "normale", utilisation infinie
+	private boolean hasPutABomb = false;
 	
 	
 	private Animation[] animations = new Animation[8];
@@ -28,7 +30,8 @@ public class Avatar {
 	    this.animations[5] = loadAnimation(spriteSheet, 0, 3, 1);
 	    this.animations[6] = loadAnimation(spriteSheet, 0, 3, 0);
 	    this.animations[7] = loadAnimation(spriteSheet, 0, 3, 2);
-		
+	    
+		this.bomb = new Bomb();
 	}
 	
     private Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {
@@ -115,5 +118,21 @@ public class Avatar {
 	    return futurY;
 	}
 	
+	public boolean HasPutABomb() {
+		return hasPutABomb;
+	}
+	
+	public void putBomb(int x, int y){ 	
+		this.bomb.setCoordonnees(x, y);
+		this.bomb.setPosed(true);
+	}
+
+	public Bomb getBomb() {
+		return bomb;
+	}
+
+	public void setBomb(Bomb bomb) {
+		this.bomb = bomb;
+	}
 
 }

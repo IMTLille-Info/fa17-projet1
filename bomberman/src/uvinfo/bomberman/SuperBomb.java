@@ -9,8 +9,8 @@ public class SuperBomb extends Bomb {
 	
 	/******* constructeur 
 	 * @throws SlickException ********/
-	public SuperBomb(int posX, int posY) throws SlickException{
-		super(posX, posY);
+	public SuperBomb() throws SlickException{
+		super();
 	}
 
 }

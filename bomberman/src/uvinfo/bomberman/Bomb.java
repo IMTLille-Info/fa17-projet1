@@ -13,33 +13,30 @@ public class Bomb {
 	private int posX;
 	private int posY;
 	private boolean isPosed = false;
-	private Animation[] animations = new Animation[8];
+	private boolean exploding = false;
+
+	private Animation animation = new Animation();
 	
-	/******* constructeur *********/
-	
-	public Bomb(int posX, int posY) throws SlickException{
-		this.setPosX(posX);
-		this.setPosY(posY);
-		Animation anim = new Animation();
-		// image de la bombe
-		Image image = new Image("sprites/bomb.png");
-		anim.addFrame(image, 100);
-		this.animations[0] = anim;
-		// explosion
+	/******* constructeurs *********/
+	public Bomb() throws SlickException{
+		// animation de la bombe
+		Image bomb = new Image("sprites/bomb.png");
+		Image bombRouge = new Image("sprites/bomb_rouge.png");
+		this.animation.addFrame(bomb, 1000);
+		this.animation.addFrame(bombRouge, 500);
+		this.animation.addFrame(bomb, 500);
+		this.animation.addFrame(bombRouge, 100);
+		this.animation.addFrame(bomb, 100);
+		this.animation.addFrame(bombRouge, 100);
 		SpriteSheet spriteSheet = new SpriteSheet("sprites/explosion.png", 100, 100);
-		this.animations[1] = loadAnimation(spriteSheet, 0, 9, 1);
-		this.animations[2] = loadAnimation(spriteSheet, 0, 9, 2);
-		this.animations[3] = loadAnimation(spriteSheet, 0, 9, 3);
-		this.animations[4] = loadAnimation(spriteSheet, 0, 9, 4);
-		this.animations[5] = loadAnimation(spriteSheet, 0, 9, 5);
-	}
-	
-	private Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {
-	    Animation animation = new Animation();
-	    for (int x = startX; x < endX; x++) {
-	        animation.addFrame(spriteSheet.getSprite(x, y), 100);
-	    }
-	    return animation;
+		this.animation.addFrame(spriteSheet.getSprite(8, 0), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 1), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 2), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 3), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 4), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 5), 100);
+		this.animation.addFrame(spriteSheet.getSprite(8, 6), 100);
+		//this.animation.stopAt(8);
 	}
 
 	/******** getter, setter ********/
@@ -76,16 +73,63 @@ public class Bomb {
 		this.isPosed = pose;
 	}
 	
-	public Animation getAnimation(int anim){
-		return this.animations[anim];
-	}
-	
-	/******** methodes  *******/
-	public void exploser() {
-		this.setIsPosed(false);
+	public Animation getAnimation(){
+		return this.animation;
 	}
 
+	public void setPosed(boolean isPosed) {
+		this.isPosed = isPosed;
+	}
+	
+	public boolean isExploding() {
+		return exploding;
+	}
+
+	public void setExploding(boolean isExploding) {
+		this.exploding = isExploding;
+	}
+	
+	/******** methodes *******/
+	
+	// gère les évènements de la bombe
+	public void cycleBomb(){
+		this.animation.draw(this.getPosX(), this.getPosY());
+		this.explode();
+		this.finish();	
+	}
+	
+	// vérifie si l'animation est finie et la stoppe si oui
+	private void finish() {
+		if(this.getAnimation().getFrame() == this.getAnimation().getFrameCount() - 1){
+			this.setExploding(false);
+			this.getAnimation().restart();
+		}
+	}
+
+	// explosion de la bombe en cours
+	public void explode(){
+		if(this.getAnimation().getFrame() == 6){
+			this.setExploding(true);
+			this.setPosed(false);
+		}
+	}
 	
 	
+	public void setCoordonnees(int x, int y){
+		this.setPosX(x);
+		this.setPosY(y);
+	}
+	
+	// paramètre le temps avant que la bombe passe une 1ere fois au rouge (temps en millisecondes)
+	public void setTimeBeforeExplosion(int temps){
+		this.animation.setDuration(0, temps);
+	}
+	
+	// attaquer l'adversaire
+	public void hurt(){
+		if(this.exploding){
+			// à remplir une fois qu'un ennemi sera prêt
+		}
+	}
 	
 }
