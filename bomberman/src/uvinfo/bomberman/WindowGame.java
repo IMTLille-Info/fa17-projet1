@@ -48,6 +48,7 @@ public class WindowGame extends BasicGame {
 			throws SlickException {
 		this.map.render(0, 0);
 		
+		// faire une méthode render dans avatar et monstre
 		g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
 
 		g.drawAnimation(monstre.GetAnimation(monstre.GetDirection() + (monstre.isMoving() ? 4 : 0)), monstre.posX()-32, monstre.posY()-60);
