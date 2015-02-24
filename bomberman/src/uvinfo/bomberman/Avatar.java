@@ -1,30 +1,27 @@
 package uvinfo.bomberman;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class Avatar {
 
+	/*********** attributs ****************/
 	private int posX = 350;
 	private int posY = 300;
 	private int direction = 0;
 	private boolean moving = false;
+	
 	private Bomb bomb = new Bomb(); // bombe "normale", utilisation infinie
-	private boolean hasPutABomb = false;
 	
 	private SuperBomb superBomb = new SuperBomb();
-
 	private int nbSuperBomb = 3; 
 	
 	private int PointDeVie = 10;
 	
-	
 	private Animation[] animations = new Animation[8];
+	
+	/************* constructeur *****************/
 	
 	protected void CreateAnimation(String img,int largeur,int hauteur) throws SlickException
 	{
@@ -55,6 +52,7 @@ public class Avatar {
 	    return animation;
 	}
     
+    /************** getter, setter ***************/
 	public int posX() {
 		return this.posX;
 	}
@@ -69,23 +67,6 @@ public class Avatar {
 
 	public void posY(int y) {
 		this.posY = y;
-	}
-	
-	public void moveUp() {
-		this.posY += 1;
-	}
-	
-	
-	public void moveDown() {
-		this.posY -= 1;
-	}
-	
-	public void moveRight() {
-		this.posX += 1;
-	}
-	
-	public void moveLeft() {
-		this.posX -= 1;
 	}
 	
 	public int GetDirection()
@@ -113,6 +94,58 @@ public class Avatar {
 		return this.animations[anim];
 	}
 	
+	public Bomb getBomb() {
+		return bomb;
+	}
+	
+	public void setBomb(Bomb bomb) {
+		this.bomb = bomb;
+	}
+	
+	public int getLife()
+	{
+		return this.PointDeVie;
+	}
+	
+	public void setLife(int life){
+		this.PointDeVie = life;
+	}
+	
+	public SuperBomb getSuperBomb() {
+		return superBomb;
+	}
+
+	public void setSuperBomb(SuperBomb superBomb) {
+		this.superBomb = superBomb;
+	}
+	
+	public int getNbSuperBomb() {
+		return nbSuperBomb;
+	}
+
+	public void setNbSuperBomb(int nbSuperBomb) {
+		this.nbSuperBomb = nbSuperBomb;
+	}
+	
+	/************** methodes *************/
+	
+	public void moveUp() {
+		this.posY += 1;
+	}
+	
+	
+	public void moveDown() {
+		this.posY -= 1;
+	}
+	
+	public void moveRight() {
+		this.posX += 1;
+	}
+	
+	public void moveLeft() {
+		this.posX -= 1;
+	}
+	
 	public int getFuturX() {
 	    int futurX = this.posX;
 	    switch (this.direction) {
@@ -131,10 +164,6 @@ public class Avatar {
 	    return futurY;
 	}
 	
-	public boolean HasPutABomb() {
-		return hasPutABomb;
-	}
-	
 	public void putBomb(int x, int y){ 	
 		if(!this.checkBombPosed()){
 			this.bomb.setCoordonnees(x, y);
@@ -142,38 +171,16 @@ public class Avatar {
 		}
 	}
 	
-	
-
-	public Bomb getBomb() {
-		return bomb;
-	}
-	
-	public void setBomb(Bomb bomb) {
-		this.bomb = bomb;
-	}
-	
-	public int getLife()
-	{
-		return this.PointDeVie;
-	}
-	
 	public void Hurted(int degats)
 	{
 		this.PointDeVie -= degats;
-	}
-	
-	public SuperBomb getSuperBomb() {
-		return superBomb;
-	}
-
-	public void setSuperBomb(SuperBomb superBomb) {
-		this.superBomb = superBomb;
 	}
 	
 	public void putSuperBomb(int x, int y){
 		if(!this.checkBombPosed()){
 			this.superBomb.setCoordonnees(x, y);
 			this.superBomb.setPosed(true);
+			this.nbSuperBomb -= 1;
 		}
 	}
 	
