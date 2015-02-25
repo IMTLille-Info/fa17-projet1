@@ -6,8 +6,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 public class WindowGame extends BasicGame {
@@ -35,6 +35,10 @@ public class WindowGame extends BasicGame {
 		perso = new Avatar();
 		perso.initAnimation();
 		monstre = new Monstre();
+
+		Music background = new Music("sound/bongos.ogg");
+		background.loop();
+		
 	}
 
 	@Override
@@ -58,16 +62,13 @@ public class WindowGame extends BasicGame {
 		// faire : bomb.render(g) 
 		if(perso.hasPutBomb()){
 			perso.getBomb().animBomb();
-		}
+			}
 		
 		// perso hasBombPosed() et dans avatar return bomb.isPosed()
 		if(perso.hasPutSuperBomb()){
+			
 			perso.getSuperBomb().animBomb();
 		}
-		
-
-		monstre.Start(perso);
-		
 		
 	}
 
@@ -84,15 +85,9 @@ public class WindowGame extends BasicGame {
 				perso.getFuturY()/ this.map.getTileHeight(), 
 				this.map.getLayerIndex("Logic"));			
 		
-		
-
 		boolean collisionPerso = tilePerso != null;
 		
-		if (collisionPerso) 
-		{
-			//perso.SetMoving(false);//désactiv l'affichage du deplacement du personnage
-		}	
-		else
+		if (!collisionPerso) 
 		{
 			if (perso.isMoving()) 
 			{
@@ -102,12 +97,8 @@ public class WindowGame extends BasicGame {
 		}		
 		
 
-		testMonstre();
+		//monstre.Start(perso);
 		
-	}
-	
-	public void testMonstre()
-	{
 		Image tilemonstre = this.map.getTileImage(
 				monstre.getFuturX() / this.map.getTileWidth(), 
 				monstre.getFuturY() / this.map.getTileHeight(), 
@@ -115,11 +106,7 @@ public class WindowGame extends BasicGame {
 
 		boolean collisionMonstre = tilemonstre != null;
 		
-		if (collisionMonstre) 
-		{
-			monstre.SetMoving(false);
-		}
-		else 
+		if (!collisionMonstre) 
 		{
 			if(monstre.isMoving())
 			{
@@ -157,6 +144,7 @@ public class WindowGame extends BasicGame {
 		case Input.KEY_SPACE: perso.putBomb(); break;
 		case Input.KEY_ENTER: perso.putSuperBomb(); break;
 		}
+				
 	}
 
 	public static void main(String[] args) throws SlickException {
@@ -167,6 +155,7 @@ public class WindowGame extends BasicGame {
 		WindowGame game = new WindowGame();
 		AppGameContainer container = new AppGameContainer(game, 704, 576, false);// True pour faire du fullscreen
 		container.setShowFPS(false);//on affiche pas les FPS
+		container.setTargetFrameRate(200);//on fixe le taux de rafraichissement a 200 pour ralentir le deplacement
 		container.start();
 		
 		game.render(container, new Graphics());

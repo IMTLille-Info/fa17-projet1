@@ -8,28 +8,22 @@ import org.newdawn.slick.SpriteSheet;
 public class Bomb { // degager getter et setter qui ne servent à rien
 	
 	/******* attributs ******/
-	
 	private int puissance = 2;
 	private int posX;
 	private int posY;
 	private boolean isPosed = false;
 	private boolean exploding = false;
-
 	protected Animation animPose = new Animation();
 	protected Animation animExplode = new Animation();
-	
-	private long timeBegin; 
-	
+	private long timeBegin;
 	private int timePose = 2300;
 	private int timeExplode = 700;
 	
 	/******* constructeurs *********/
 	public Bomb(){
-		
 	}
-
-	/******** getter, setter ********/
 	
+	/******** getter, setter ********/
 	public int getPosX() {
 		return posX;
 	}
@@ -37,11 +31,11 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	public int getPosY() {
 		return posY;
 	}
-
+	
 	public boolean isPosed(){
 		return this.isPosed;
 	}
-
+	
 	public void setPosed(boolean isPosed) {
 		this.isPosed = isPosed;
 	}
@@ -49,7 +43,7 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	public boolean isExploding() {
 		return exploding;
 	}
-
+	
 	public void setExploding(boolean isExploding) {
 		this.exploding = isExploding;
 	}
@@ -71,6 +65,9 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	}
 	
 	/******** methodes *******/
+	/******** methodes
+	 * 
+	 * @throws SlickException *******/
 	
 	// charge les animations
 	public void loadAnimations() throws SlickException{
@@ -85,10 +82,9 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animPose.addFrame(bomb, 1000);
 		this.animPose.addFrame(bombRouge, 500);
 		this.animPose.addFrame(bomb, 500);
-		this.animPose.addFrame(bombRouge, 100); // faire looping pour setter le temps avant l'explosion 
+		this.animPose.addFrame(bombRouge, 100); // faire looping pour setter le temps avant l'explosion
 		this.animPose.addFrame(bomb, 100);
 		this.animPose.addFrame(bombRouge, 100);
-		
 	}
 	
 	// charge l'animation de l'explosion de la bombe
@@ -101,7 +97,6 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 4), 100);
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 5), 100);
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 6), 100);
-		
 	}
 	
 	public void animBomb(){
@@ -109,7 +104,7 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animPose();
 		this.animExplode();
 	}
-
+	
 	// explosion de la bombe en cours
 	public void animExplode(){
 		if(this.exploding){
@@ -172,7 +167,6 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	// attaquer l'adversaire
 	public void hurt(Monstre monstre){
 		if(this.isExploding()){
-			
 		}
 	}
 	
@@ -183,5 +177,4 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animPose = new Animation();
 		this.animExplode = new Animation();
 	}
-	
 }
