@@ -1,5 +1,7 @@
 package uvinfo.bomberman;
 
+import java.util.Random;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -159,6 +161,7 @@ public class WindowGame extends BasicGame {
 		case Input.KEY_ENTER: 
 			perso.putSuperBomb(perso.posX(), perso.posY()); break;
 		}
+				
 	}
 
 	public static void main(String[] args) throws SlickException {
