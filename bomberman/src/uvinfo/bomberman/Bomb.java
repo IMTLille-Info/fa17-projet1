@@ -14,13 +14,21 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	private int posY;
 	private boolean isPosed = false;
 	private boolean exploding = false;
-	
-	private int tabExplode[];
 
 	protected Animation animPose = new Animation();
 	protected Animation animExplode = new Animation();
 	
+	/* pour gérer les différents états de la bombe
+	 * 0 : isPosed = false ; exploding = false
+	 * 1 : isPosed = true ; exploding = false
+	 * 2 : isPosed = false ; exploding = true
+	 */
+	private int etat = 0;
+	
 	private long timeBegin; 
+	
+	private int timePose = 2300;
+	private int timeExplode = 700;
 	
 	/******* constructeurs *********/
 	public Bomb(){
@@ -69,9 +77,10 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animPose.addFrame(bomb, 1000);
 		this.animPose.addFrame(bombRouge, 500);
 		this.animPose.addFrame(bomb, 500);
-		this.animPose.addFrame(bombRouge, 100);
+		this.animPose.addFrame(bombRouge, 100); // faire looping pour setter le temps avant l'explosion 
 		this.animPose.addFrame(bomb, 100);
 		this.animPose.addFrame(bombRouge, 100);
+		
 	}
 	
 	// charge l'animation de l'explosion de la bombe
@@ -84,15 +93,17 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 4), 100);
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 5), 100);
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 6), 100);
+		
 	}
 	
-	public void cycleBomb(){
-		this.pose();
-		this.explode();
+	public void animBomb(){
+		this.etat();
+		this.animPose();
+		this.animExplode();
 	}
 
 	// explosion de la bombe en cours
-	public void explode(){
+	public void animExplode(){
 		if(this.exploding){
 			this.animExplode.draw(this.posX, this.posY);
 			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
@@ -100,24 +111,37 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 			this.animExplode.draw(this.getPosX()-70, this.getPosY());
 			this.animExplode.draw(this.getPosX()+70, this.getPosY());
 		}
-		if(System.currentTimeMillis() - this.timeBegin >= 3000 ){
+	}
+	
+	// animation de la bombe posée
+	public void animPose(){
+		if(this.isPosed){
+			this.animPose.draw(this.posX, this.posY);
+		}
+	}
+	
+	// états de la bombe sur un cycle complet
+	public void etat(){
+		this.pose();
+		this.explode();
+	}
+	
+	// etat explosion
+	public void explode(){
+		if(System.currentTimeMillis() - this.timeBegin >= this.timeExplode + this.timePose ){
 			this.exploding = false;
 			this.animExplode.restart();
 		}
 	}
 	
-	// animation de la bombe posée
+	// etat posé
 	public void pose(){
-		if(this.isPosed){
-			this.animPose.draw(this.posX, this.posY);
-		}
-		if(System.currentTimeMillis() - this.timeBegin >= 2300){
+		if(System.currentTimeMillis() - this.timeBegin >= this.timePose){
 			this.exploding = true;
 			this.isPosed = false;
 			this.animPose.restart();
 		}
 	}
-	
 	
 	// met les coordonnées
 	public void setCoordonnees(int x, int y){

@@ -57,12 +57,12 @@ public class WindowGame extends BasicGame {
 		// c'est à la bombe de décider, le test doit être dans bomb
 		// faire : bomb.render(g)
 		if(perso.hasPutBomb()){
-			perso.getBomb().cycleBomb();
+			perso.getBomb().animBomb();
 		}
 		
 		// perso hasBombPosed() et dans avatar return bomb.isPosed()
 		if(perso.hasPutSuperBomb()){
-			perso.getSuperBomb().cycleBomb();
+			perso.getSuperBomb().animBomb();
 		}
 		
 
