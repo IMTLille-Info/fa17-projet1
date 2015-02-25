@@ -4,6 +4,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Vector2f;
 
 public class Bomb { // degager getter et setter qui ne servent à rien
 	Musique SonBombe = new Musique();
@@ -106,10 +107,10 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	public void animExplode() throws SlickException{
 		if(this.exploding){
 			this.animExplode.draw(this.posX, this.posY);
-			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
-			this.animExplode.draw(this.getPosX(), this.getPosY()+70);
-			this.animExplode.draw(this.getPosX()-70, this.getPosY());
-			this.animExplode.draw(this.getPosX()+70, this.getPosY());
+			this.animExplode.draw(this.getPosX(), this.getPosY()-100);
+			this.animExplode.draw(this.getPosX(), this.getPosY()+100);
+			this.animExplode.draw(this.getPosX()-100, this.getPosY());
+			this.animExplode.draw(this.getPosX()+100, this.getPosY());
 			SonBombe.ExplosionBombe();
 			
 		}
@@ -174,6 +175,9 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	// attaquer l'adversaire
 	public void hurt(Monstre monstre){
 		if(this.isExploding()){
+			Vector2f vectorBomb = new Vector2f(this.posX, this.posY);
+			Vector2f vectorMonstre = new Vector2f(monstre.posX(), monstre.posY());
+			System.out.println(vectorBomb.distance(vectorMonstre));
 		}
 	}
 }

@@ -112,6 +112,9 @@ public class WindowGame extends BasicGame {
 				monstre.posY(monstre.getFuturY());
 			}
 		}
+		
+		perso.getBomb().hurt(monstre);
+		
 
 	}
 

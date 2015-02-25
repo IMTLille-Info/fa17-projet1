@@ -54,14 +54,14 @@ public class SuperBomb extends Bomb {
 	public void animExplode(){
 		if(this.isExploding()){
 			this.animExplode.draw(this.getPosX(), this.getPosY());
-			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
-			this.animExplode.draw(this.getPosX(), this.getPosY()-140);
-			this.animExplode.draw(this.getPosX(), this.getPosY()+70);
-			this.animExplode.draw(this.getPosX(), this.getPosY()+140);
-			this.animExplode.draw(this.getPosX()-70, this.getPosY());
-			this.animExplode.draw(this.getPosX()-140, this.getPosY());
-			this.animExplode.draw(this.getPosX()+70, this.getPosY());
-			this.animExplode.draw(this.getPosX()+140, this.getPosY());
+			this.animExplode.draw(this.getPosX(), this.getPosY()-100);
+			this.animExplode.draw(this.getPosX(), this.getPosY()-200);
+			this.animExplode.draw(this.getPosX(), this.getPosY()+100);
+			this.animExplode.draw(this.getPosX(), this.getPosY()+200);
+			this.animExplode.draw(this.getPosX()-100, this.getPosY());
+			this.animExplode.draw(this.getPosX()-200, this.getPosY());
+			this.animExplode.draw(this.getPosX()+100, this.getPosY());
+			this.animExplode.draw(this.getPosX()+200, this.getPosY());
 		}
 	}
 	
