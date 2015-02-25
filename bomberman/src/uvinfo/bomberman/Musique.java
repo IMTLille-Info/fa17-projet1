@@ -9,8 +9,8 @@ public class Musique {
 //	 Map carte = new Map();
 	
 	/******* attributs ******/
-	String FondS1 = "sound/bongos.ogg";
-	
+	String FondS1 = "sound/theme.ogg";
+	String FondBombe = "sound/bongos.ogg";
 	/******* constructeurs *********/
 	
 	public Musique()
@@ -19,10 +19,15 @@ public class Musique {
 	}
 	/******** methodes 
 	 * @throws SlickException *******/
-	public void  FondSonore() throws SlickException
+	public void  FondSonore() throws SlickException // gestion en fonction de la map, création de la class Map..
 	{
 		Music background = new Music(FondS1);
 		background.loop();
+	}
+	public void ExplosionBombe() throws SlickException // son explosion bombe différente petite, grande
+	{
+		Music Bombe = new Music(FondBombe);
+		Bombe.loop();
 	}
 	
 	
