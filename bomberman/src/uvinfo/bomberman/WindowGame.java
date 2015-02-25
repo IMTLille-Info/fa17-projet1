@@ -15,7 +15,7 @@ public class WindowGame extends BasicGame {
 
 	private GameContainer container;
 	private TiledMap map;
-
+	private Musique son;
 	private Avatar perso;
 	private Monstre monstre;
 
@@ -31,14 +31,12 @@ public class WindowGame extends BasicGame {
 
 		this.container = container;
 		this.map = new TiledMap("res/terrain2.tmx");
-
+	    
 		perso = new Avatar();
 		perso.initAnimation();
 		monstre = new Monstre();
-
-		Music background = new Music("sound/bongos.ogg");
-		background.loop();
-		
+		son = new Musique();
+		son.FondSonore();
 	}
 
 	@Override
