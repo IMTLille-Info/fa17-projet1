@@ -65,9 +65,6 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	}
 	
 	/******** methodes *******/
-	/******** methodes
-	 * 
-	 * @throws SlickException *******/
 	
 	// charge les animations
 	public void loadAnimations() throws SlickException{
