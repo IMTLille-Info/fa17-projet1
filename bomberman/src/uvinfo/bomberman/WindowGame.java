@@ -64,12 +64,7 @@ public class WindowGame extends BasicGame {
 		}
 		if(perso.hasPutSuperBomb()){
 			perso.getSuperBomb().cycleBomb();
-		}
-		
-
-		monstre.Start(perso);
-		
-		
+		}		
 	}
 
 	@Override
@@ -85,15 +80,9 @@ public class WindowGame extends BasicGame {
 				perso.getFuturY()/ this.map.getTileHeight(), 
 				this.map.getLayerIndex("Logic"));			
 		
-		
-
 		boolean collisionPerso = tilePerso != null;
 		
-		if (collisionPerso) 
-		{
-			//perso.SetMoving(false);//désactiv l'affichage du deplacement du personnage
-		}	
-		else
+		if (!collisionPerso) 
 		{
 			if (perso.isMoving()) 
 			{
@@ -103,12 +92,8 @@ public class WindowGame extends BasicGame {
 		}		
 		
 
-		testMonstre();
+		//monstre.Start(perso);
 		
-	}
-	
-	public void testMonstre()
-	{
 		Image tilemonstre = this.map.getTileImage(
 				monstre.getFuturX() / this.map.getTileWidth(), 
 				monstre.getFuturY() / this.map.getTileHeight(), 
@@ -116,11 +101,7 @@ public class WindowGame extends BasicGame {
 
 		boolean collisionMonstre = tilemonstre != null;
 		
-		if (collisionMonstre) 
-		{
-			monstre.SetMoving(false);
-		}
-		else 
+		if (!collisionMonstre) 
 		{
 			if(monstre.isMoving())
 			{
@@ -169,6 +150,7 @@ public class WindowGame extends BasicGame {
 		WindowGame game = new WindowGame();
 		AppGameContainer container = new AppGameContainer(game, 704, 576, false);// True pour faire du fullscreen
 		container.setShowFPS(false);//on affiche pas les FPS
+		container.setTargetFrameRate(200);//on fixe le taux de rafraichissement a 200 pour ralentir le deplacement
 		container.start();
 		
 		game.render(container, new Graphics());

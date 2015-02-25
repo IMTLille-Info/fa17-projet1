@@ -39,16 +39,12 @@ public class Monstre extends Personnage {
 	
 	public void Start(Avatar victime)
 	{
+		this.SetMoving(true);
+		
 		Random rand = new Random();
+		
 		int random = rand.nextInt((4 - 0) + 1) + 0;
 
-		switch(random)
-		{
-			case 0:for(int i =0;i<1000;i++){this.moveUp();}break;
-			case 1:for(int i =0;i<1000;i++){this.moveDown();}break;
-			case 2:for(int i =0;i<1000;i++){this.moveLeft();}break;
-			case 3:for(int i =0;i<1000;i++){this.moveRight();}break;
-		}
-
+		this.SetDirection(random);
 	}		
 }
