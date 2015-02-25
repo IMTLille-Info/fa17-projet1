@@ -6,6 +6,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
@@ -34,6 +35,10 @@ public class WindowGame extends BasicGame {
 		perso = new Avatar();
 		perso.initAnimation();
 		monstre = new Monstre();
+
+		Music background = new Music("sound/bongos.ogg");
+		background.loop();
+		
 	}
 
 	@Override
