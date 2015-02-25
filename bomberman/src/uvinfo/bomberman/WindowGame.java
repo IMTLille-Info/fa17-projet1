@@ -50,6 +50,7 @@ public class WindowGame extends BasicGame {
 			throws SlickException {
 		this.map.render(0, 0);
 		
+		// faire une méthode render dans avatar et monstre
 		g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
 
 		g.drawAnimation(monstre.GetAnimation(monstre.GetDirection() + (monstre.isMoving() ? 4 : 0)), monstre.posX()-32, monstre.posY()-60);
@@ -58,11 +59,10 @@ public class WindowGame extends BasicGame {
 		g.setColor(Color.red); 
 		g.drawString("Life : " + perso.getLife(), 20, 20);//affichage des points de vie
 		
-		if(perso.getBomb().isPosed() || perso.getBomb().isExploding()){
+		if(perso.hasPutBomb()){
 			perso.getBomb().cycleBomb();
 		}
-		
-		if(perso.getSuperBomb().isPosed() || perso.getSuperBomb().isExploding()){
+		if(perso.hasPutSuperBomb()){
 			perso.getSuperBomb().cycleBomb();
 		}
 		
@@ -155,11 +155,8 @@ public class WindowGame extends BasicGame {
 		case Input.KEY_LEFT:  perso.SetDirection(1); perso.SetMoving(true); break;
 		case Input.KEY_DOWN:  perso.SetDirection(2); perso.SetMoving(true); break;
 		case Input.KEY_RIGHT: perso.SetDirection(3); perso.SetMoving(true); break;
-		case Input.KEY_SPACE: 
-			perso.putBomb(perso.posX(), perso.posY()); 
-			break;
-		case Input.KEY_ENTER: 
-			perso.putSuperBomb(perso.posX(), perso.posY()); break;
+		case Input.KEY_SPACE: perso.putBomb(); break;
+		case Input.KEY_ENTER: perso.putSuperBomb(); break;
 		}
 				
 	}

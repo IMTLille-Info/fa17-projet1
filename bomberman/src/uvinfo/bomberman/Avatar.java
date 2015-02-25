@@ -25,6 +25,10 @@ public class Avatar extends Personnage {
 	
 	public void initAnimation() throws SlickException{
 		CreateAnimation("sprites/drag.png", 96, 96);
+		this.getBomb().loadAnimationPose(); 
+		this.getBomb().loadAnimationExplode();
+		this.getSuperBomb().loadAnimationPose();
+		this.getSuperBomb().loadAnimationExplode();
 	}
 	public Bomb getBomb() {
 		return bomb;
@@ -50,22 +54,20 @@ public class Avatar extends Personnage {
 		this.nbSuperBomb = nbSuperBomb;
 	}
 	
-	
-	
-	public void putBomb(int x, int y){ 	
+	public void putBomb(){ 	
 		if(!this.checkBombPosed()){
-			this.bomb.setCoordonnees(x, y);
+			this.bomb.setCoordonnees(this.posX()-32, this.posY()-60);
 			this.bomb.setPosed(true);
+			this.bomb.setTimeBegin(System.currentTimeMillis());
 		}
 	}
 	
-	
-	
-	public void putSuperBomb(int x, int y){
-		if(!this.checkBombPosed()){
-			this.superBomb.setCoordonnees(x, y);
+	public void putSuperBomb(){
+		if(!this.checkBombPosed() && this.nbSuperBomb >0){
+			this.superBomb.setCoordonnees(this.posX()-32, this.posY()-60);
 			this.superBomb.setPosed(true);
 			this.nbSuperBomb -= 1;
+			this.superBomb.setTimeBegin(System.currentTimeMillis());
 		}
 	}
 	
@@ -74,6 +76,22 @@ public class Avatar extends Personnage {
 			return false;
 		}else{
 			return true;
+		}
+	}
+	
+	public boolean hasPutBomb(){
+		if(this.bomb.isPosed() || this.bomb.isExploding()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean hasPutSuperBomb(){
+		if(this.superBomb.isPosed() || this.superBomb.isExploding()){
+			return true;
+		}else{
+			return false;
 		}
 	}
 
