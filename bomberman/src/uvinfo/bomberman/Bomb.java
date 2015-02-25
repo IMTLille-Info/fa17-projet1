@@ -163,17 +163,17 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animPose.setDuration(0, temps);
 	}
 	
-	// attaquer l'adversaire
-	public void hurt(Monstre monstre){
-		if(this.isExploding()){
-		}
-	}
-	
 	// vider l'animation
 	public void emptyAnim(){
 		this.animPose = null;
 		this.animExplode = null;
 		this.animPose = new Animation();
 		this.animExplode = new Animation();
+	}
+	
+	// attaquer l'adversaire
+	public void hurt(Monstre monstre){
+		if(this.isExploding()){
+		}
 	}
 }

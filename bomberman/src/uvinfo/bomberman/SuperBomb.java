@@ -18,14 +18,14 @@ public class SuperBomb extends Bomb {
 	/*********** méthodes 
 	 * @throws SlickException ***********/
 	
-	// charge les animations
+	@Override
 	public void loadAnimations() throws SlickException{
 		this.emptyAnim();
 		this.loadAnimationPose();
 		this.loadAnimationExplode();
 	}
 	
-	// charge l'animation bombe posée
+	@Override
 	public void loadAnimationPose() throws SlickException {
 		Image bomb = new Image("sprites/bomb_verte.png");
 		Image bombRouge = new Image("sprites/bomb_rouge.png");
@@ -38,7 +38,7 @@ public class SuperBomb extends Bomb {
 		this.animPose.addFrame(bombRouge, 100);
 	}
 	
-	// charge l'animation l'explosion
+	@Override
 	public void loadAnimationExplode() throws SlickException{
 		SpriteSheet spriteSheet = new SpriteSheet("sprites/explosion.png", 100, 100);
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 0), 100);
@@ -50,7 +50,8 @@ public class SuperBomb extends Bomb {
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 6), 100);
 	}
 	
-	public void explode(){
+	@Override
+	public void animExplode(){
 		if(this.isExploding()){
 			this.animExplode.draw(this.getPosX(), this.getPosY());
 			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
@@ -61,10 +62,6 @@ public class SuperBomb extends Bomb {
 			this.animExplode.draw(this.getPosX()-140, this.getPosY());
 			this.animExplode.draw(this.getPosX()+70, this.getPosY());
 			this.animExplode.draw(this.getPosX()+140, this.getPosY());
-		}
-		if(System.currentTimeMillis() - this.getTimeBegin() >= 3000 ){
-			this.setExploding(false);
-			this.animExplode.restart();
 		}
 	}
 	
