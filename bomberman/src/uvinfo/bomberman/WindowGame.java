@@ -43,6 +43,7 @@ public class WindowGame extends BasicGame {
 			throws SlickException {
 		this.map.render(0, 0);
 		
+		// il ne faut pas donner autant d'info a drawAnimation, 
 		g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
 
 		g.drawAnimation(monstre.GetAnimation(monstre.GetDirection() + (monstre.isMoving() ? 4 : 0)), monstre.posX()-32, monstre.posY()-60);
@@ -51,10 +52,13 @@ public class WindowGame extends BasicGame {
 		g.setColor(Color.red); 
 		g.drawString("Life : " + perso.getLife(), 20, 20);//affichage des points de vie
 		
+		// c'est à la bombe de décider, le test doit être dans bomb
+		// faire : bomb.render(g)
 		if(perso.getBomb().isPosed() || perso.getBomb().isExploding()){
 			perso.getBomb().cycleBomb();
 		}
 		
+		// perso hasBombPosed() et dans avatar return bomb.isPosed()
 		if(perso.getSuperBomb().isPosed() || perso.getSuperBomb().isExploding()){
 			perso.getSuperBomb().cycleBomb();
 		}

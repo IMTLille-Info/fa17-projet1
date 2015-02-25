@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
-public class Bomb {
+public class Bomb { // degager getter et setter qui ne servent à rien
 	
 	/******* attributs ******/
 	
@@ -14,6 +14,8 @@ public class Bomb {
 	private int posY;
 	private boolean isPosed = false;
 	private boolean exploding = false;
+	
+	private int tabExplode[];
 
 	private Animation animation = new Animation();
 	
@@ -140,9 +142,9 @@ public class Bomb {
 	}
 	
 	// attaquer l'adversaire
-	public void hurt(){
-		if(this.exploding){
-			// à remplir une fois qu'un ennemi sera prêt
+	public void hurt(Monstre monstre){
+		if(this.isExploding()){
+			
 		}
 	}
 	

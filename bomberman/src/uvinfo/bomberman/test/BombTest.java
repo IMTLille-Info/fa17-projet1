@@ -25,5 +25,7 @@ public class BombTest {
 		bomb.setTimeBeforeExplode(50);
 		assertEquals(50, bomb.getAnimation().getDuration(1));
 	}
+	
+	
 
 }
