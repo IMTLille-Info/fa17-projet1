@@ -1,7 +1,5 @@
 package uvinfo.bomberman;
 
-import java.util.Random;
-
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -9,7 +7,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 public class WindowGame extends BasicGame {
@@ -37,9 +34,6 @@ public class WindowGame extends BasicGame {
 		perso = new Avatar();
 		perso.initAnimation();
 		monstre = new Monstre();
-	    Music background = new Music("sound/bongos.ogg");    
-		background.loop();
-		
 	}
 
 	@Override
@@ -49,7 +43,7 @@ public class WindowGame extends BasicGame {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		this.map.render(0, 0);
-		
+		 
 		// faire une méthode render dans avatar et monstre
 		g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
 
@@ -59,12 +53,20 @@ public class WindowGame extends BasicGame {
 		g.setColor(Color.red); 
 		g.drawString("Life : " + perso.getLife(), 20, 20);//affichage des points de vie
 		
+		// c'est à la bombe de décider, le test doit être dans bomb...
+		// faire : bomb.render(g) 
 		if(perso.hasPutBomb()){
-			perso.getBomb().cycleBomb();
+			perso.getBomb().animBomb();
 		}
+		
+		// perso hasBombPosed() et dans avatar return bomb.isPosed()
 		if(perso.hasPutSuperBomb()){
-			perso.getSuperBomb().cycleBomb();
-		}		
+			
+			perso.getSuperBomb().animBomb();
+		}
+		
+		monstre.Start(perso);
+		
 	}
 
 	@Override
