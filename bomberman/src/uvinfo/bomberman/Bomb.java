@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
 public class Bomb { // degager getter et setter qui ne servent à rien
-	
+	Musique SonBombe = new Musique();
 	/******* attributs ******/
 	private int puissance = 2;
 	private int posX;
@@ -96,20 +96,22 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 6), 100);
 	}
 	
-	public void animBomb(){
+	public void animBomb() throws SlickException{
 		this.etat();
 		this.animPose();
 		this.animExplode();
 	}
 	
 	// explosion de la bombe en cours
-	public void animExplode(){
+	public void animExplode() throws SlickException{
 		if(this.exploding){
 			this.animExplode.draw(this.posX, this.posY);
 			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
 			this.animExplode.draw(this.getPosX(), this.getPosY()+70);
 			this.animExplode.draw(this.getPosX()-70, this.getPosY());
 			this.animExplode.draw(this.getPosX()+70, this.getPosY());
+			SonBombe.ExplosionBombe();
+			
 		}
 	}
 	

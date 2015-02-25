@@ -1,5 +1,6 @@
 package uvinfo.bomberman;
 import org.newdawn.slick.Music;
+import org.newdawn.slick.MusicListener;
 import org.newdawn.slick.SlickException;
 
 
@@ -11,11 +12,10 @@ public class Musique {
 	/******* attributs ******/
 	String FondS1 = "sound/theme.ogg";
 	String FondBombe = "sound/bongos.ogg";
-	/******* constructeurs *********/
 	
+	/******* constructeurs *********/
 	public Musique()
 	{
-	
 	}
 	/******** methodes 
 	 * @throws SlickException *******/
@@ -25,11 +25,9 @@ public class Musique {
 		background.loop();
 	}
 	public void ExplosionBombe() throws SlickException // son explosion bombe différente petite, grande
-	{
-		Music Bombe = new Music(FondBombe);
-		Bombe.loop();
+	{	
+			Music Bombe = new Music(FondBombe);
+			Bombe.play();
 	}
-	
-	
 }
 
