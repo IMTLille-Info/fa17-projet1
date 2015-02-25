@@ -1,52 +1,40 @@
 package uvinfo.bomberman;
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
-public class Bomb {
+public class Bomb { // degager getter et setter qui ne servent à rien
 	
 	/******* attributs ******/
-	
 	private int puissance = 2;
 	private int posX;
 	private int posY;
 	private boolean isPosed = false;
 	private boolean exploding = false;
-
 	protected Animation animPose = new Animation();
 	protected Animation animExplode = new Animation();
-	
-	private long timeBegin; 
+	private long timeBegin;
+	private int timePose = 2300;
+	private int timeExplode = 700;
 	
 	/******* constructeurs *********/
 	public Bomb(){
-		
 	}
-
-	/******** getter, setter ********/
 	
+	/******** getter, setter ********/
 	public int getPosX() {
 		return posX;
 	}
-
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
-
+	
 	public int getPosY() {
 		return posY;
-	}
-
-	public void setPosY(int posY) {
-		this.posY = posY;
 	}
 	
 	public boolean isPosed(){
 		return this.isPosed;
 	}
-
+	
 	public void setPosed(boolean isPosed) {
 		this.isPosed = isPosed;
 	}
@@ -54,12 +42,13 @@ public class Bomb {
 	public boolean isExploding() {
 		return exploding;
 	}
-
+	
 	public void setExploding(boolean isExploding) {
 		this.exploding = isExploding;
 	}
 	
-	/******** methodes 
+	/******** methodes
+	 * 
 	 * @throws SlickException *******/
 	
 	// charge les animations
@@ -75,7 +64,7 @@ public class Bomb {
 		this.animPose.addFrame(bomb, 1000);
 		this.animPose.addFrame(bombRouge, 500);
 		this.animPose.addFrame(bomb, 500);
-		this.animPose.addFrame(bombRouge, 100);
+		this.animPose.addFrame(bombRouge, 100); // faire looping pour setter le temps avant l'explosion
 		this.animPose.addFrame(bomb, 100);
 		this.animPose.addFrame(bombRouge, 100);
 	}
@@ -92,13 +81,14 @@ public class Bomb {
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 6), 100);
 	}
 	
-	public void cycleBomb(){
-		this.pose();
-		this.explode();
+	public void animBomb(){
+		this.etat();
+		this.animPose();
+		this.animExplode();
 	}
-
+	
 	// explosion de la bombe en cours
-	public void explode(){
+	public void animExplode(){
 		if(this.exploding){
 			this.animExplode.draw(this.posX, this.posY);
 			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
@@ -106,24 +96,37 @@ public class Bomb {
 			this.animExplode.draw(this.getPosX()-70, this.getPosY());
 			this.animExplode.draw(this.getPosX()+70, this.getPosY());
 		}
-		if(System.currentTimeMillis() - this.timeBegin >= 3000 ){
+	}
+	
+	// animation de la bombe posée
+	public void animPose(){
+		if(this.isPosed){
+			this.animPose.draw(this.posX, this.posY);
+		}
+	}
+	
+	// états de la bombe sur un cycle complet
+	public void etat(){
+		this.pose();
+		this.explode();
+	}
+	
+	// etat explosion
+	public void explode(){
+		if(System.currentTimeMillis() - this.timeBegin >= this.timeExplode + this.timePose ){
 			this.exploding = false;
 			this.animExplode.restart();
 		}
 	}
 	
-	// animation de la bombe posée
+	// etat posé
 	public void pose(){
-		if(this.isPosed){
-			this.animPose.draw(this.posX, this.posY);
-		}
-		if(System.currentTimeMillis() - this.timeBegin >= 2300){
+		if(System.currentTimeMillis() - this.timeBegin >= this.timePose){
 			this.exploding = true;
 			this.isPosed = false;
 			this.animPose.restart();
 		}
 	}
-	
 	
 	// met les coordonnées
 	public void setCoordonnees(int x, int y){
@@ -137,9 +140,8 @@ public class Bomb {
 	}
 	
 	// attaquer l'adversaire
-	public void hurt(){
-		if(this.exploding){
-			// à remplir une fois qu'un ennemi sera prêt
+	public void hurt(Monstre monstre){
+		if(this.isExploding()){
 		}
 	}
 	
@@ -150,13 +152,12 @@ public class Bomb {
 		this.animPose = new Animation();
 		this.animExplode = new Animation();
 	}
-
+	
 	public long getTimeBegin() {
 		return timeBegin;
 	}
-
+	
 	public void setTimeBegin(long l) {
 		this.timeBegin = l;
 	}
-	
 }

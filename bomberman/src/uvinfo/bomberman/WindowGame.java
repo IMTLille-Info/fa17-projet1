@@ -57,15 +57,13 @@ public class WindowGame extends BasicGame {
 		// faire : bomb.render(g) 
 		if(perso.hasPutBomb()){
 			perso.getBomb().animBomb();
-		}
+			}
 		
 		// perso hasBombPosed() et dans avatar return bomb.isPosed()
 		if(perso.hasPutSuperBomb()){
 			
 			perso.getSuperBomb().animBomb();
 		}
-		
-		monstre.Start(perso);
 		
 	}
 
