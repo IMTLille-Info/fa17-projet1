@@ -54,8 +54,8 @@ public class WindowGame extends BasicGame {
 		g.setColor(Color.red); 
 		g.drawString("Life : " + perso.getLife(), 20, 20);//affichage des points de vie
 		
-		// c'est à la bombe de décider, le test doit être dans bomb
-		// faire : bomb.render(g)
+		// c'est à la bombe de décider, le test doit être dans bomb...
+		// faire : bomb.render(g) 
 		if(perso.hasPutBomb()){
 			perso.getBomb().animBomb();
 		}

@@ -18,13 +18,6 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	protected Animation animPose = new Animation();
 	protected Animation animExplode = new Animation();
 	
-	/* pour gérer les différents états de la bombe
-	 * 0 : isPosed = false ; exploding = false
-	 * 1 : isPosed = true ; exploding = false
-	 * 2 : isPosed = false ; exploding = true
-	 */
-	private int etat = 0;
-	
 	private long timeBegin; 
 	
 	private int timePose = 2300;
