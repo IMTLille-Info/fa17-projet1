@@ -17,47 +17,17 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	
 	private int tabExplode[];
 
-	private Animation animation = new Animation();
+	protected Animation animPose = new Animation();
+	protected Animation animExplode = new Animation();
+	
+	private long timeBegin; 
 	
 	/******* constructeurs *********/
-	public Bomb() throws SlickException{
-		// animation de la bombe
-		Image bomb = new Image("sprites/bomb.png");
-		Image bombRouge = new Image("sprites/bomb_rouge.png");
-		this.animation.addFrame(bomb, 1000);
-		this.animation.addFrame(bombRouge, 500);
-		this.animation.addFrame(bomb, 500);
-		this.animation.addFrame(bombRouge, 100);
-		this.animation.addFrame(bomb, 100);
-		this.animation.addFrame(bombRouge, 100);
-		SpriteSheet spriteSheet = new SpriteSheet("sprites/explosion.png", 100, 100);
-		this.animation.addFrame(spriteSheet.getSprite(8, 0), 100);
-		this.animation.addFrame(spriteSheet.getSprite(8, 1), 100);
-		this.animation.addFrame(spriteSheet.getSprite(8, 2), 100);
-		this.animation.addFrame(spriteSheet.getSprite(8, 3), 100);
-		this.animation.addFrame(spriteSheet.getSprite(8, 4), 100);
-		this.animation.addFrame(spriteSheet.getSprite(8, 5), 100);
-		this.animation.addFrame(spriteSheet.getSprite(8, 6), 100);
-	}
-	
-	// constructeur pour les tests
-	public Bomb(int j) throws SlickException{
-		/*Image bomb = new Image("sprites/bomb.png");
-		for(int i = 1;i<j;i++){
-			this.animation.addFrame(bomb, 50);
-		}*/
+	public Bomb(){
 		
 	}
 
 	/******** getter, setter ********/
-	
-	public int getPuissance() {
-		return puissance;
-	}
-
-	public void setPuissance(int puissance) {
-		this.puissance = puissance;
-	}
 	
 	public int getPosX() {
 		return posX;
@@ -78,14 +48,6 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	public boolean isPosed(){
 		return this.isPosed;
 	}
-	
-	public void setIsPosed(boolean pose){
-		this.isPosed = pose;
-	}
-	
-	public Animation getAnimation(){
-		return this.animation;
-	}
 
 	public void setPosed(boolean isPosed) {
 		this.isPosed = isPosed;
@@ -99,46 +61,81 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.exploding = isExploding;
 	}
 	
-	/******** methodes *******/
+	/******** methodes 
+	 * @throws SlickException *******/
 	
-	// gère les évènements de la bombe
-	public void cycleBomb(){
-		this.animation.draw(this.getPosX()-32, this.getPosY()-30);
-		if(this.animation.getFrame() >= 6){
-			this.animation.draw(this.getPosX()-32, this.getPosY()-100);
-			this.animation.draw(this.getPosX()-32, this.getPosY()+40);
-			this.animation.draw(this.getPosX()-102, this.getPosY()-30);
-			this.animation.draw(this.getPosX()+38, this.getPosY()-30);
-		}
-		this.explode();
-		this.finish();	
+	// charge les animations
+	public void loadAnimations() throws SlickException{
+		this.loadAnimationPose();
+		this.loadAnimationExplode();
 	}
 	
-	// vérifie si l'animation est finie et si oui, la bombe a fini d'exploser et on remet l'animation à 0
-	public void finish() {
-		if(this.getAnimation().getFrame() == this.getAnimation().getFrameCount() - 1){
-			this.setExploding(false);
-			this.getAnimation().restart();
-		}
+	// charge l'animation bombe posée
+	public void loadAnimationPose() throws SlickException {
+		Image bomb = new Image("sprites/bomb.png");
+		Image bombRouge = new Image("sprites/bomb_rouge.png");
+		this.animPose.addFrame(bomb, 1000);
+		this.animPose.addFrame(bombRouge, 500);
+		this.animPose.addFrame(bomb, 500);
+		this.animPose.addFrame(bombRouge, 100);
+		this.animPose.addFrame(bomb, 100);
+		this.animPose.addFrame(bombRouge, 100);
+	}
+	
+	// charge l'animation de l'explosion de la bombe
+	public void loadAnimationExplode() throws SlickException {
+		SpriteSheet spriteSheet = new SpriteSheet("sprites/explosion.png", 100, 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 0), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 1), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 2), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 3), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 4), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 5), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 6), 100);
+	}
+	
+	public void cycleBomb(){
+		this.pose();
+		this.explode();
 	}
 
 	// explosion de la bombe en cours
 	public void explode(){
-		if(this.getAnimation().getFrame() == 6){
-			this.setExploding(true);
-			this.setPosed(false);
+		if(this.exploding){
+			this.animExplode.draw(this.posX, this.posY);
+			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
+			this.animExplode.draw(this.getPosX(), this.getPosY()+70);
+			this.animExplode.draw(this.getPosX()-70, this.getPosY());
+			this.animExplode.draw(this.getPosX()+70, this.getPosY());
+		}
+		if(System.currentTimeMillis() - this.timeBegin >= 3000 ){
+			this.exploding = false;
+			this.animExplode.restart();
+		}
+	}
+	
+	// animation de la bombe posée
+	public void pose(){
+		if(this.isPosed){
+			this.animPose.draw(this.posX, this.posY);
+		}
+		if(System.currentTimeMillis() - this.timeBegin >= 2300){
+			this.exploding = true;
+			this.isPosed = false;
+			this.animPose.restart();
 		}
 	}
 	
 	
+	// met les coordonnées
 	public void setCoordonnees(int x, int y){
-		this.setPosX(x);
-		this.setPosY(y);
+		this.posX = x;
+		this.posY = y;
 	}
 	
 	// paramètre le temps avant que la bombe passe une 1ere fois au rouge (temps en millisecondes)
 	public void setTimeBeforeExplode(int temps){
-		this.animation.setDuration(0, temps);
+		this.animPose.setDuration(0, temps);
 	}
 	
 	// attaquer l'adversaire
@@ -150,8 +147,18 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	
 	// vider l'animation
 	public void emptyAnim(){
-		this.animation = null;
-		this.animation = new Animation();
+		this.animPose = null;
+		this.animExplode = null;
+		this.animPose = new Animation();
+		this.animExplode = new Animation();
+	}
+
+	public long getTimeBegin() {
+		return timeBegin;
+	}
+
+	public void setTimeBegin(long l) {
+		this.timeBegin = l;
 	}
 	
 }

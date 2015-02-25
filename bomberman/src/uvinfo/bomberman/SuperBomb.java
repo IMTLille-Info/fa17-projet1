@@ -9,48 +9,64 @@ public class SuperBomb extends Bomb {
 	
 	/******** attributs *******/
 	private int puissance = 4;
-	//private Animation animation = new Animation();
 	
-	/******* constructeur 
-	 * @throws SlickException ********/
-	public SuperBomb() throws SlickException{
-		// animation de la bombel
-		Image bomb = new Image("sprites/bomb_verte.png");
-		Image bombRouge = new Image("sprites/bomb_rouge.png");
-		super.emptyAnim();
-		this.getAnimation().addFrame(bomb, 1000);
-		this.getAnimation().addFrame(bombRouge, 500);
-		this.getAnimation().addFrame(bomb, 500);
-		this.getAnimation().addFrame(bombRouge, 100);
-		this.getAnimation().addFrame(bomb, 100);
-		this.getAnimation().addFrame(bombRouge, 100);
-		SpriteSheet spriteSheet = new SpriteSheet("sprites/explosion.png", 100, 100);
-		this.getAnimation().addFrame(spriteSheet.getSprite(8, 0), 100);
-		this.getAnimation().addFrame(spriteSheet.getSprite(8, 1), 100);
-		this.getAnimation().addFrame(spriteSheet.getSprite(8, 2), 100);
-		this.getAnimation().addFrame(spriteSheet.getSprite(8, 3), 100);
-		this.getAnimation().addFrame(spriteSheet.getSprite(8, 4), 100);
-		this.getAnimation().addFrame(spriteSheet.getSprite(8, 5), 100);
-		this.getAnimation().addFrame(spriteSheet.getSprite(8, 6), 100);
+	/******* constructeur ********/
+	public SuperBomb(){
 			
 	}
 	
-	// gère les évènements de la bombe
-		public void cycleBomb(){
-			this.getAnimation().draw(this.getPosX()-32, this.getPosY()-30);
-			if(this.getAnimation().getFrame() >= 6){
-				this.getAnimation().draw(this.getPosX()-32, this.getPosY()-100);
-				this.getAnimation().draw(this.getPosX()-32, this.getPosY()+40);
-				this.getAnimation().draw(this.getPosX()-32, this.getPosY()-170);
-				this.getAnimation().draw(this.getPosX()-32, this.getPosY()+110);
-				this.getAnimation().draw(this.getPosX()-102, this.getPosY()-30);
-				this.getAnimation().draw(this.getPosX()+38, this.getPosY()-30);
-				this.getAnimation().draw(this.getPosX()-172, this.getPosY()-30);
-				this.getAnimation().draw(this.getPosX()+108, this.getPosY()-30);
-			}
-			this.explode();
-			this.finish();	
+	/*********** méthodes 
+	 * @throws SlickException ***********/
+	
+	// charge les animations
+	public void loadAnimations() throws SlickException{
+		this.emptyAnim();
+		this.loadAnimationPose();
+		this.loadAnimationExplode();
+	}
+	
+	// charge l'animation bombe posée
+	public void loadAnimationPose() throws SlickException {
+		Image bomb = new Image("sprites/bomb_verte.png");
+		Image bombRouge = new Image("sprites/bomb_rouge.png");
+		super.emptyAnim();
+		this.animPose.addFrame(bomb, 1000);
+		this.animPose.addFrame(bombRouge, 500);
+		this.animPose.addFrame(bomb, 500);
+		this.animPose.addFrame(bombRouge, 100);
+		this.animPose.addFrame(bomb, 100);
+		this.animPose.addFrame(bombRouge, 100);
+	}
+	
+	// charge l'animation l'explosion
+	public void loadAnimationExplode() throws SlickException{
+		SpriteSheet spriteSheet = new SpriteSheet("sprites/explosion.png", 100, 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 0), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 1), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 2), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 3), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 4), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 5), 100);
+		this.animExplode.addFrame(spriteSheet.getSprite(8, 6), 100);
+	}
+	
+	public void explode(){
+		if(this.isExploding()){
+			this.animExplode.draw(this.getPosX(), this.getPosY());
+			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
+			this.animExplode.draw(this.getPosX(), this.getPosY()-140);
+			this.animExplode.draw(this.getPosX(), this.getPosY()+70);
+			this.animExplode.draw(this.getPosX(), this.getPosY()+140);
+			this.animExplode.draw(this.getPosX()-70, this.getPosY());
+			this.animExplode.draw(this.getPosX()-140, this.getPosY());
+			this.animExplode.draw(this.getPosX()+70, this.getPosY());
+			this.animExplode.draw(this.getPosX()+140, this.getPosY());
 		}
+		if(System.currentTimeMillis() - this.getTimeBegin() >= 3000 ){
+			this.setExploding(false);
+			this.animExplode.restart();
+		}
+	}
 	
 	
 

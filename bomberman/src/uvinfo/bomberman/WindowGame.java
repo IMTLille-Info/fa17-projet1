@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 public class WindowGame extends BasicGame {
@@ -31,7 +32,8 @@ public class WindowGame extends BasicGame {
 		this.container = container;
 		this.map = new TiledMap("res/terrain2.tmx");
 
-		perso = new Avatar();		
+		perso = new Avatar();
+		perso.initAnimation();
 		monstre = new Monstre();
 	}
 
@@ -42,8 +44,8 @@ public class WindowGame extends BasicGame {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		this.map.render(0, 0);
-		
-		// il ne faut pas donner autant d'info a drawAnimation, 
+		 
+		// faire une méthode render dans avatar et monstre
 		g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
 
 		g.drawAnimation(monstre.GetAnimation(monstre.GetDirection() + (monstre.isMoving() ? 4 : 0)), monstre.posX()-32, monstre.posY()-60);
@@ -54,14 +56,18 @@ public class WindowGame extends BasicGame {
 		
 		// c'est à la bombe de décider, le test doit être dans bomb
 		// faire : bomb.render(g)
-		if(perso.getBomb().isPosed() || perso.getBomb().isExploding()){
+		if(perso.hasPutBomb()){
 			perso.getBomb().cycleBomb();
 		}
 		
 		// perso hasBombPosed() et dans avatar return bomb.isPosed()
-		if(perso.getSuperBomb().isPosed() || perso.getSuperBomb().isExploding()){
+		if(perso.hasPutSuperBomb()){
 			perso.getSuperBomb().cycleBomb();
 		}
+		
+
+		monstre.Start(perso);
+		
 		
 	}
 
@@ -75,34 +81,52 @@ public class WindowGame extends BasicGame {
 
 		Image tilePerso = this.map.getTileImage(
 				perso.getFuturX() / this.map.getTileWidth(), 
-				perso.getFuturY() / this.map.getTileHeight(), 
+				perso.getFuturY()/ this.map.getTileHeight(), 
 				this.map.getLayerIndex("Logic"));			
+		
+		
 
 		boolean collisionPerso = tilePerso != null;
 		
 		if (collisionPerso) 
 		{
-			perso.SetMoving(false);
-
-			if (perso.isMoving()) 
-			{
-				switch (perso.GetDirection()) {
-				case 0: perso.moveDown(); break;
-				case 1: perso.moveLeft(); break;
-				case 2: perso.moveUp(); break;
-				case 3: perso.moveRight(); break;
-				
-				}							
-			}
+			//perso.SetMoving(false);//désactiv l'affichage du deplacement du personnage
 		}	
 		else
 		{
 			if (perso.isMoving()) 
 			{
-            perso.posX(perso.getFuturX());
-            perso.posY(perso.getFuturY());
+	            perso.posX(perso.getFuturX());
+	            perso.posY(perso.getFuturY());
 			}
-		}	
+		}		
+		
+
+		testMonstre();
+		
+	}
+	
+	public void testMonstre()
+	{
+		Image tilemonstre = this.map.getTileImage(
+				monstre.getFuturX() / this.map.getTileWidth(), 
+				monstre.getFuturY() / this.map.getTileHeight(), 
+				this.map.getLayerIndex("Logic"));			
+
+		boolean collisionMonstre = tilemonstre != null;
+		
+		if (collisionMonstre) 
+		{
+			monstre.SetMoving(false);
+		}
+		else 
+		{
+			if(monstre.isMoving())
+			{
+				monstre.posX(monstre.getFuturX());
+				monstre.posY(monstre.getFuturY());
+			}
+		}
 
 	}
 
@@ -124,16 +148,14 @@ public class WindowGame extends BasicGame {
 
 	@Override
 	public void keyPressed(int key, char c) {
+		
 		switch (key) {
 		case Input.KEY_UP:    perso.SetDirection(0); perso.SetMoving(true); break;
 		case Input.KEY_LEFT:  perso.SetDirection(1); perso.SetMoving(true); break;
 		case Input.KEY_DOWN:  perso.SetDirection(2); perso.SetMoving(true); break;
 		case Input.KEY_RIGHT: perso.SetDirection(3); perso.SetMoving(true); break;
-		case Input.KEY_SPACE: 
-			perso.putBomb(perso.posX(), perso.posY()); 
-			break;
-		case Input.KEY_ENTER: 
-			perso.putSuperBomb(perso.posX(), perso.posY()); break;
+		case Input.KEY_SPACE: perso.putBomb(); break;
+		case Input.KEY_ENTER: perso.putSuperBomb(); break;
 		}
 	}
 
@@ -146,7 +168,7 @@ public class WindowGame extends BasicGame {
 		AppGameContainer container = new AppGameContainer(game, 704, 576, false);// True pour faire du fullscreen
 		container.setShowFPS(false);//on affiche pas les FPS
 		container.start();
-
+		
 		game.render(container, new Graphics());
 	}
 
