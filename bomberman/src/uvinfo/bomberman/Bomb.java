@@ -54,8 +54,23 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.exploding = isExploding;
 	}
 	
-	/******** methodes 
-	 * @throws SlickException *******/
+	public long getTimeBegin() {
+		return timeBegin;
+	}
+
+	public void setTimeBegin(long l) {
+		this.timeBegin = l;
+	}
+	
+	public int getTimePose(){
+		return this.timePose;
+	}
+	
+	public int getTimeExplode(){
+		return this.timeExplode;
+	}
+	
+	/******** methodes *******/
 	
 	// charge les animations
 	public void loadAnimations() throws SlickException{
@@ -115,24 +130,31 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	
 	// états de la bombe sur un cycle complet
 	public void etat(){
-		this.pose();
 		this.explode();
+		this.finishExplode();
 	}
 	
-	// etat explosion
+	// pose d'une bombe
+	public void pose(int x, int y){
+		this.setCoordonnees(x, y);
+		this.setPosed(true);
+		this.setTimeBegin(System.currentTimeMillis());
+	}
+	
+	// passe de l'état posé à l'état explosion
 	public void explode(){
-		if(System.currentTimeMillis() - this.timeBegin >= this.timeExplode + this.timePose ){
-			this.exploding = false;
-			this.animExplode.restart();
-		}
-	}
-	
-	// etat posé
-	public void pose(){
 		if(System.currentTimeMillis() - this.timeBegin >= this.timePose){
 			this.exploding = true;
 			this.isPosed = false;
 			this.animPose.restart();
+		}
+	}
+	
+	// etat explosion finie
+	public void finishExplode(){
+		if(System.currentTimeMillis() - this.timeBegin >= this.timeExplode + this.timePose ){
+			this.exploding = false;
+			this.animExplode.restart();
 		}
 	}
 	
@@ -160,14 +182,6 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animExplode = null;
 		this.animPose = new Animation();
 		this.animExplode = new Animation();
-	}
-
-	public long getTimeBegin() {
-		return timeBegin;
-	}
-
-	public void setTimeBegin(long l) {
-		this.timeBegin = l;
 	}
 	
 }

@@ -56,18 +56,14 @@ public class Avatar extends Personnage {
 	
 	public void putBomb(){ 	
 		if(!this.checkBombPosed()){
-			this.bomb.setCoordonnees(this.posX()-32, this.posY()-60);
-			this.bomb.setPosed(true);
-			this.bomb.setTimeBegin(System.currentTimeMillis());
+			this.bomb.pose(this.posX() - 32, this.posY() - 60);
 		}
 	}
 	
 	public void putSuperBomb(){
 		if(!this.checkBombPosed() && this.nbSuperBomb >0){
-			this.superBomb.setCoordonnees(this.posX()-32, this.posY()-60);
-			this.superBomb.setPosed(true);
+			this.superBomb.pose(this.posX() - 32, this.posY() - 60);
 			this.nbSuperBomb -= 1;
-			this.superBomb.setTimeBegin(System.currentTimeMillis());
 		}
 	}
 	
