@@ -43,6 +43,7 @@ public abstract class Personnage {
 		    return animation;
 		}
 	    
+	 
 	    /************** getter, setter ***************/
 		public int posX() {
 			return this.posX;

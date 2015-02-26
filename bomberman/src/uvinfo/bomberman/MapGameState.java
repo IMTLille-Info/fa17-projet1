@@ -37,6 +37,7 @@ public class MapGameState extends BasicGameState {
 		monstre = new Monstre();
 		son = new Musique();
 		son.FondSonore();
+		
 	}
 
 	@Override
@@ -61,19 +62,10 @@ public class MapGameState extends BasicGameState {
 		g.setColor(Color.red);
 		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des
 															// points de vie
-
-		// c'est à la bombe de décider, le test doit être dans bomb...
-		// faire : bomb.render(g)
-		if (perso.hasPutBomb()) {
-			perso.getBomb().animBomb();
-		}
-
-		// perso hasBombPosed() et dans avatar return bomb.isPosed()
-		if (perso.hasPutSuperBomb()) {
-
-			perso.getSuperBomb().animBomb();
-		}
-
+		   
+		perso.getBomb().render();
+		perso.getSuperBomb().render();
+		
 	}
 
 	@Override
@@ -83,38 +75,51 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		// mise à jour
+
+
 		Image tilePerso = this.map.getTileImage(
-				perso.getFuturX() / this.map.getTileWidth(), perso.getFuturY()
-						/ this.map.getTileHeight(),
-				this.map.getLayerIndex("Logic"));
-
+				perso.getFuturX() / this.map.getTileWidth(), 
+				perso.getFuturY()/ this.map.getTileHeight(), 
+				this.map.getLayerIndex("Logic"));			
+		
 		boolean collisionPerso = tilePerso != null;
-
-		if (!collisionPerso) {
-			if (perso.isMoving()) {
-				perso.posX(perso.getFuturX());
-				perso.posY(perso.getFuturY());
+		
+		if (!collisionPerso) 
+		{
+			if (perso.isMoving()) 
+			{
+	            perso.posX(perso.getFuturX());
+	            perso.posY(perso.getFuturY());
 			}
-		}
+		}		
+				
+		MoveMonster();
+		
+		perso.getBomb().hurt(monstre);
 
-		// monstre.Start(perso);
+	}
 
-		Image tilemonstre = this.map.getTileImage(monstre.getFuturX()
-				/ this.map.getTileWidth(),
-				monstre.getFuturY() / this.map.getTileHeight(),
-				this.map.getLayerIndex("Logic"));
-
-		boolean collisionMonstre = tilemonstre != null;
-
-		if (!collisionMonstre) {
-			if (monstre.isMoving()) {
+	
+	public void MoveMonster()
+	{
+		
+		Image tilemonstre = this.map.getTileImage(
+				monstre.getFuturX() / this.map.getTileWidth(), 
+				monstre.getFuturY()/ this.map.getTileHeight(), 
+				this.map.getLayerIndex("Logic"));			
+		
+		boolean collisionmonstre = tilemonstre != null;
+		
+		if (!collisionmonstre) 
+		{
+			if (monstre.isMoving())
+			{
 				monstre.posX(monstre.getFuturX());
 				monstre.posY(monstre.getFuturY());
 			}
-		}
-
-		perso.getBomb().hurt(monstre);
+		}	
+		
+		monstre.Move(perso);
 	}
 
 	@Override

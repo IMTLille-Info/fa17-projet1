@@ -20,8 +20,15 @@ public class Avatar extends Personnage {
 		
 	}
 	
+	public void render()
+	{
+		GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65);	
+	}	
+	
 	/***************  methodes  
 	 * @throws SlickException ***************/
+	
+	
 	
 	public void initAnimation() throws SlickException{
 		CreateAnimation("sprites/drag.png", 96, 96);
@@ -30,6 +37,9 @@ public class Avatar extends Personnage {
 		this.getSuperBomb().loadAnimationPose();
 		this.getSuperBomb().loadAnimationExplode();
 	}
+	
+	
+	
 	public Bomb getBomb() {
 		return bomb;
 	}
@@ -75,20 +85,6 @@ public class Avatar extends Personnage {
 		}
 	}
 	
-	public boolean hasPutBomb(){
-		if(this.bomb.isPosed() || this.bomb.isExploding()){
-			return true;
-		}else{
-			return false;
-		}
-	}
 	
-	public boolean hasPutSuperBomb(){
-		if(this.superBomb.isPosed() || this.superBomb.isExploding()){
-			return true;
-		}else{
-			return false;
-		}
-	}
 
 }
