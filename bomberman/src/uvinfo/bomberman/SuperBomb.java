@@ -17,14 +17,13 @@ public class SuperBomb extends Bomb {
 	
 	/*********** méthodes ***********/
 	
-	// charge les animations
+	@Override
 	public void loadAnimations() throws SlickException{
 		this.emptyAnim();
 		this.loadAnimationPose();
 		this.loadAnimationExplode();
 	}
 	
-	// charge l'animation bombe posée
 	@Override
 	public void loadAnimationPose() throws SlickException {
 		Image bomb = new Image("sprites/bomb_verte.png");
@@ -38,7 +37,6 @@ public class SuperBomb extends Bomb {
 		this.animPose.addFrame(bombRouge, 100);
 	}
 	
-	// charge l'animation l'explosion
 	@Override
 	public void loadAnimationExplode() throws SlickException{
 		SpriteSheet spriteSheet = new SpriteSheet("sprites/explosion.png", 100, 100);
@@ -55,14 +53,14 @@ public class SuperBomb extends Bomb {
 	public void animExplode(){
 		if(this.isExploding()){
 			this.animExplode.draw(this.getPosX(), this.getPosY());
-			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
-			this.animExplode.draw(this.getPosX(), this.getPosY()-140);
-			this.animExplode.draw(this.getPosX(), this.getPosY()+70);
-			this.animExplode.draw(this.getPosX(), this.getPosY()+140);
-			this.animExplode.draw(this.getPosX()-70, this.getPosY());
-			this.animExplode.draw(this.getPosX()-140, this.getPosY());
-			this.animExplode.draw(this.getPosX()+70, this.getPosY());
-			this.animExplode.draw(this.getPosX()+140, this.getPosY());
+			this.animExplode.draw(this.getPosX(), this.getPosY()-100);
+			this.animExplode.draw(this.getPosX(), this.getPosY()-200);
+			this.animExplode.draw(this.getPosX(), this.getPosY()+100);
+			this.animExplode.draw(this.getPosX(), this.getPosY()+200);
+			this.animExplode.draw(this.getPosX()-100, this.getPosY());
+			this.animExplode.draw(this.getPosX()-200, this.getPosY());
+			this.animExplode.draw(this.getPosX()+100, this.getPosY());
+			this.animExplode.draw(this.getPosX()+200, this.getPosY());
 		}
 	}
 	
