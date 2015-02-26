@@ -19,6 +19,8 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	private int timePose = 2300;
 	private int timeExplode = 700;
 	
+	private int[][] champExplosion = new int[10][2];
+	
 	/******* constructeurs *********/
 	public Bomb(){
 	}
@@ -161,12 +163,6 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animPose.setDuration(0, temps);
 	}
 	
-	// attaquer l'adversaire
-	public void hurt(Monstre monstre){
-		if(this.isExploding()){
-		}
-	}
-	
 	// vider l'animation
 	public void emptyAnim(){
 		this.animPose = null;
@@ -174,4 +170,12 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animPose = new Animation();
 		this.animExplode = new Animation();
 	}
+	
+	// attaquer l'adversaire
+	public void hurt(Monstre monstre){
+		if(this.isExploding()){
+			
+		}
+	}
+	
 }
