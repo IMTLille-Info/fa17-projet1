@@ -66,6 +66,7 @@ public class MapGameState extends BasicGameState {
 		perso.getBomb().render();
 		perso.getSuperBomb().render();
 		
+		monstre.Start(perso);
 
 	}
 
@@ -91,22 +92,8 @@ public class MapGameState extends BasicGameState {
 			}
 		}
 
-		// monstre.Start(perso);
-
-		Image tilemonstre = this.map.getTileImage(monstre.getFuturX()
-				/ this.map.getTileWidth(),
-				monstre.getFuturY() / this.map.getTileHeight(),
-				this.map.getLayerIndex("Logic"));
-
-		boolean collisionMonstre = tilemonstre != null;
-
-		if (!collisionMonstre) {
-			if (monstre.isMoving()) {
-				monstre.posX(monstre.getFuturX());
-				monstre.posY(monstre.getFuturY());
-			}
-		}
-
+		
+		
 		perso.getBomb().hurt(monstre);
 	}
 

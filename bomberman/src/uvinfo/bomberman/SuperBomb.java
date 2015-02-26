@@ -39,6 +39,7 @@ public class SuperBomb extends Bomb {
 	
 	@Override
 	public void loadAnimationExplode() throws SlickException{
+				
 		SpriteSheet spriteSheet = new SpriteSheet("sprites/explosion.png", 100, 100);
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 0), 100);
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 1), 100);
@@ -50,8 +51,11 @@ public class SuperBomb extends Bomb {
 	}
 	
 	@Override
-	public void animExplode(){
+	public void animExplode() throws SlickException{
 		if(this.isExploding()){
+			
+
+			SonBombe.ExplosionSuperBombe();
 			this.animExplode.draw(this.getPosX(), this.getPosY());
 			this.animExplode.draw(this.getPosX(), this.getPosY()-100);
 			this.animExplode.draw(this.getPosX(), this.getPosY()-200);

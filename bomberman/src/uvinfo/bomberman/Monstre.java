@@ -41,10 +41,20 @@ public class Monstre extends Personnage {
 	{
 		this.SetMoving(true);
 		
-		Random rand = new Random();
+		while(this.posX() != victime.posX() && this.posY() != victime.posY())
+		{
+			Random rand = new Random();
+			int random = rand.nextInt((4 - 0) + 1) + 0;// de 0 à 3
+			
+			switch (random)
+			{
+				case 0: this.moveDown();break;
+				case 1: this.moveUp();break;
+				case 2: this.moveLeft();break;
+				case 3: this.moveRight();break;
+			}
+		}
 		
-		int random = rand.nextInt((4 - 0) + 1) + 0;
-
-		this.SetDirection(random);
+		this.SetMoving(false);
 	}		
 }

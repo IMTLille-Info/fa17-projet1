@@ -11,7 +11,8 @@ public class Musique {
 	
 	/******* attributs ******/
 	String FondS1 = "sound/theme.ogg";
-	String FondBombe = "sound/bongos.ogg";
+	String FondBombe = "sound/explosion.ogg";
+	String SuperBombe = "sound/bomb.ogg";
 	
 	/******* constructeurs *********/
 	public Musique()
@@ -27,6 +28,12 @@ public class Musique {
 	public void ExplosionBombe() throws SlickException // son explosion bombe différente petite, grande
 	{	
 			Music Bombe = new Music(FondBombe);
+			Bombe.play();
+	}
+	
+	public void ExplosionSuperBombe() throws SlickException // son explosion bombe différente petite, grande
+	{	
+			Music Bombe = new Music(SuperBombe);
 			Bombe.play();
 	}
 }
