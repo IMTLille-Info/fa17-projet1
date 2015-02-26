@@ -20,6 +20,11 @@ public class Avatar extends Personnage {
 		
 	}
 	
+	public void render()
+	{
+		GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65);	
+	}	
+	
 	/***************  methodes  
 	 * @throws SlickException ***************/
 	

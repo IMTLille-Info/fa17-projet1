@@ -39,9 +39,6 @@ public class MapGameState extends BasicGameState {
 		son = new Musique();
 		son.FondSonore();
 		
-
-		monstre.Start(perso);
-		
 	}
 
 	@Override
@@ -69,8 +66,6 @@ public class MapGameState extends BasicGameState {
 		   
 		perso.getBomb().render();
 		perso.getSuperBomb().render();
-		
-		monstre.Start(perso);
 		
 	}
 
@@ -111,8 +106,6 @@ public class MapGameState extends BasicGameState {
 			}
 		}
 		
-		
-				
 		perso.getBomb().hurt(monstre);
 	}
 

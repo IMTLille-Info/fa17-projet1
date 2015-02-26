@@ -6,7 +6,7 @@ import org.newdawn.slick.SlickException;
 
 public class Monstre extends Personnage {
 
-	int delta = 2;
+	//int delta = 2;
 	
 	public Monstre() throws SlickException {
 
@@ -57,4 +57,9 @@ public class Monstre extends Personnage {
 		
 		this.SetMoving(false);
 	}		
+	
+	public void render()
+	{
+		GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-50);	
+	}	
 }

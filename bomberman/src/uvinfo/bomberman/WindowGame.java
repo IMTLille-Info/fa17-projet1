@@ -37,6 +37,7 @@ public class WindowGame extends BasicGame {
 		monstre = new Monstre();
 		son = new Musique();
 		son.FondSonore();
+		
 	}
 
 	@Override
@@ -65,7 +66,6 @@ public class WindowGame extends BasicGame {
 		
 		// perso hasBombPosed() et dans avatar return bomb.isPosed()
 	
-			
 		perso.getSuperBomb().render();
 		
 		
@@ -95,8 +95,7 @@ public class WindowGame extends BasicGame {
 			}
 		}		
 		
-
-		//monstre.Start(perso);
+		
 		
 		Image tilemonstre = this.map.getTileImage(
 				monstre.getFuturX() / this.map.getTileWidth(), 
@@ -114,6 +113,7 @@ public class WindowGame extends BasicGame {
 			}
 		}
 		
+		
 		perso.getBomb().hurt(monstre);
 		
 
@@ -129,6 +129,7 @@ public class WindowGame extends BasicGame {
 	public void keyReleased(int key, char c) {
 
 		perso.SetMoving(false);
+		monstre.SetMoving(false);
 
 		if (Input.KEY_ESCAPE == key) {
 			container.exit();
