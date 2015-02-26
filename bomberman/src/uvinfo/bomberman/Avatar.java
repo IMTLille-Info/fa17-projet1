@@ -23,6 +23,8 @@ public class Avatar extends Personnage {
 	/***************  methodes  
 	 * @throws SlickException ***************/
 	
+	
+	
 	public void initAnimation() throws SlickException{
 		CreateAnimation("sprites/drag.png", 96, 96);
 		this.getBomb().loadAnimationPose(); 
@@ -30,6 +32,9 @@ public class Avatar extends Personnage {
 		this.getSuperBomb().loadAnimationPose();
 		this.getSuperBomb().loadAnimationExplode();
 	}
+	
+	
+	
 	public Bomb getBomb() {
 		return bomb;
 	}

@@ -39,6 +39,9 @@ public class MapGameState extends BasicGameState {
 		son = new Musique();
 		son.FondSonore();
 		
+
+		monstre.Start(perso);
+		
 	}
 
 	@Override
@@ -68,7 +71,7 @@ public class MapGameState extends BasicGameState {
 		perso.getSuperBomb().render();
 		
 		monstre.Start(perso);
-
+		
 	}
 
 	@Override
@@ -92,6 +95,23 @@ public class MapGameState extends BasicGameState {
 				perso.posY(perso.getFuturY());
 			}
 		}
+		
+		
+		Image tileMonstre = this.map.getTileImage(
+				monstre.getFuturX() / this.map.getTileWidth(), monstre.getFuturY()
+						/ this.map.getTileHeight(),
+				this.map.getLayerIndex("Logic"));
+
+		boolean collisionMonstre = tileMonstre != null;
+
+		if (!collisionMonstre) {
+			if (monstre.isMoving()) {
+				monstre.posX(monstre.getFuturX());
+				monstre.posY(monstre.getFuturY());
+			}
+		}
+		
+		
 				
 		perso.getBomb().hurt(monstre);
 	}

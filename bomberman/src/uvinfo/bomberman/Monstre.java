@@ -14,7 +14,7 @@ public class Monstre extends Personnage {
 		
 		posX(100);
 		posY(100);
-		SetDirection(2);		
+		SetDirection(2);
 	}	
 	
 	
@@ -39,7 +39,7 @@ public class Monstre extends Personnage {
 	
 	public void Start(Avatar victime)
 	{
-		//this.SetMoving(true);
+		this.SetMoving(true);
 		
 		while(this.posX() != victime.posX() && this.posY() != victime.posY())
 		{

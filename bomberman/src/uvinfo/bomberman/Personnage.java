@@ -43,6 +43,12 @@ public abstract class Personnage {
 		    return animation;
 		}
 	    
+	 
+	 public void render()
+		{
+			GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65);	
+		}	
+	 
 	    /************** getter, setter ***************/
 		public int posX() {
 			return this.posX;

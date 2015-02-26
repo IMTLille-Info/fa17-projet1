@@ -48,10 +48,8 @@ public class WindowGame extends BasicGame {
 		this.map.render(0, 0);
 		 
 		// faire une méthode render dans avatar et monstre
-		g.drawAnimation(perso.GetAnimation(perso.GetDirection() + (perso.isMoving() ? 4 : 0)), perso.posX()-32, perso.posY()-60);
-
-		g.drawAnimation(monstre.GetAnimation(monstre.GetDirection() + (monstre.isMoving() ? 4 : 0)), monstre.posX()-32, monstre.posY()-60);
-
+		
+	
 		
 		g.setColor(Color.red); 
 		g.drawString("Life : " + perso.getLife(), 20, 20);//affichage des points de vie
@@ -59,13 +57,16 @@ public class WindowGame extends BasicGame {
 		// c'est à la bombe de décider, le test doit être dans bomb...
 		// faire : bomb.render(g) 
 		
-			perso.getBomb().render();
+		
+		perso.render();
+		monstre.render();
+		perso.getBomb().render();
 			
 		
 		// perso hasBombPosed() et dans avatar return bomb.isPosed()
 	
 			
-			perso.getSuperBomb().render();
+		perso.getSuperBomb().render();
 		
 		
 	}
