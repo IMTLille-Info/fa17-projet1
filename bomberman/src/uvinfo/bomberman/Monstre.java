@@ -39,7 +39,7 @@ public class Monstre extends Personnage {
 	
 	public void Start(Avatar victime)
 	{
-		this.SetMoving(true);
+		//this.SetMoving(true);
 		
 		while(this.posX() != victime.posX() && this.posY() != victime.posY())
 		{
