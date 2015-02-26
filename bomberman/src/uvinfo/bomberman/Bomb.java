@@ -99,10 +99,12 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animExplode.addFrame(spriteSheet.getSprite(8, 6), 100);
 	}
 	
-	public void animBomb() throws SlickException{
-		this.etat();
-		this.animPose();
-		this.animExplode();
+	public void render() throws SlickException{
+		if(!this.isPosed || !this.exploding){
+			this.etat();
+			this.animPose();
+			this.animExplode();
+		}
 	}
 	
 	// explosion de la bombe en cours
