@@ -129,7 +129,7 @@ public class MapGameState extends BasicGameState {
 		perso.SetMoving(false);
 
 		if (Input.KEY_ESCAPE == key) {
-			
+			game.enterState(MainScreenGameState.ID);
 		}
 	}
 
