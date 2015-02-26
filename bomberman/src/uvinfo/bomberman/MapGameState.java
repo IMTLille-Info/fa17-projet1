@@ -130,14 +130,6 @@ public class MapGameState extends BasicGameState {
 
 		if (Input.KEY_ESCAPE == key) {
 			
-			//container.exit();
-			try {
-				this.leave(container, game);
-			} catch (SlickException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 		}
 	}
 
