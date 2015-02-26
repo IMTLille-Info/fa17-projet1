@@ -15,7 +15,6 @@ public class StateGame extends StateBasedGame {
 		container.setTargetFrameRate(200);//on fixe le taux de rafraichissement a 200 pour ralentir le deplacement
 		container.start();
 
-
 	}
 
 	public StateGame() {

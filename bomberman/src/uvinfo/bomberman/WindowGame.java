@@ -62,12 +62,10 @@ public class WindowGame extends BasicGame {
 		perso.render();
 		monstre.render();
 		perso.getBomb().render();
-			
 		
 		// perso hasBombPosed() et dans avatar return bomb.isPosed()
 	
 		perso.getSuperBomb().render();
-		
 		
 	}
 
@@ -94,31 +92,39 @@ public class WindowGame extends BasicGame {
 	            perso.posY(perso.getFuturY());
 			}
 		}		
+				
+
 		
+		monstre.Move(perso);
+		
+		perso.getBomb().hurt(monstre);
+
+	}
+
+	
+	public void MoveMonster()
+	{
+
 		
 		
 		Image tilemonstre = this.map.getTileImage(
 				monstre.getFuturX() / this.map.getTileWidth(), 
-				monstre.getFuturY() / this.map.getTileHeight(), 
+				monstre.getFuturY()/ this.map.getTileHeight(), 
 				this.map.getLayerIndex("Logic"));			
-
-		boolean collisionMonstre = tilemonstre != null;
 		
-		if (!collisionMonstre) 
+		boolean collisionmonstre = tilemonstre != null;
+		
+		if (!collisionmonstre) 
 		{
-			if(monstre.isMoving())
+			if (monstre.isMoving())
 			{
 				monstre.posX(monstre.getFuturX());
 				monstre.posY(monstre.getFuturY());
 			}
-		}
+		}	
 		
-		
-		perso.getBomb().hurt(monstre);
-		
-
+		monstre.Move(perso);
 	}
-
 
 	@Override
 	/** methode appelé à chaque relâchement de touche 
@@ -146,8 +152,7 @@ public class WindowGame extends BasicGame {
 		case Input.KEY_RIGHT: perso.SetDirection(3); perso.SetMoving(true); break;
 		case Input.KEY_SPACE: perso.putBomb(); break;
 		case Input.KEY_ENTER: perso.putSuperBomb(); break;
-		}
-				
+		}				
 	}
 
 	public static void main(String[] args) throws SlickException {

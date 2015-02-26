@@ -2,6 +2,7 @@ package uvinfo.bomberman;
 
 import java.util.Random;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Monstre extends Personnage {
@@ -31,32 +32,42 @@ public class Monstre extends Personnage {
 	public void moveRight() {
 		this.posX(posX()+delta);
 	}
-	
+
 	public void moveLeft() {
 		this.posX(posX()-delta);
 	}
-	*/
+	 */
+
+	public void Move(Avatar victime)
+	{
+		int LargeurHauteurCollision = 50;
+		
+		if(Math.abs(this.posX()-victime.posX()) > LargeurHauteurCollision || Math.abs(this.posY()-victime.posY()) > LargeurHauteurCollision)
+		{			
+			Random rand = new Random();
+			int random = rand.nextInt((4 - 0) + 1) + 0;// de 0 à 3
+
+			SetDirection(random);
+			
+			Avance(GetDirection());
+		}		
+	}		
 	
-	public void Start(Avatar victime)
+	public void Avance(int direction)
 	{
 		this.SetMoving(true);
 		
-		while(this.posX() != victime.posX() && this.posY() != victime.posY())
-		{
-			Random rand = new Random();
-			int random = rand.nextInt((4 - 0) + 1) + 0;// de 0 à 3
-			
-			switch (random)
-			{
-				case 0: this.moveDown();break;
-				case 1: this.moveUp();break;
-				case 2: this.moveLeft();break;
-				case 3: this.moveRight();break;
-			}
-		}
+		switch (GetDirection()) {
+
+	    case 0: moveUp(); break;
+	    case 1: moveLeft(); break;
+	    case 2: moveDown(); break;
+	    case 3: moveRight(); break;
+	    }		
 		
 		this.SetMoving(false);
-	}		
+	}
+	
 	
 	public void render()
 	{
