@@ -43,6 +43,7 @@ public class MapGameState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		// affichage
+		this.map.render(0, 0);
 		// faire une méthode render dans avatar et monstre
 		g.drawAnimation(
 				perso.GetAnimation(perso.GetDirection()
@@ -120,7 +121,11 @@ public class MapGameState extends BasicGameState {
 	 * @param c
 	 */
 	public void keyReleased(int key, char c) {
-		// quitter le jeux sur [ESC] (cf leçon 1)
+		perso.SetMoving(false);
+
+		if (Input.KEY_ESCAPE == key) {
+			
+		}
 	}
 
 	@Override
