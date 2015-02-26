@@ -7,6 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -27,6 +28,7 @@ public class MapGameState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		// initialisation des objets
+		this.game = game;
 		this.container = container;
 		this.map = new TiledMap("res/terrain2.tmx");
 
@@ -122,10 +124,11 @@ public class MapGameState extends BasicGameState {
 	 * @param c
 	 */
 	public void keyReleased(int key, char c) {
+
 		perso.SetMoving(false);
 
 		if (Input.KEY_ESCAPE == key) {
-			
+			game.enterState(MainScreenGameState.ID);
 		}
 	}
 

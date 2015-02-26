@@ -20,6 +20,8 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	private int timePose = 2300;
 	private int timeExplode = 700;
 	
+	private int[][] champExplosion = new int[10][2];
+	
 	/******* constructeurs *********/
 	public Bomb(){
 	}

@@ -15,8 +15,7 @@ public class SuperBomb extends Bomb {
 			
 	}
 	
-	/*********** méthodes 
-	 * @throws SlickException ***********/
+	/*********** méthodes ***********/
 	
 	@Override
 	public void loadAnimations() throws SlickException{
@@ -64,6 +63,8 @@ public class SuperBomb extends Bomb {
 			this.animExplode.draw(this.getPosX()+200, this.getPosY());
 		}
 	}
+	
+	
 	
 	
 

@@ -10,8 +10,8 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-public class WindowGame extends BasicGame {
 
+public class WindowGame extends BasicGame {
 
 	private GameContainer container;
 	private TiledMap map;
