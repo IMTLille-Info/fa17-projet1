@@ -7,6 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -18,6 +19,8 @@ public class MapGameState extends BasicGameState {
 	private Musique son;
 	private Avatar perso;
 	private Monstre monstre;
+	
+	private StateBasedGame game;
 
 	@Override
 	/** GameContainer methode permettant d'initialiser le contenu du 
@@ -26,6 +29,7 @@ public class MapGameState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		// initialisation des objets
+		this.game = game;
 		this.container = container;
 		this.map = new TiledMap("res/terrain2.tmx");
 
@@ -43,6 +47,7 @@ public class MapGameState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		// affichage
+		this.map.render(0, 0);
 		// faire une méthode render dans avatar et monstre
 		g.drawAnimation(
 				perso.GetAnimation(perso.GetDirection()
@@ -120,7 +125,20 @@ public class MapGameState extends BasicGameState {
 	 * @param c
 	 */
 	public void keyReleased(int key, char c) {
-		// quitter le jeux sur [ESC] (cf leçon 1)
+
+		perso.SetMoving(false);
+
+		if (Input.KEY_ESCAPE == key) {
+			
+			//container.exit();
+			try {
+				this.leave(container, game);
+			} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 	@Override
