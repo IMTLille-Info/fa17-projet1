@@ -18,6 +18,7 @@ public class MapGameState extends BasicGameState {
 	private Musique son;
 	private Avatar perso;
 	private Monstre monstre;
+	private StateBasedGame game;
 
 	@Override
 	/** GameContainer methode permettant d'initialiser le contenu du 
