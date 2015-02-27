@@ -32,6 +32,7 @@ public class MapGameState extends BasicGameState {
 		// initialisation des objets
 		this.game = game;
 		this.container = container;
+		
 		map = new Map();
 		map.init();
 		

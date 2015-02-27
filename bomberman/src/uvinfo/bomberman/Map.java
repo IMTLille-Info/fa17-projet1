@@ -26,23 +26,23 @@ public class Map {
 	/******* Affichage  fond de Map ******/
 	public void renderBackground() {
 		this.tiledMap.render(0, 0, 0);
-		this.tiledMap.render(0, 0, 1);
-		this.tiledMap.render(0, 0, 2);
+		/*this.tiledMap.render(0, 0, 1);
+		this.tiledMap.render(0, 0, 2);*/
 	}
 	
 	/******* Affichage avant de map ******/
 	public void renderForeground() {
-		this.tiledMap.render(0, 0, 3);
-		this.tiledMap.render(0, 0, 4);
+		/*this.tiledMap.render(0, 0, 3);
+		this.tiledMap.render(0, 0, 4);*/
+		this.tiledMap.render(0, 0, 1);
 	}
 	
 	/******* Gestion des collisions ******/
 	public boolean isCollision(float x, float y) {
 		int tileW = this.tiledMap.getTileWidth();
 		int tileH = this.tiledMap.getTileHeight();
-		int logicLayer = this.tiledMap.getLayerIndex("logic");
-		Image tile = this.tiledMap.getTileImage((int) x / tileW, (int) y
-				/ tileH, logicLayer);
+		int logicLayer = this.tiledMap.getLayerIndex("Logic");
+		Image tile = this.tiledMap.getTileImage((int) x / tileW, (int) y / tileH, logicLayer);
 		boolean collision = tile != null;
 		if (collision) {
 			Color color = tile.getColor((int) x % tileW, (int) y % tileH);
@@ -50,6 +50,7 @@ public class Map {
 		}
 		return collision;
 	}
+	
 	/******* Utilisation des Trigger (téléporteur map) ******/
 	public int getObjectCount() {
 		return this.tiledMap.getObjectCount(0);

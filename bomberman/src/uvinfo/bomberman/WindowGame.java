@@ -35,6 +35,7 @@ public class WindowGame extends BasicGame {
 		perso = new Avatar();
 		perso.initAnimation();
 		monstre = new Monstre();
+		monstre.initAnimation();
 		son = new Musique();
 		son.FondSonore();
 		
