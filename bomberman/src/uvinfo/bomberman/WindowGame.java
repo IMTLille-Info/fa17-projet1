@@ -67,6 +67,8 @@ public class WindowGame extends BasicGame {
 	
 		perso.getSuperBomb().render();
 		
+		if(perso.IsAlive() == false) container.pause(); //container.exit();
+		
 	}
 
 	@Override

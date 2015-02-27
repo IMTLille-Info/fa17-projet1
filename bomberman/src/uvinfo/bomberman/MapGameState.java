@@ -19,6 +19,10 @@ public class MapGameState extends BasicGameState {
 	private Musique son;
 	private Avatar perso;
 	private Monstre monstre;
+
+	
+	float difficult = 1;
+	
 	private StateBasedGame game;
 
 	@Override
@@ -37,7 +41,7 @@ public class MapGameState extends BasicGameState {
 		monstre = new Monstre();
 		son = new Musique();
 		son.FondSonore();
-		
+
 	}
 
 	@Override
@@ -49,23 +53,20 @@ public class MapGameState extends BasicGameState {
 		// affichage
 		this.map.render(0, 0);
 		// faire une méthode render dans avatar et monstre
-		g.drawAnimation(
-				perso.GetAnimation(perso.GetDirection()
-						+ (perso.isMoving() ? 4 : 0)), perso.posX() - 32,
-				perso.posY() - 60);
-
-		g.drawAnimation(
-				monstre.GetAnimation(monstre.GetDirection()
-						+ (monstre.isMoving() ? 4 : 0)), monstre.posX() - 32,
-				monstre.posY() - 60);
-
+	
+		
 		g.setColor(Color.red);
-		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des
-															// points de vie
-		   
+		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des points de vie
+		
+		g.setColor(Color.yellow);
+		g.drawString("Difficulté : " + difficult, 150, 20);// affichage des points de vie
+
+		
+		perso.render();
+		monstre.render();
 		perso.getBomb().render();
 		perso.getSuperBomb().render();
-		
+
 	}
 
 	@Override
@@ -76,50 +77,49 @@ public class MapGameState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 
+			container.setTargetFrameRate((int) (200*difficult));
 
-		Image tilePerso = this.map.getTileImage(
-				perso.getFuturX() / this.map.getTileWidth(), 
-				perso.getFuturY()/ this.map.getTileHeight(), 
-				this.map.getLayerIndex("Logic"));			
-		
-		boolean collisionPerso = tilePerso != null;
-		
-		if (!collisionPerso) 
-		{
-			if (perso.isMoving()) 
+			Image tilePerso = this.map.getTileImage(
+					perso.getFuturX() / this.map.getTileWidth(), 
+					perso.getFuturY()/ this.map.getTileHeight(), 
+					this.map.getLayerIndex("Logic"));			
+
+			boolean collisionPerso = tilePerso != null;
+
+			if (!collisionPerso) 
 			{
-	            perso.posX(perso.getFuturX());
-	            perso.posY(perso.getFuturY());
+				if (perso.isMoving()) 
+				{
+					perso.posX(perso.getFuturX());
+					perso.posY(perso.getFuturY());
+				}
+			}	
+
+			Image tilemonstre = this.map.getTileImage(
+					monstre.getFuturX() / this.map.getTileWidth(), 
+					monstre.getFuturY()/ this.map.getTileHeight(), 
+					this.map.getLayerIndex("Logic"));			
+
+			boolean collisionmonstre = tilemonstre != null;
+
+			if (!collisionmonstre) 
+			{
+				monstre.SetMoving(true);
+				monstre.Move(perso);
 			}
-		}		
-				
-		MoveMonster();
-		
+			else 
+			{
+				monstre.SetMoving(true);
+				monstre.OpposeDirection();
+			}			
+
 		perso.getBomb().hurt(monstre);
-
-	}
-
 	
-	public void MoveMonster()
-	{
-		
-		Image tilemonstre = this.map.getTileImage(
-				monstre.getFuturX() / this.map.getTileWidth(), 
-				monstre.getFuturY()/ this.map.getTileHeight(), 
-				this.map.getLayerIndex("Logic"));			
-		
-		boolean collisionmonstre = tilemonstre != null;
-		
-		if (!collisionmonstre) 
-		{
-			if (monstre.isMoving())
+		if(!perso.IsAlive())
 			{
-				monstre.posX(monstre.getFuturX());
-				monstre.posY(monstre.getFuturY());
+				javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
+				container.exit();
 			}
-		}	
-		
-		monstre.Move(perso);
 	}
 
 	@Override
@@ -162,6 +162,12 @@ public class MapGameState extends BasicGameState {
 			break;
 		case Input.KEY_ENTER:
 			perso.putSuperBomb();
+			break;
+		case Input.KEY_A:
+			if(difficult > 0.1) difficult -= 0.1;
+			break;
+		case Input.KEY_D:
+			difficult += 0.1;
 			break;
 		}
 
