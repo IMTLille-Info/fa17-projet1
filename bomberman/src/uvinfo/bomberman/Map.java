@@ -8,6 +8,9 @@ import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
 public class Map {
 	
+	/******* Constructeur ******/
+	public Map(){
+	}
 	/******* attributs ******/
 	private TiledMap tiledMap;
 	/******* initialisation de la Map ******/
