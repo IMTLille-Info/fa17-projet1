@@ -19,6 +19,9 @@ public class MapGameState extends BasicGameState {
 	private Musique son;
 	private Avatar perso;
 	private Monstre monstre;
+
+	
+	float difficult = 1;
 	
 	
 	private StateBasedGame game;
@@ -54,8 +57,10 @@ public class MapGameState extends BasicGameState {
 	
 		
 		g.setColor(Color.red);
-		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des
-		// points de vie
+		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des points de vie
+		
+		g.setColor(Color.yellow);
+		g.drawString("Difficulté : " + difficult, 150, 20);// affichage des points de vie
 
 		
 		perso.render();
@@ -73,6 +78,7 @@ public class MapGameState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 
+			container.setTargetFrameRate((int) (200*difficult));
 
 			Image tilePerso = this.map.getTileImage(
 					perso.getFuturX() / this.map.getTileWidth(), 
@@ -157,6 +163,12 @@ public class MapGameState extends BasicGameState {
 			break;
 		case Input.KEY_ENTER:
 			perso.putSuperBomb();
+			break;
+		case Input.KEY_A:
+			if(difficult > 0.1) difficult -= 0.1;
+			break;
+		case Input.KEY_D:
+			difficult += 0.1;
 			break;
 		}
 
