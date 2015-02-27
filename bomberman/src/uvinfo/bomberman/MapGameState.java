@@ -15,11 +15,11 @@ public class MapGameState extends BasicGameState {
 	public static final int ID = 2;
 	// déclaration des autres objets
 	private GameContainer container;
-	private TiledMap map;
+
 	private Musique son;
 	private Avatar perso;
 	private Monstre monstre;
-
+	private Map map;
 	
 	float difficult = 1;
 	
@@ -35,8 +35,7 @@ public class MapGameState extends BasicGameState {
 		// initialisation des objets
 		this.game = game;
 		this.container = container;
-		this.map = new TiledMap("res/terrain2.tmx");
-
+		map.init();
 		perso = new Avatar();
 		perso.initAnimation();
 		monstre = new Monstre();
@@ -51,8 +50,9 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		// affichage
-		this.map.render(0, 0);
+		// affichage de la map fond et l'avant
+		map.renderBackground();
+		map.renderForeground();
 		// faire une méthode render dans avatar et monstre
 	
 		
@@ -80,7 +80,10 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void update(GameContainer container, StateBasedGame game, int delta)
 		throws SlickException {
-
+	     // gestion des collisions
+		map.isCollision(perso.getFuturX(), perso.getFuturY());
+		map.isCollision(perso.getFuturX(), perso.getFuturY());
+	/* Ancien Code à voir	
 		container.setTargetFrameRate((int) (200*difficult));
 
 		Image tilePerso = this.map.getTileImage(
@@ -105,7 +108,6 @@ public class MapGameState extends BasicGameState {
 				this.map.getLayerIndex("Logic"));			
 
 		boolean collisionmonstre = tilemonstre != null;
-
 		if (!collisionmonstre) 
 		{
 			monstre.SetMoving(true);
@@ -115,7 +117,7 @@ public class MapGameState extends BasicGameState {
 		{
 			monstre.SetMoving(true);
 			monstre.OpposeDirection();
-		}			
+		}			*/
 
 		perso.getBomb().hurt(monstre);
 		perso.getSuperBomb().hurt(monstre);
