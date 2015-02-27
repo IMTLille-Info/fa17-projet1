@@ -17,26 +17,6 @@ public class Monstre extends Personnage {
 		posY(100);
 		SetDirection(2);
 	}	
-	
-	
-	/*@Override
-	public void moveUp() {
-		this.posY(posY()+delta);
-	}
-	
-	
-	public void moveDown() {
-		this.posY(posY()-delta);
-	}
-	
-	public void moveRight() {
-		this.posX(posX()+delta);
-	}
-
-	public void moveLeft() {
-		this.posX(posX()-delta);
-	}
-	 */
 
 	public void Move(Avatar victime)
 	{				
@@ -45,17 +25,17 @@ public class Monstre extends Personnage {
 		if(Math.abs(this.posX()-victime.posX()) > LargeurHauteurCollision || Math.abs(this.posY()-victime.posY()) > LargeurHauteurCollision)
 		{			
 			
-			long tempsFin = System.currentTimeMillis();
+			long tempsFin = System.currentTimeMillis();//temps actuel
 			
-			float duree = (tempsFin - tempsDebut) / 1000F;
+			float duree = (tempsFin - tempsDebut) / 1000F;//calcul de la durée en seconde
 			
-			if(duree > RandTime())
+			if(duree > RandTime())//si la durée du temps aleatoire est depassée
 			{
 				
 			Random rand = new Random();
 			int random = rand.nextInt((4 - 0) + 1) + 0;// de 0 à 3
 			
-			SetDirection(random);			
+			SetDirection(random);//on change de direction aléatoirement
 			
 			}
 			
@@ -66,14 +46,14 @@ public class Monstre extends Personnage {
 	private float RandTime()
 	{
 		Random randT = new Random();
-		float rand = (randT.nextInt((31 - 0) + 1) + 0);
-		rand /= 10;
+		float rand = (randT.nextInt((31 - 0) + 1) + 0);//rand de 0 a 31 exclus
+		rand /= 10;//divion par 10 pour obtenir un float de maximum 3
 		return rand;// de 0 à 3 avec un pas de 0.1
 	}
 	
 	public void Avance(int direction)
 	{
-		tempsDebut = System.currentTimeMillis();
+		tempsDebut = System.currentTimeMillis();//commence à compter le temps au moment du deplacement
 		
 		this.SetMoving(true);
 		
