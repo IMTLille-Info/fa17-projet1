@@ -20,6 +20,7 @@ public class MapGameState extends BasicGameState {
 	private Avatar perso;
 	private Monstre monstre;
 	
+	
 	private StateBasedGame game;
 
 	@Override
@@ -38,7 +39,7 @@ public class MapGameState extends BasicGameState {
 		monstre = new Monstre();
 		son = new Musique();
 		son.FondSonore();
-		
+
 	}
 
 	@Override
@@ -53,20 +54,20 @@ public class MapGameState extends BasicGameState {
 		g.drawAnimation(
 				perso.GetAnimation(perso.GetDirection()
 						+ (perso.isMoving() ? 4 : 0)), perso.posX() - 32,
-				perso.posY() - 60);
+						perso.posY() - 60);
 
 		g.drawAnimation(
 				monstre.GetAnimation(monstre.GetDirection()
 						+ (monstre.isMoving() ? 4 : 0)), monstre.posX() - 32,
-				monstre.posY() - 60);
+						monstre.posY() - 60);
 
 		g.setColor(Color.red);
 		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des
-															// points de vie
-		   
+		// points de vie
+
 		perso.getBomb().render();
 		perso.getSuperBomb().render();
-		
+
 	}
 
 	@Override
@@ -78,39 +79,40 @@ public class MapGameState extends BasicGameState {
 			throws SlickException {
 
 
-		Image tilePerso = this.map.getTileImage(
-				perso.getFuturX() / this.map.getTileWidth(), 
-				perso.getFuturY()/ this.map.getTileHeight(), 
-				this.map.getLayerIndex("Logic"));			
-		
-		boolean collisionPerso = tilePerso != null;
-		
-		if (!collisionPerso) 
-		{
-			if (perso.isMoving()) 
+			Image tilePerso = this.map.getTileImage(
+					perso.getFuturX() / this.map.getTileWidth(), 
+					perso.getFuturY()/ this.map.getTileHeight(), 
+					this.map.getLayerIndex("Logic"));			
+
+			boolean collisionPerso = tilePerso != null;
+
+			if (!collisionPerso) 
 			{
-	            perso.posX(perso.getFuturX());
-	            perso.posY(perso.getFuturY());
-			}
-		}		
-				
-		MoveMonster();
+				if (perso.isMoving()) 
+				{
+					perso.posX(perso.getFuturX());
+					perso.posY(perso.getFuturY());
+				}
+			}	
+			
 		
+		MoveMonster();
+
 		perso.getBomb().hurt(monstre);
 
 	}
 
-	
+
 	public void MoveMonster()
 	{
-		
+
 		Image tilemonstre = this.map.getTileImage(
 				monstre.getFuturX() / this.map.getTileWidth(), 
 				monstre.getFuturY()/ this.map.getTileHeight(), 
 				this.map.getLayerIndex("Logic"));			
-		
+
 		boolean collisionmonstre = tilemonstre != null;
-		
+
 		if (!collisionmonstre) 
 		{
 			if (monstre.isMoving())
@@ -118,8 +120,8 @@ public class MapGameState extends BasicGameState {
 				monstre.posX(monstre.getFuturX());
 				monstre.posY(monstre.getFuturY());
 			}
-		}	
-		
+		}
+
 		monstre.Move(perso);
 	}
 
