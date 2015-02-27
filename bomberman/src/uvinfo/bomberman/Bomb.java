@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Bomb { // degager getter et setter qui ne servent à rien
+public class Bomb { 
 	
 	Musique SonBombe = new Musique();
 	
