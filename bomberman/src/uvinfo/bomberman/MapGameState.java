@@ -60,7 +60,10 @@ public class MapGameState extends BasicGameState {
 		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des points de vie
 		
 		g.setColor(Color.yellow);
-		g.drawString("Difficulté : " + difficult, 150, 20);// affichage des points de vie
+		g.drawString("Difficulté : " + difficult, 150, 20);// affichage vitesse
+		
+		g.setColor(Color.white);
+		g.drawString("Life monstre : " + monstre.getLife(), 300, 20);
 
 		
 		perso.render();

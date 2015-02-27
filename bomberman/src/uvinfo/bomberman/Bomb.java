@@ -218,9 +218,7 @@ public class Bomb {
 		this.champExplosion[3][1] = this.posY;
 		//est
 		this.champExplosion[4][0] = this.posX - 70;
-		this.champExplosion[4][1] = this.posY;
-		
-		
+		this.champExplosion[4][1] = this.posY; 
 	}
 	
 	// attaquer l'adversaire
@@ -232,7 +230,6 @@ public class Bomb {
 				if(vectorBomb.distance(vectorMonstre) <= this.distanceExplode){
 					perso.Hurted(this.puissance);
 					this.hasHurted = true;
-					System.out.println(perso.getLife());
 					break;
 				}
 			}
