@@ -14,7 +14,7 @@ public class Monstre extends Personnage {
 	
 	public Monstre() throws SlickException {
 
-		CreateAnimation("sprites/monstre.png",96,48);
+		CreateAnimation("sprites/monstre.png",96,48,3);
 		
 		posX(100);
 		posY(100);

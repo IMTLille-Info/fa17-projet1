@@ -9,7 +9,7 @@ public class Avatar extends Personnage {
 	private Bomb bomb = new Bomb(); // bombe "normale", utilisation infinie
 	
 	private SuperBomb superBomb = new SuperBomb();
-	private int nbSuperBomb = 10; 
+	private int nbSuperBomb = 10;
 	
 	
 	
@@ -31,7 +31,7 @@ public class Avatar extends Personnage {
 	
 	
 	public void initAnimation() throws SlickException{
-		CreateAnimation("sprites/drag.png", 96, 96);
+		CreateAnimation("sprites/drag.png", 96, 96,4);
 		this.getBomb().loadAnimationPose(); 
 		this.getBomb().loadAnimationExplode();
 		this.getSuperBomb().loadAnimationPose();
