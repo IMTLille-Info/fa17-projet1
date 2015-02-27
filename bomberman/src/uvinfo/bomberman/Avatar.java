@@ -9,7 +9,7 @@ public class Avatar extends Personnage {
 	private Bomb bomb = new Bomb(); // bombe "normale", utilisation infinie
 	
 	private SuperBomb superBomb = new SuperBomb();
-	private int nbSuperBomb = 3; 
+	private int nbSuperBomb = 10; 
 	
 	
 	

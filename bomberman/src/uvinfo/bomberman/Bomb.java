@@ -22,14 +22,25 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	private int timePose = 2300;
 	private int timeExplode = 700;
 	
-	private int[][] champExplosion = new int[5][2];
-	private int distanceExplode = 100;
+	private int nbExplode = 5;
+	protected int[][] champExplosion; 
+	private int distanceExplode = 70;
+	
+	private boolean hasHurted = false;
 	
 	/******* constructeurs *********/
 	public Bomb(){
 	}
 	
 	/******** getter, setter ********/
+	public int getPuissance() {
+		return puissance;
+	}
+
+	public void setPuissance(int puissance) {
+		this.puissance = puissance;
+	}
+
 	public int getPosX() {
 		return posX;
 	}
@@ -68,6 +79,14 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	
 	public int getTimeExplode(){
 		return this.timeExplode;
+	}
+	
+	public int getNbExplode(){
+		return this.nbExplode;
+	}
+	
+	public void setNbExplode(int nb){
+		this.nbExplode = nb;
 	}
 	
 	/******** methodes *******/
@@ -142,6 +161,7 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.setCoordonnees(x, y);
 		this.setPosed(true);
 		this.setTimeBegin(System.currentTimeMillis());
+		this.setChampExplosion();
 	}
 	
 	// passe de l'état posé à l'état explosion
@@ -158,6 +178,7 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		if(System.currentTimeMillis() - this.timeBegin >= this.timeExplode + this.timePose ){
 			this.exploding = false;
 			this.animExplode.restart();
+			this.hasHurted = false;
 		}
 	}
 	
@@ -180,12 +201,41 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 		this.animExplode = new Animation();
 	}
 	
+	// rempli champExplosion avec les coordonées adjacentes
+	public void setChampExplosion(){
+		this.champExplosion = new int[nbExplode][2];
+		// centre
+		this.champExplosion[0][0] = this.posX;
+		this.champExplosion[0][1] = this.posY;
+		// sud
+		this.champExplosion[1][0] = this.posX;
+		this.champExplosion[1][1] = this.posY + 70;
+		// nord
+		this.champExplosion[2][0] = this.posX;
+		this.champExplosion[2][1] = this.posY - 70;
+		// ouest
+		this.champExplosion[3][0] = this.posX + 70;
+		this.champExplosion[3][1] = this.posY;
+		//est
+		this.champExplosion[4][0] = this.posX - 70;
+		this.champExplosion[4][1] = this.posY;
+		
+		
+	}
+	
 	// attaquer l'adversaire
-	public void hurt(Monstre monstre){
-		if(this.isExploding()){
-			Vector2f vectorBomb = new Vector2f(this.posX, this.posY);
-			Vector2f vectorMonstre = new Vector2f(monstre.posX(), monstre.posY());
-			System.out.println(vectorBomb.distance(vectorMonstre));
+	public void hurt(Personnage perso){
+		if(this.isExploding() && !this.hasHurted){
+			for(int i=0 ; i<this.nbExplode ; i++){
+				Vector2f vectorBomb = new Vector2f(this.champExplosion[i][0], this.champExplosion[i][1]);
+				Vector2f vectorMonstre = new Vector2f(perso.posX(), perso.posY());
+				if(vectorBomb.distance(vectorMonstre) <= this.distanceExplode){
+					perso.Hurted(this.puissance);
+					this.hasHurted = true;
+					System.out.println(perso.getLife());
+					break;
+				}
+			}
 		}
 	}
 }

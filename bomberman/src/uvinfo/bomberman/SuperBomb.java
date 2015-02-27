@@ -1,18 +1,15 @@
 package uvinfo.bomberman;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class SuperBomb extends Bomb {
 	
-	/******** attributs *******/
-	private int puissance = 4;
-	
 	/******* constructeur ********/
 	public SuperBomb(){
-			
+		this.setPuissance(4);
+		this.setNbExplode(9);
 	}
 	
 	/*********** méthodes ***********/
@@ -54,7 +51,6 @@ public class SuperBomb extends Bomb {
 	public void animExplode() throws SlickException{
 		if(this.isExploding()){
 			
-
 			SonBombe.ExplosionSuperBombe();
 			this.animExplode.draw(this.getPosX(), this.getPosY());
 			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
@@ -66,6 +62,36 @@ public class SuperBomb extends Bomb {
 			this.animExplode.draw(this.getPosX()+70, this.getPosY());
 			this.animExplode.draw(this.getPosX()+140, this.getPosY());
 		}
+	}
+	
+	@Override
+	// rempli champExplosion avec les coordonées adjacentes
+	public void setChampExplosion(){
+		this.champExplosion = new int[this.getNbExplode()][2];
+		// centre
+		this.champExplosion[0][0] = this.getPosX();
+		this.champExplosion[0][1] = this.getPosY();
+		// sud
+		this.champExplosion[1][0] = this.getPosX();
+		this.champExplosion[1][1] = this.getPosY() + 70;
+		this.champExplosion[2][0] = this.getPosX();
+		this.champExplosion[2][1] = this.getPosY() + 140;
+		// nord
+		this.champExplosion[3][0] = this.getPosX();
+		this.champExplosion[3][1] = this.getPosY() - 70;
+		this.champExplosion[4][0] = this.getPosX();
+		this.champExplosion[4][1] = this.getPosY() - 140;
+		// ouest
+		this.champExplosion[5][0] = this.getPosX() + 70;
+		this.champExplosion[5][1] = this.getPosY();
+		this.champExplosion[6][0] = this.getPosX() + 140;
+		this.champExplosion[6][1] = this.getPosY();
+		//est
+		this.champExplosion[7][0] = this.getPosX() - 70;
+		this.champExplosion[7][1] = this.getPosY();
+		this.champExplosion[8][0] = this.getPosX() - 140;
+		this.champExplosion[8][1] = this.getPosY();
+		
 	}
 	
 	

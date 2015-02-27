@@ -115,6 +115,7 @@ public class MapGameState extends BasicGameState {
 			}			
 
 		perso.getBomb().hurt(monstre);
+		perso.getSuperBomb().hurt(monstre);
 	
 		if(!perso.IsAlive())
 			{
