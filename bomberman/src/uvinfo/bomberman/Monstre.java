@@ -9,6 +9,9 @@ public class Monstre extends Personnage {
 
 	long tempsDebut = System.currentTimeMillis();
 	
+	float difficult = 1;
+	
+	
 	public Monstre() throws SlickException {
 
 		CreateAnimation("sprites/monstre.png",96,48);
@@ -66,8 +69,11 @@ public class Monstre extends Personnage {
 	
 	private float RandTime()
 	{
+		int minRand = 0;
+		int maxRand = 50;
+		
 		Random randT = new Random();
-		float rand = (randT.nextInt((51 - 0) + 1) + 0);//rand de 0 a 51 exclus
+		float rand = randT.nextInt((maxRand - minRand) + 1) + minRand;;//rand de 0 a 51 exclus
 		rand /= 10;//divion par 10 pour obtenir un float de maximum 3
 		return rand;// de 0 à 3 avec un pas de 0.1
 	}
