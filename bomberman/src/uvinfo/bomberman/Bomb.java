@@ -24,7 +24,7 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	
 	private int nbExplode = 5;
 	protected int[][] champExplosion; 
-	private int distanceExplode = 70;
+	private int distanceExplode = 50;
 	
 	private boolean hasHurted = false;
 	

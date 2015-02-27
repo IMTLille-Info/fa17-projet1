@@ -76,52 +76,58 @@ public class MapGameState extends BasicGameState {
 	 * logique du jeux est renfermé.
 	 */
 	public void update(GameContainer container, StateBasedGame game, int delta)
-			throws SlickException {
+		throws SlickException {
 
-			container.setTargetFrameRate((int) (200*difficult));
+		container.setTargetFrameRate((int) (200*difficult));
 
-			Image tilePerso = this.map.getTileImage(
-					perso.getFuturX() / this.map.getTileWidth(), 
-					perso.getFuturY()/ this.map.getTileHeight(), 
-					this.map.getLayerIndex("Logic"));			
+		Image tilePerso = this.map.getTileImage(
+				perso.getFuturX() / this.map.getTileWidth(), 
+				perso.getFuturY()/ this.map.getTileHeight(), 
+				this.map.getLayerIndex("Logic"));			
 
-			boolean collisionPerso = tilePerso != null;
+		boolean collisionPerso = tilePerso != null;
 
-			if (!collisionPerso) 
+		if (!collisionPerso) 
+		{
+			if (perso.isMoving()) 
 			{
-				if (perso.isMoving()) 
-				{
-					perso.posX(perso.getFuturX());
-					perso.posY(perso.getFuturY());
-				}
-			}	
-
-			Image tilemonstre = this.map.getTileImage(
-					monstre.getFuturX() / this.map.getTileWidth(), 
-					monstre.getFuturY()/ this.map.getTileHeight(), 
-					this.map.getLayerIndex("Logic"));			
-
-			boolean collisionmonstre = tilemonstre != null;
-
-			if (!collisionmonstre) 
-			{
-				monstre.SetMoving(true);
-				monstre.Move(perso);
+				perso.posX(perso.getFuturX());
+				perso.posY(perso.getFuturY());
 			}
-			else 
-			{
-				monstre.SetMoving(true);
-				monstre.OpposeDirection();
-			}			
+		}	
+
+		Image tilemonstre = this.map.getTileImage(
+				monstre.getFuturX() / this.map.getTileWidth(), 
+				monstre.getFuturY()/ this.map.getTileHeight(), 
+				this.map.getLayerIndex("Logic"));			
+
+		boolean collisionmonstre = tilemonstre != null;
+
+		if (!collisionmonstre) 
+		{
+			monstre.SetMoving(true);
+			monstre.Move(perso);
+		}
+		else 
+		{
+			monstre.SetMoving(true);
+			monstre.OpposeDirection();
+		}			
 
 		perso.getBomb().hurt(monstre);
 		perso.getSuperBomb().hurt(monstre);
 	
 		if(!perso.IsAlive())
-			{
-				javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
-				container.exit();
-			}
+		{
+			javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
+			container.exit();
+		}
+		
+		if(!monstre.IsAlive())
+		{
+			javax.swing.JOptionPane.showMessageDialog(null,"You Win"); 
+			container.exit();
+		}
 	}
 
 	@Override
