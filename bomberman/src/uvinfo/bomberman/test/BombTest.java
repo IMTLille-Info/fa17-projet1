@@ -9,6 +9,7 @@ import org.newdawn.slick.Image;
 import uvinfo.bomberman.Avatar;
 import uvinfo.bomberman.Bomb;
 import uvinfo.bomberman.Monstre;
+import uvinfo.bomberman.Personnage;
 
 public class BombTest {
 
@@ -76,27 +77,43 @@ public class BombTest {
 	
 	@Test
 	public void testHurt() throws InterruptedException, SlickException{
-		// monstre a coté de la bombe
+		// avatar a coté de la bombe
 		Bomb bomb = new Bomb();
-		bomb.pose(102, 102);
-		Avatar av = new Avatar();
+		bomb.pose(335, 305);
+		Personnage perso = new Avatar();
 		Thread.sleep(bomb.getTimePose());
 		bomb.explode();
-	
-		bomb.hurt(av);
+		bomb.hurt(perso);
 		
-		// points de vie monstre baissée de 2
-		assertEquals(8, av.getLife());
+		assertEquals(8, perso.getLife()); // points de vie avatar baissée de 2
 		
-		// monstre trop éloigné de la bombe ou hors de l'axe de l'explosion
-		bomb.setCoordonnees(500, 500);
-		Avatar av2 = new Avatar();
+		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
+		Personnage perso2 = new Avatar();
 		bomb.pose(102, 102);
 		Thread.sleep(bomb.getTimePose());
-		bomb.hurt(av2);
+		bomb.hurt(perso2);
+		
+		// points de vie du avatar intacts
+		assertEquals(10, perso2.getLife());
+		
+		// monstre a coté de la bombe
+		Bomb bomb2 = new Bomb();
+		bomb2.pose(335, 305);
+		Personnage monstre = new Monstre();
+		Thread.sleep(bomb2.getTimePose());
+		bomb2.explode();
+		bomb2.hurt(monstre);
+		
+		assertEquals(8, monstre.getLife()); // points de vie monstre baissée de 2
+		
+		// monstre trop éloigné de la bombe ou hors de l'axe de l'explosion
+		Personnage monstre2 = new Monstre();
+		bomb2.pose(102, 102);
+		Thread.sleep(bomb2.getTimePose());
+		bomb2.hurt(monstre2);
 		
 		// points de vie du monstre intacts
-		assertEquals(10, av2.getLife());
+		assertEquals(10, monstre2.getLife());
 	}
 	
 	
