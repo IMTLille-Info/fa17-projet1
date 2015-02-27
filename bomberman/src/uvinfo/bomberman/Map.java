@@ -6,6 +6,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+
 public class Map {
 	
 	/******* Constructeur ******/
@@ -38,7 +40,7 @@ public class Map {
 	}
 	
 	/******* Gestion des collisions ******/
-	public boolean isCollision(float x, float y) {
+	public boolean isCollision(float x, float y, Personnage perso) {
 		int tileW = this.tiledMap.getTileWidth();
 		int tileH = this.tiledMap.getTileHeight();
 		int logicLayer = this.tiledMap.getLayerIndex("Logic");
@@ -47,6 +49,17 @@ public class Map {
 		if (collision) {
 			Color color = tile.getColor((int) x % tileW, (int) y % tileH);
 			collision = color.getAlpha() > 0;
+		}else{
+			if(perso instanceof Avatar){
+				if (perso.isMoving()) 
+				{
+					perso.posX(perso.getFuturX());
+					perso.posY(perso.getFuturY());
+				}
+			}else if(perso instanceof Monstre){
+				perso.SetMoving(true);
+				//perso.Move(perso);
+			}
 		}
 		return collision;
 	}
