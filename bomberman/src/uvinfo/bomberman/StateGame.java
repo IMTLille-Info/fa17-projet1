@@ -10,7 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class StateGame extends StateBasedGame {
 
 	public static void main(String[] args) throws SlickException {
-		AppGameContainer container = new AppGameContainer(new StateGame(), 800, 600, false);
+		AppGameContainer container = new AppGameContainer(new StateGame(), 704, 576, false);
 		container.setShowFPS(false);//on affiche pas les FPS
 		container.setTargetFrameRate(200);//on fixe le taux de rafraichissement a 200 pour ralentir le deplacement
 		container.start();
