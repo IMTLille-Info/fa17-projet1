@@ -29,7 +29,7 @@ public class MainScreenGameState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		background.draw(0, 0, container.getWidth(), container.getHeight());
-		g.drawString("Appuyer sur espace", 300, 300);
+		g.drawString("Appuyer sur espace", 280, 300);
 	}
 
 	/**
