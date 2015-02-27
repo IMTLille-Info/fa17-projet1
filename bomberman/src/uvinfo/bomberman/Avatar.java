@@ -28,8 +28,7 @@ public class Avatar extends Personnage {
 	/***************  methodes  
 	 * @throws SlickException ***************/
 	
-	
-	
+
 	public void initAnimation() throws SlickException{
 		CreateAnimation("sprites/drag.png", 96, 96,4);
 		this.getBomb().loadAnimationPose(); 

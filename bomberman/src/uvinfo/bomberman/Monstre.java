@@ -13,14 +13,17 @@ public class Monstre extends Personnage {
 	
 	
 	public Monstre() throws SlickException {
-
-		CreateAnimation("sprites/monstre.png",96,48,3);
 		
+	}	
+
+
+	public void initAnimation() throws SlickException{
+		CreateAnimation("sprites/monstre.png",96,48,3);		
 		posX(100);
 		posY(100);
 		SetDirection(2);
-	}	
-
+	}
+	
 	public void Move(Avatar victime)
 	{				
 		int LargeurHauteurCollision = 50;

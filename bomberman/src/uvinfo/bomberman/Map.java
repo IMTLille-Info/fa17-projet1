@@ -11,23 +11,31 @@ public class Map {
 	/******* Constructeur ******/
 	public Map(){
 	}
+	
 	/******* attributs ******/
+	
 	private TiledMap tiledMap;
+	
+	
 	/******* initialisation de la Map ******/
 	public void init() throws SlickException {
 		this.tiledMap = new TiledMap("res/terrain2.tmx");
 	}
+	
+	
 	/******* Affichage  fond de Map ******/
 	public void renderBackground() {
 		this.tiledMap.render(0, 0, 0);
 		this.tiledMap.render(0, 0, 1);
 		this.tiledMap.render(0, 0, 2);
 	}
+	
 	/******* Affichage avant de map ******/
 	public void renderForeground() {
 		this.tiledMap.render(0, 0, 3);
 		this.tiledMap.render(0, 0, 4);
 	}
+	
 	/******* Gestion des collisions ******/
 	public boolean isCollision(float x, float y) {
 		int tileW = this.tiledMap.getTileWidth();

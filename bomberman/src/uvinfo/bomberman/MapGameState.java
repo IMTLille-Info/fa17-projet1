@@ -3,13 +3,10 @@ package uvinfo.bomberman;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.tiled.TiledMap;
 
 public class MapGameState extends BasicGameState {
 	public static final int ID = 2;
@@ -35,10 +32,15 @@ public class MapGameState extends BasicGameState {
 		// initialisation des objets
 		this.game = game;
 		this.container = container;
+		
 		map.init();
+		
 		perso = new Avatar();
 		perso.initAnimation();
+		
 		monstre = new Monstre();
+		monstre.initAnimation();
+		
 		son = new Musique();
 		son.FondSonore();
 
@@ -60,21 +62,15 @@ public class MapGameState extends BasicGameState {
 		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des points de vie
 		
 		g.setColor(Color.yellow);
-<<<<<<< HEAD
-		g.drawString("Difficulté : " + difficult, 150, 20);// affichage des points de vie
-		
-		g.setColor(Color.green);
-		g.drawString("Vie monstre : " + monstre.getLife(), 400, 20);// affichage des points de vie
-=======
+
 		g.drawString("Difficulté : " + difficult, 150, 20);// affichage vitesse
 		
 		g.setColor(Color.white);
 		g.drawString("Life monstre : " + monstre.getLife(), 300, 20);
-
->>>>>>> branch 'master' of https://github.com/TL1-fa17/projet1.git
 		
 		perso.render();
 		monstre.render();
+		
 		perso.getBomb().render();
 		perso.getSuperBomb().render();
 
