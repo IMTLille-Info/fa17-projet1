@@ -83,9 +83,10 @@ public class MapGameState extends BasicGameState {
 	     // gestion des collisions
 		map.isCollision(perso.getFuturX(), perso.getFuturY());
 		map.isCollision(monstre.getFuturX(), monstre.getFuturY());
-	/* Ancien Code à voir	
 		container.setTargetFrameRate((int) (200*difficult));
-
+	/* Ancien Code à voir	
+		
+ 
 		Image tilePerso = this.map.getTileImage(
 				perso.getFuturX() / this.map.getTileWidth(), 
 				perso.getFuturY()/ this.map.getTileHeight(), 
