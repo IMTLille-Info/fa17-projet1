@@ -82,7 +82,7 @@ public class MapGameState extends BasicGameState {
 		throws SlickException {
 	     // gestion des collisions
 		map.isCollision(perso.getFuturX(), perso.getFuturY());
-		map.isCollision(perso.getFuturX(), perso.getFuturY());
+		map.isCollision(monstre.getFuturX(), monstre.getFuturY());
 	/* Ancien Code à voir	
 		container.setTargetFrameRate((int) (200*difficult));
 
