@@ -22,7 +22,8 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 	private int timePose = 2300;
 	private int timeExplode = 700;
 	
-	private int[][] champExplosion = new int[10][2];
+	private int[][] champExplosion = new int[5][2];
+	private int distanceExplode = 100;
 	
 	/******* constructeurs *********/
 	public Bomb(){
@@ -115,10 +116,10 @@ public class Bomb { // degager getter et setter qui ne servent à rien
 
 			SonBombe.ExplosionBombe();
 			this.animExplode.draw(this.posX, this.posY);
-			this.animExplode.draw(this.getPosX(), this.getPosY()-100);
-			this.animExplode.draw(this.getPosX(), this.getPosY()+100);
-			this.animExplode.draw(this.getPosX()-100, this.getPosY());
-			this.animExplode.draw(this.getPosX()+100, this.getPosY());
+			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
+			this.animExplode.draw(this.getPosX(), this.getPosY()+70);
+			this.animExplode.draw(this.getPosX()-70, this.getPosY());
+			this.animExplode.draw(this.getPosX()+70, this.getPosY());
 			
 		}
 	}
