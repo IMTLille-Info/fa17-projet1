@@ -42,7 +42,6 @@ public abstract class Personnage {
 		    }
 		    return animation;
 		}
-	    
 	 
 	    /************** getter, setter ***************/
 		public int posX() {
@@ -135,6 +134,12 @@ public abstract class Personnage {
 		public void Hurted(int degats)
 		{
 			this.PointDeVie -= degats;
+		}
+		
+		public boolean IsAlive()
+		{
+			if(PointDeVie>0)return true;
+			else return false;
 		}
 	
 }
