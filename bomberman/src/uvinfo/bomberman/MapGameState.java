@@ -15,11 +15,11 @@ public class MapGameState extends BasicGameState {
 	public static final int ID = 2;
 	// déclaration des autres objets
 	private GameContainer container;
-	private TiledMap map;
+
 	private Musique son;
 	private Avatar perso;
 	private Monstre monstre;
-
+	private Map map;
 	
 	float difficult = 1;
 	
@@ -35,8 +35,7 @@ public class MapGameState extends BasicGameState {
 		// initialisation des objets
 		this.game = game;
 		this.container = container;
-		this.map = new TiledMap("res/terrain2.tmx");
-
+		map.init();
 		perso = new Avatar();
 		perso.initAnimation();
 		monstre = new Monstre();
@@ -51,8 +50,9 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		// affichage
-		this.map.render(0, 0);
+		// affichage de la map fond et l'avant
+		map.renderBackground();
+		map.renderForeground();
 		// faire une méthode render dans avatar et monstre
 	
 		
@@ -60,10 +60,18 @@ public class MapGameState extends BasicGameState {
 		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des points de vie
 		
 		g.setColor(Color.yellow);
+<<<<<<< HEAD
 		g.drawString("Difficulté : " + difficult, 150, 20);// affichage des points de vie
 		
 		g.setColor(Color.green);
 		g.drawString("Vie monstre : " + monstre.getLife(), 400, 20);// affichage des points de vie
+=======
+		g.drawString("Difficulté : " + difficult, 150, 20);// affichage vitesse
+		
+		g.setColor(Color.white);
+		g.drawString("Life monstre : " + monstre.getLife(), 300, 20);
+
+>>>>>>> branch 'master' of https://github.com/TL1-fa17/projet1.git
 		
 		perso.render();
 		monstre.render();
@@ -79,9 +87,13 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void update(GameContainer container, StateBasedGame game, int delta)
 		throws SlickException {
-
+	     // gestion des collisions
+		map.isCollision(perso.getFuturX(), perso.getFuturY());
+		map.isCollision(monstre.getFuturX(), monstre.getFuturY());
 		container.setTargetFrameRate((int) (200*difficult));
-
+	/* Ancien Code à voir	
+		
+ 
 		Image tilePerso = this.map.getTileImage(
 				perso.getFuturX() / this.map.getTileWidth(), 
 				perso.getFuturY()/ this.map.getTileHeight(), 
@@ -104,7 +116,6 @@ public class MapGameState extends BasicGameState {
 				this.map.getLayerIndex("Logic"));			
 
 		boolean collisionmonstre = tilemonstre != null;
-
 		if (!collisionmonstre) 
 		{
 			monstre.SetMoving(true);
@@ -114,7 +125,7 @@ public class MapGameState extends BasicGameState {
 		{
 			monstre.SetMoving(true);
 			monstre.OpposeDirection();
-		}			
+		}			*/
 
 		perso.getBomb().hurt(monstre);
 		perso.getSuperBomb().hurt(monstre);
