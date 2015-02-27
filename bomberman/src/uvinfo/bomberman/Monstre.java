@@ -64,6 +64,8 @@ public class Monstre extends Personnage {
 		Random rand = new Random();
 		int random = rand.nextInt((4 - 0) + 1) + 0;// de 0 à 3
 		
+		while(random == GetDirection()) random = rand.nextInt((4 - 0) + 1) + 0;// de 0 à 3
+		
 		SetDirection(random);//on change de direction aléatoirement
 	}
 	
