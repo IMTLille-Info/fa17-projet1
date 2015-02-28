@@ -6,8 +6,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
-
 public class Map {
 	
 	/******* Constructeur ******/
