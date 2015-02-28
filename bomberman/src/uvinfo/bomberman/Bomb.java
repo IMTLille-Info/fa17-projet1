@@ -18,7 +18,7 @@ public class Bomb {
 	private boolean exploding = false;
 	protected Animation animPose = new Animation();
 	protected Animation animExplode = new Animation();
-	private long timeBegin;
+	private long timeDelta;
 	private int timePose = 2300;
 	private int timeExplode = 700;
 	
@@ -53,24 +53,8 @@ public class Bomb {
 		return this.isPosed;
 	}
 	
-	public void setPosed(boolean isPosed) {
-		this.isPosed = isPosed;
-	}
-	
 	public boolean isExploding() {
 		return exploding;
-	}
-	
-	public void setExploding(boolean isExploding) {
-		this.exploding = isExploding;
-	}
-	
-	public long getTimeBegin() {
-		return timeBegin;
-	}
-
-	public void setTimeBegin(long l) {
-		this.timeBegin = l;
 	}
 	
 	public int getTimePose(){
@@ -123,7 +107,6 @@ public class Bomb {
 	
 	public void render() throws SlickException{
 		if(!this.isPosed || !this.exploding){
-			this.etat();
 			this.animPose();
 			this.animExplode();
 		}
@@ -132,7 +115,6 @@ public class Bomb {
 	// explosion de la bombe en cours
 	public void animExplode() throws SlickException{
 		if(this.exploding){
-
 			SonBombe.ExplosionBombe();
 			this.animExplode.draw(this.posX, this.posY);
 			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
@@ -150,23 +132,26 @@ public class Bomb {
 		}
 	}
 	
-	// états de la bombe sur un cycle complet
-	public void etat(){
-		this.explode();
-		this.finishExplode();
+	// prise en compte du delta de update
+	public void update(int delta){
+		if(this.isPosed || this.exploding){
+			this.timeDelta += delta ;
+			this.explode();
+			this.finishExplode();
+		}
 	}
 	
 	// pose d'une bombe
 	public void pose(int x, int y){
 		this.setCoordonnees(x, y);
-		this.setPosed(true);
-		this.setTimeBegin(System.currentTimeMillis());
+		this.isPosed = true;
+		this.timeDelta = 0;
 		this.setChampExplosion();
 	}
 	
 	// passe de l'état posé à l'état explosion
 	public void explode(){
-		if(System.currentTimeMillis() - this.timeBegin >= this.timePose){
+		if(this.timeDelta >= this.timePose){
 			this.exploding = true;
 			this.isPosed = false;
 			this.animPose.restart();
@@ -175,7 +160,7 @@ public class Bomb {
 	
 	// etat explosion finie
 	public void finishExplode(){
-		if(System.currentTimeMillis() - this.timeBegin >= this.timeExplode + this.timePose ){
+		if(this.timeDelta >= this.timeExplode + this.timePose){
 			this.exploding = false;
 			this.animExplode.restart();
 			this.hasHurted = false;

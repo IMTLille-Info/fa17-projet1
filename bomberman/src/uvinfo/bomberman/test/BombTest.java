@@ -36,8 +36,6 @@ public class BombTest {
 		
 		assertFalse(bomb.isExploding());
 		assertTrue(bomb.isPosed());
-		
-		assertEquals(System.currentTimeMillis(), bomb.getTimeBegin());
 	}
 	
 	@Test
@@ -45,7 +43,7 @@ public class BombTest {
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		Thread.sleep(bomb.getTimePose());
+		bomb.update(bomb.getTimePose());
 		bomb.explode();
 		
 		assertFalse(bomb.isPosed());
@@ -57,7 +55,7 @@ public class BombTest {
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		Thread.sleep(bomb.getTimeExplode() + bomb.getTimePose());
+		bomb.update(bomb.getTimeExplode() + bomb.getTimePose());
 		bomb.finishExplode();
 		
 		assertFalse(bomb.isExploding());	
@@ -68,8 +66,7 @@ public class BombTest {
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		Thread.sleep(bomb.getTimeExplode() + bomb.getTimePose());
-		bomb.etat();
+		bomb.update(bomb.getTimeExplode() + bomb.getTimePose());
 		
 		assertFalse(bomb.isPosed());
 		assertFalse(bomb.isExploding());
@@ -81,7 +78,7 @@ public class BombTest {
 		Bomb bomb = new Bomb();
 		bomb.pose(335, 305);
 		Personnage perso = new Avatar();
-		Thread.sleep(bomb.getTimePose());
+		bomb.update(bomb.getTimePose());
 		bomb.explode();
 		bomb.hurt(perso);
 		
@@ -90,7 +87,7 @@ public class BombTest {
 		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
 		Personnage perso2 = new Avatar();
 		bomb.pose(102, 102);
-		Thread.sleep(bomb.getTimePose());
+		bomb.update(bomb.getTimePose());
 		bomb.hurt(perso2);
 		
 		// points de vie du avatar intacts
@@ -100,7 +97,7 @@ public class BombTest {
 		Bomb bomb2 = new Bomb();
 		bomb2.pose(335, 305);
 		Personnage monstre = new Monstre();
-		Thread.sleep(bomb2.getTimePose());
+		bomb2.update(bomb2.getTimePose());
 		bomb2.explode();
 		bomb2.hurt(monstre);
 		
@@ -109,7 +106,7 @@ public class BombTest {
 		// monstre trop éloigné de la bombe ou hors de l'axe de l'explosion
 		Personnage monstre2 = new Monstre();
 		bomb2.pose(102, 102);
-		Thread.sleep(bomb2.getTimePose());
+		bomb2.update(bomb2.getTimePose());
 		bomb2.hurt(monstre2);
 		
 		// points de vie du monstre intacts

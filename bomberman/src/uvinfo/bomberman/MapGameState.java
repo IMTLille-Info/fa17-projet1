@@ -124,6 +124,9 @@ public class MapGameState extends BasicGameState {
 			monstre.OpposeDirection();
 		}			*/
 
+		perso.getBomb().update(delta);
+		perso.getSuperBomb().update(delta);
+		
 		perso.getBomb().hurt(monstre);
 		perso.getSuperBomb().hurt(monstre);
 		perso.getBomb().hurt(perso);
