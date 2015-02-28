@@ -2,7 +2,6 @@ package uvinfo.bomberman;
 
 import java.util.Random;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Monstre extends Personnage {

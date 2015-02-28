@@ -1,6 +1,5 @@
 package uvinfo.bomberman;
 import org.newdawn.slick.Music;
-import org.newdawn.slick.MusicListener;
 import org.newdawn.slick.SlickException;
 
 
