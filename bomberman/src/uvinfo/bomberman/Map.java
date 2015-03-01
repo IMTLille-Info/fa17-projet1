@@ -4,7 +4,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
 public class Map {
 	
@@ -26,30 +25,42 @@ public class Map {
 	/******* Affichage  fond de Map ******/
 	public void renderBackground() {
 		this.tiledMap.render(0, 0, 0);
-		this.tiledMap.render(0, 0, 1);
-		this.tiledMap.render(0, 0, 2);
+		/*this.tiledMap.render(0, 0, 1);
+		this.tiledMap.render(0, 0, 2);*/
 	}
 	
 	/******* Affichage avant de map ******/
 	public void renderForeground() {
-		this.tiledMap.render(0, 0, 3);
-		this.tiledMap.render(0, 0, 4);
+		/*this.tiledMap.render(0, 0, 3);
+		this.tiledMap.render(0, 0, 4);*/
+		this.tiledMap.render(0, 0, 1);
 	}
 	
 	/******* Gestion des collisions ******/
-	public boolean isCollision(float x, float y) {
+	public boolean isCollision(float x, float y, Personnage perso) {
 		int tileW = this.tiledMap.getTileWidth();
 		int tileH = this.tiledMap.getTileHeight();
-		int logicLayer = this.tiledMap.getLayerIndex("logic");
-		Image tile = this.tiledMap.getTileImage((int) x / tileW, (int) y
-				/ tileH, logicLayer);
+		int logicLayer = this.tiledMap.getLayerIndex("Logic");
+		Image tile = this.tiledMap.getTileImage((int) x / tileW, (int) y / tileH, logicLayer);
 		boolean collision = tile != null;
 		if (collision) {
 			Color color = tile.getColor((int) x % tileW, (int) y % tileH);
 			collision = color.getAlpha() > 0;
+		}else{
+			if(perso instanceof Avatar){
+				if (perso.isMoving()) 
+				{
+					perso.posX(perso.getFuturX());
+					perso.posY(perso.getFuturY());
+				}
+			}else if(perso instanceof Monstre){
+				perso.SetMoving(true);
+				//perso.Move(perso);
+			}
 		}
 		return collision;
 	}
+	
 	/******* Utilisation des Trigger (téléporteur map) ******/
 	public int getObjectCount() {
 		return this.tiledMap.getObjectCount(0);

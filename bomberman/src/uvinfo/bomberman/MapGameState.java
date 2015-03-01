@@ -32,6 +32,7 @@ public class MapGameState extends BasicGameState {
 		this.game = game;
 		this.container = container;
 		
+		map = new Map();
 		map.init();
 		
 		perso = new Avatar();
@@ -83,8 +84,8 @@ public class MapGameState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta)
 		throws SlickException {
 	     // gestion des collisions
-		map.isCollision(perso.getFuturX(), perso.getFuturY());
-		map.isCollision(monstre.getFuturX(), monstre.getFuturY());
+		map.isCollision(perso.getFuturX(), perso.getFuturY(), perso);
+		map.isCollision(monstre.getFuturX(), monstre.getFuturY(), monstre);
 		container.setTargetFrameRate((int) (200*difficult));
 	/* Ancien Code à voir	
 		
@@ -122,17 +123,24 @@ public class MapGameState extends BasicGameState {
 			monstre.OpposeDirection();
 		}			*/
 
+		// gère la pose et l'explosion de la bombe
+		perso.getBomb().update(delta);
+		perso.getSuperBomb().update(delta);
+		
+		// gère l'attaque de la bombe
 		perso.getBomb().hurt(monstre);
 		perso.getSuperBomb().hurt(monstre);
 		perso.getBomb().hurt(perso);
 		perso.getSuperBomb().hurt(perso);
 	
+		// perdu si avatar est mort
 		if(!perso.IsAlive())
 		{
 			javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
 			container.exit();
 		}
 		
+		// gagné si monstre est mort
 		if(!monstre.IsAlive())
 		{
 			javax.swing.JOptionPane.showMessageDialog(null,"You Win"); 
