@@ -6,7 +6,7 @@ Un clone de Bomberman avec [Slick2D](http://slick.ninjacave.com).
 
 Developpeurs de ce projet :
 - Anthony Perné
-- Cedric Morin
+- Cédric Morin
 - François Crombecque
 - Vincent Erudel
 
