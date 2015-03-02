@@ -84,46 +84,17 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void update(GameContainer container, StateBasedGame game, int delta)
 		throws SlickException {
+		
 	     // gestion des collisions
 		map.isCollision(perso.getFuturX(), perso.getFuturY(), perso);
-		map.isCollision(monstre.getFuturX(), monstre.getFuturY(), monstre);
-		container.setTargetFrameRate((int) (200*difficult));
-	/* Ancien Code à voir	
 		
- 
-		Image tilePerso = this.map.getTileImage(
-				perso.getFuturX() / this.map.getTileWidth(), 
-				perso.getFuturY()/ this.map.getTileHeight(), 
-				this.map.getLayerIndex("Logic"));			
-
-		boolean collisionPerso = tilePerso != null;
-
-		if (!collisionPerso) 
-		{
-			if (perso.isMoving()) 
+		if(!map.isCollision(monstre.getFuturX(), monstre.getFuturY(), monstre))
 			{
-				perso.posX(perso.getFuturX());
-				perso.posY(perso.getFuturY());
+				monstre.SetMoving(true);monstre.Move(perso);
 			}
-		}	
-
-		Image tilemonstre = this.map.getTileImage(
-				monstre.getFuturX() / this.map.getTileWidth(), 
-				monstre.getFuturY()/ this.map.getTileHeight(), 
-				this.map.getLayerIndex("Logic"));			
-
-		boolean collisionmonstre = tilemonstre != null;
-		if (!collisionmonstre) 
-		{
-			monstre.SetMoving(true);
-			monstre.Move(perso);
-		}
-		else 
-		{
-			monstre.SetMoving(true);
-			monstre.OpposeDirection();
-		}			*/
-
+		
+		container.setTargetFrameRate((int) (200*difficult));
+		
 		// gère la pose et l'explosion de la bombe
 		perso.getBomb().update(delta);
 		perso.getSuperBomb().update(delta);
@@ -191,15 +162,21 @@ public class MapGameState extends BasicGameState {
 			perso.putSuperBomb();
 			break;
 		case Input.KEY_A:
-			if(difficult > 0.1) difficult -= 0.1;
-			break;
-		case Input.KEY_D:
 			difficult += 0.1;
 			break;
+		case Input.KEY_D:
+			if(difficult > 0.1) difficult -= 0.1;
+			break;
+		case Input.KEY_P:
+			if(container.isPaused())
+			{
+				container.resume();
+			} else container.pause();
+			break;
 		}
-
 	}
 
+	
 	@Override
 	public int getID() {
 		return ID;
