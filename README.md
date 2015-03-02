@@ -18,7 +18,7 @@ Ce projet est un clone du célèbre jeu Bomberman.
 
 ###*/ But du jeu */
 
-Le but de ce jeu est de détruire le monstre à l'aide de bombes que possèdent le personnage proncipal.
+Le but de ce jeu est de détruire le monstre à l'aide de bombes que possèdent le personnage principal.
 
 Il faut savoir que le personnage principal peut également être touché par ces propres bombes.
 Il ne doit pas non plus se faire toucher par le monstre, sinon la partie se termine.
