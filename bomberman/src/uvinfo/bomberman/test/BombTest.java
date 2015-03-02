@@ -1,14 +1,16 @@
 package uvinfo.bomberman.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Image;
 
 import uvinfo.bomberman.Avatar;
 import uvinfo.bomberman.Bomb;
 import uvinfo.bomberman.Monstre;
+import uvinfo.bomberman.Personnage;
 
 public class BombTest {
 
@@ -35,8 +37,6 @@ public class BombTest {
 		
 		assertFalse(bomb.isExploding());
 		assertTrue(bomb.isPosed());
-		
-		assertEquals(System.currentTimeMillis(), bomb.getTimeBegin());
 	}
 	
 	@Test
@@ -44,7 +44,7 @@ public class BombTest {
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		Thread.sleep(bomb.getTimePose());
+		bomb.update(bomb.getTimePose());
 		bomb.explode();
 		
 		assertFalse(bomb.isPosed());
@@ -56,7 +56,7 @@ public class BombTest {
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		Thread.sleep(bomb.getTimeExplode() + bomb.getTimePose());
+		bomb.update(bomb.getTimeExplode() + bomb.getTimePose());
 		bomb.finishExplode();
 		
 		assertFalse(bomb.isExploding());	
@@ -67,8 +67,7 @@ public class BombTest {
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		Thread.sleep(bomb.getTimeExplode() + bomb.getTimePose());
-		bomb.etat();
+		bomb.update(bomb.getTimeExplode() + bomb.getTimePose());
 		
 		assertFalse(bomb.isPosed());
 		assertFalse(bomb.isExploding());
@@ -76,48 +75,43 @@ public class BombTest {
 	
 	@Test
 	public void testHurt() throws InterruptedException, SlickException{
-		/********** Test sur Avatar *********/
 		// avatar a coté de la bombe
 		Bomb bomb = new Bomb();
-		bomb.pose(355, 305);
-		Avatar av = new Avatar();
-		Thread.sleep(bomb.getTimePose());
+		bomb.pose(335, 305);
+		Personnage perso = new Avatar();
+		bomb.update(bomb.getTimePose());
 		bomb.explode();
-		bomb.hurt(av);
+		bomb.hurt(perso);
 		
-		assertEquals(8, av.getLife()); // points de vie avatar baissée de 2
+		assertEquals(8, perso.getLife()); // points de vie avatar baissée de 2
 		
 		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
-		bomb.setCoordonnees(500, 500);
-		Avatar av2 = new Avatar();
+		Personnage perso2 = new Avatar();
 		bomb.pose(102, 102);
-		Thread.sleep(bomb.getTimePose());
-		bomb.hurt(av2);
+		bomb.update(bomb.getTimePose());
+		bomb.hurt(perso2);
 		
 		// points de vie du avatar intacts
-		assertEquals(10, av2.getLife());
+		assertEquals(10, perso2.getLife());
 		
-		/************* Test sur Monstre **********/
-		// monstre à coté de la bombe
-		Monstre monstre = new Monstre();
-		Thread.sleep(bomb.getTimePose());
-		bomb.explode();
-		bomb.hurt(monstre);
+		// monstre a coté de la bombe
+		Bomb bomb2 = new Bomb();
+		bomb2.pose(335, 305);
+		Personnage monstre = new Monstre();
+		bomb2.update(bomb2.getTimePose());
+		bomb2.explode();
+		bomb2.hurt(monstre);
 		
-		// points de vie avatar baissée de 2
-		assertEquals(8, monstre.getLife());
+		assertEquals(8, monstre.getLife()); // points de vie monstre baissée de 2
 		
 		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
-		bomb.setCoordonnees(500, 500);
-		Monstre monstre2 = new Monstre();
-		bomb.pose(102, 102);
-		Thread.sleep(bomb.getTimePose());
-		bomb.hurt(monstre2);
+		Personnage monstre2 = new Monstre();
+		bomb2.pose(102, 102);
+		bomb2.update(bomb2.getTimePose());
+		bomb2.hurt(monstre2);
 		
 		// points de vie du avatar intacts
 		assertEquals(10, monstre2.getLife());
-		
-		
 	}
 	
 	
