@@ -76,27 +76,48 @@ public class BombTest {
 	
 	@Test
 	public void testHurt() throws InterruptedException, SlickException{
-		// monstre a coté de la bombe
+		/********** Test sur Avatar *********/
+		// avatar a coté de la bombe
 		Bomb bomb = new Bomb();
-		bomb.pose(102, 102);
+		bomb.pose(355, 305);
 		Avatar av = new Avatar();
 		Thread.sleep(bomb.getTimePose());
 		bomb.explode();
-	
 		bomb.hurt(av);
 		
-		// points de vie monstre baissée de 2
-		assertEquals(8, av.getLife());
+		assertEquals(8, av.getLife()); // points de vie avatar baissée de 2
 		
-		// monstre trop éloigné de la bombe ou hors de l'axe de l'explosion
+		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
 		bomb.setCoordonnees(500, 500);
 		Avatar av2 = new Avatar();
 		bomb.pose(102, 102);
 		Thread.sleep(bomb.getTimePose());
 		bomb.hurt(av2);
 		
-		// points de vie du monstre intacts
+		// points de vie du avatar intacts
 		assertEquals(10, av2.getLife());
+		
+		/************* Test sur Monstre **********/
+		// monstre à coté de la bombe
+		Monstre monstre = new Monstre();
+		Thread.sleep(bomb.getTimePose());
+		bomb.explode();
+		bomb.hurt(monstre);
+		
+		// points de vie avatar baissée de 2
+		assertEquals(8, monstre.getLife());
+		
+		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
+		bomb.setCoordonnees(500, 500);
+		Monstre monstre2 = new Monstre();
+		bomb.pose(102, 102);
+		Thread.sleep(bomb.getTimePose());
+		bomb.hurt(monstre2);
+		
+		// points de vie du avatar intacts
+		assertEquals(10, monstre2.getLife());
+		
+		
 	}
 	
 	
