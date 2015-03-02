@@ -16,7 +16,7 @@ Superviseur:
 
 Ce projet est un clone du célèbre jeu Bomberman.
 
-###*/ But du jeu */
+###/* But du jeu */
 
 Le but de ce jeu est de détruire le monstre à l'aide de bombes que possèdent le personnage principal.
 
