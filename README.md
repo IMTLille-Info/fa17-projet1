@@ -5,10 +5,13 @@ Un clone de Bomberman avec [Slick2D](http://slick.ninjacave.com).
 [![Build Status](https://travis-ci.org/TL1-fa17/projet1.svg?branch=master)](https://travis-ci.org/TL1-fa17/projet1)
 
 Developpeurs de ce projet :
-- Anthony Perné
-- Cédric Morin
-- François Crombecque
-- Vincent Erudel
+- Anthony Perné @tonyop62
+- Cédric Morin @cedricmorin1
+- François Crombecque @fcrombecque
+- Vincent Erudel @Calooe
+
+Superviseur:
+- Damien Pollet @cdlm
 
 
 Ce projet est un clone du célèbre jeu Bomberman.
