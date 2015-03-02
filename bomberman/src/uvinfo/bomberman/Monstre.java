@@ -12,7 +12,6 @@ public class Monstre extends Personnage {
 	
 	
 	public Monstre() throws SlickException {
-		
 	}	
 
 
