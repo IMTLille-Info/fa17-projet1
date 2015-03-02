@@ -6,7 +6,7 @@ Un clone de Bomberman avec [Slick2D](http://slick.ninjacave.com).
 
 Developpeurs de ce projet :
 - Anthony Perné
-- Cerdric Morin
+- Cédric Morin
 - François Crombecque
 - Vincent Erudel
 
@@ -29,7 +29,7 @@ Concernant le monstre, il se déplace aléatoirement (ne suit pas le joueur dans
 
 /* Touches du jeu */
 
-- les fléches directionnelles permettent de déplacer le personnage principal
+- les flèches directionnelles permettent de déplacer le personnage principal
 - la touche "Espace" permet de poser des bombes normales
 - la touche "Entrée" permet de poser des supers-bombes
 - les touches "A" et "D" permettent d'augmenter ou de diminuer la difficulté
