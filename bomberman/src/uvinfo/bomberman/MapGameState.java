@@ -20,7 +20,6 @@ public class MapGameState extends BasicGameState {
 	
 	float difficult = 1;
 	
-	
 	private StateBasedGame game;
 
 	@Override
