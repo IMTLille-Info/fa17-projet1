@@ -104,13 +104,13 @@ public class BombTest {
 		
 		assertEquals(8, monstre.getLife()); // points de vie monstre baissée de 2
 		
-		// monstre trop éloigné de la bombe ou hors de l'axe de l'explosion
+		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
 		Personnage monstre2 = new Monstre();
 		bomb2.pose(102, 102);
 		bomb2.update(bomb2.getTimePose());
 		bomb2.hurt(monstre2);
 		
-		// points de vie du monstre intacts
+		// points de vie du avatar intacts
 		assertEquals(10, monstre2.getLife());
 	}
 	
