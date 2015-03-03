@@ -5,20 +5,20 @@ Un clone de Bomberman avec [Slick2D](http://slick.ninjacave.com).
 [![Build Status](https://travis-ci.org/TL1-fa17/projet1.svg?branch=master)](https://travis-ci.org/TL1-fa17/projet1)
 
 Developpeurs de ce projet :
-- Anthony Perné @tonyop62
-- Cédric Morin @cedricmorin1
-- François Crombecque @fcrombecque
-- Vincent Erudel @Calooe
+- [Anthony Perné](https://github.com/tonyop62)
+- [Cédric Morin](https://github.com/cedricmorin1)
+- [François Crombecque](https://github.com/fcrombecque)
+- [Vincent Erudel](https://github.com/Calooe)
 
 Superviseur:
-- Damien Pollet @cdlm
+- [Damien Pollet](https://github.com/cdlm)
 
 
 Ce projet est un clone du célèbre jeu Bomberman.
 
-*/ But du jeu */
+###/* But du jeu */
 
-Le but de ce jeu est de détruire le monstre à l'aide de bombes que possèdent le personnage proncipal.
+Le but de ce jeu est de détruire le monstre à l'aide de bombes que possèdent le personnage principal.
 
 Il faut savoir que le personnage principal peut également être touché par ces propres bombes.
 Il ne doit pas non plus se faire toucher par le monstre, sinon la partie se termine.
@@ -30,7 +30,7 @@ Le joueur possède 2 types de bombes :
 
 Concernant le monstre, il se déplace aléatoirement (ne suit pas le joueur dans ces déplacements).
 
-/* Touches du jeu */
+###/* Touches du jeu */
 
 - les flèches directionnelles permettent de déplacer le personnage principal
 - la touche "Espace" permet de poser des bombes normales
