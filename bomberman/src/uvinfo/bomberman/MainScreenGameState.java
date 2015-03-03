@@ -38,18 +38,8 @@ public class MainScreenGameState extends BasicGameState {
 		this.background = new Image("res/accueilDragon.png");
 		String Bombe = JOptionPane.showInputDialog("Combien voulez vous de bombe ? ");
 		String nbBombe = JOptionPane.showInputDialog("Combien voulez vous de bombe  a? ");
-		JPanel containera = new JPanel();
-		JCheckBox check1 = new JCheckBox("Case 1");
-		JCheckBox check2 = new JCheckBox("Case 2");
-		JPanel top = new JPanel();
-	   //check1.addActionListener(new StateListener());
-	    //check2.addActionListener(new StateListener());
-	    top.add(check1);
-	    top.add(check2);
-	   
-		String s = (String)JOptionPane.showInputDialog( null, "Entrez quelque chose :", "Dialog", JOptionPane.PLAIN_MESSAGE);
 
-		System.out.println("Vous avez tappé " + s);
+	  
 	}
 
 	/**
