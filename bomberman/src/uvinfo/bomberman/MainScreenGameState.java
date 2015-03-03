@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import javax.swing.*; 
 
 public class MainScreenGameState extends BasicGameState {
 
@@ -19,6 +20,9 @@ public class MainScreenGameState extends BasicGameState {
 			throws SlickException {
 		this.game = game;
 		this.background = new Image("res/accueilDragon.png");
+		String s = (String)JOptionPane.showInputDialog( null, "Entrez quelque chose :", "Dialog", JOptionPane.PLAIN_MESSAGE);
+
+		System.out.println("Vous avez tappé " + s);
 	}
 
 	/**
