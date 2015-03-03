@@ -20,9 +20,6 @@ public class MainScreenGameState extends BasicGameState {
 			throws SlickException {
 		this.game = game;
 		this.background = new Image("res/accueilDragon.png");
-		String s = (String)JOptionPane.showInputDialog( null, "Entrez quelque chose :", "Dialog", JOptionPane.PLAIN_MESSAGE);
-
-		System.out.println("Vous avez tappé " + s);
 	}
 
 	/**
