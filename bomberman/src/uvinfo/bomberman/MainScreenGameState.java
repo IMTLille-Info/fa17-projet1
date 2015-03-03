@@ -1,5 +1,20 @@
 package uvinfo.bomberman;
 
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+
+ 
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -14,11 +29,23 @@ public class MainScreenGameState extends BasicGameState {
 	private Image background;
 	private StateBasedGame game;
 
+
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		this.game = game;
 		this.background = new Image("res/accueilDragon.png");
+		String Bombe = JOptionPane.showInputDialog("Combien voulez vous de bombe ? ");
+		String nbBombe = JOptionPane.showInputDialog("Combien voulez vous de bombe  a? ");
+		JPanel containera = new JPanel();
+		JCheckBox check1 = new JCheckBox("Case 1");
+		JCheckBox check2 = new JCheckBox("Case 2");
+		JPanel top = new JPanel();
+	   //check1.addActionListener(new StateListener());
+	    //check2.addActionListener(new StateListener());
+	    top.add(check1);
+	    top.add(check2);
+	   
 	}
 
 	/**
