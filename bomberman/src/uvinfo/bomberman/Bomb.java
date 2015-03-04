@@ -217,7 +217,6 @@ public class Bomb {
 				if(vectorBomb.distance(vectorMonstre) <= this.distanceExplode){
 					perso.Hurted(this.puissance);
 					this.hasHurted = true;
-					System.out.println(perso.getLife());
 					break;
 				}
 			}

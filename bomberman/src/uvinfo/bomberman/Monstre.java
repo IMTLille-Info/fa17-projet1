@@ -2,6 +2,7 @@ package uvinfo.bomberman;
 
 import java.util.Random;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 public class Monstre extends Personnage {
@@ -101,4 +102,15 @@ public class Monstre extends Personnage {
 	{
 		GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-50);	
 	}	
+	
+	public void update(Avatar avatar, GameContainer container){
+		avatar.getBomb().hurt(this);
+		avatar.getSuperBomb().hurt(this);
+		// gagné si monstre est mort
+		if(!this.IsAlive())
+		{
+			javax.swing.JOptionPane.showMessageDialog(null,"You Win"); 
+			container.exit();
+		}
+	}
 }

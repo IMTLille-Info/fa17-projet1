@@ -1,5 +1,6 @@
 package uvinfo.bomberman;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 public class Avatar extends Personnage {
@@ -20,9 +21,11 @@ public class Avatar extends Personnage {
 		
 	}
 	
-	public void render()
+	public void render() throws SlickException
 	{
 		GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65);	
+		this.bomb.render();
+		this.superBomb.render();
 	}	
 	
 	/***************  methodes  
@@ -84,6 +87,18 @@ public class Avatar extends Personnage {
 		}
 	}
 	
+	public void update(Personnage perso, int delta, GameContainer container){
+		this.getBomb().hurt(perso);
+		this.getSuperBomb().hurt(perso);
+		this.getBomb().update(delta);
+		this.getSuperBomb().update(delta);
+		// perdu si perso est mort
+		if(!perso.IsAlive())
+		{
+			javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
+			container.exit();
+		}
+	}
 	
 
 }

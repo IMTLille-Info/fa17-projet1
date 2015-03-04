@@ -38,7 +38,6 @@ public class MainScreenGameState extends BasicGameState {
 		rect = new Rectangle(50, 50, 400, 200);
 		cercle = new Circle(70, 70, 32);
 		
-	   
 	}
 
 	/**

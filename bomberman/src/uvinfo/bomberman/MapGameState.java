@@ -1,5 +1,7 @@
 package uvinfo.bomberman;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -70,9 +72,6 @@ public class MapGameState extends BasicGameState {
 		
 		perso.render();
 		monstre.render();
-		
-		perso.getBomb().render();
-		perso.getSuperBomb().render();
 
 	}
 
@@ -94,29 +93,10 @@ public class MapGameState extends BasicGameState {
 		
 		container.setTargetFrameRate((int) (200*difficult));
 		
-		// gère la pose et l'explosion de la bombe
-		perso.getBomb().update(delta);
-		perso.getSuperBomb().update(delta);
+		perso.update(perso, delta, container);
+		monstre.update(perso, container);
 		
-		// gère l'attaque de la bombe
-		perso.getBomb().hurt(monstre);
-		perso.getSuperBomb().hurt(monstre);
-		perso.getBomb().hurt(perso);
-		perso.getSuperBomb().hurt(perso);
 	
-		// perdu si avatar est mort
-		if(!perso.IsAlive())
-		{
-			javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
-			container.exit();
-		}
-		
-		// gagné si monstre est mort
-		if(!monstre.IsAlive())
-		{
-			javax.swing.JOptionPane.showMessageDialog(null,"You Win"); 
-			container.exit();
-		}
 	}
 
 	@Override
