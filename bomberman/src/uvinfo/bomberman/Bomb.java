@@ -26,8 +26,6 @@ public class Bomb {
 	protected int[][] champExplosion; 
 	private int distanceExplode = 50;
 	
-	private boolean hasHurted = false;
-	
 	/******* constructeurs *********/
 	public Bomb(){
 	}
@@ -137,7 +135,7 @@ public class Bomb {
 		if(this.isPosed || this.exploding){
 			this.timeDelta += delta ;
 			this.explode(perso);
-			this.finishExplode();
+			this.finishExplode(perso);
 		}
 	}
 	
@@ -160,11 +158,11 @@ public class Bomb {
 	}
 	
 	// etat explosion finie
-	public void finishExplode(){
+	public void finishExplode(Personnage perso){
 		if(this.timeDelta >= this.timeExplode + this.timePose){
 			this.exploding = false;
 			this.animExplode.restart();
-			this.hasHurted = false;
+			perso.setHasBeenHurted(false);
 		}
 	}
 	
@@ -205,19 +203,17 @@ public class Bomb {
 		//est
 		this.champExplosion[4][0] = this.posX - 70;
 		this.champExplosion[4][1] = this.posY;
-		
-		
+			
 	}
 	
 	// attaquer l'adversaire
 	private void hurt(Personnage perso){
-		if(this.isExploding() && !this.hasHurted){
+		if(this.isExploding() && !perso.getHasBeenHurted()){
 			for(int i=0 ; i<this.nbExplode ; i++){
 				Vector2f vectorBomb = new Vector2f(this.champExplosion[i][0], this.champExplosion[i][1]);
 				Vector2f vectorMonstre = new Vector2f(perso.posX(), perso.posY());
 				if(vectorBomb.distance(vectorMonstre) <= this.distanceExplode){
 					perso.Hurted(this.puissance);
-					this.hasHurted = true;
 					break;
 				}
 			}

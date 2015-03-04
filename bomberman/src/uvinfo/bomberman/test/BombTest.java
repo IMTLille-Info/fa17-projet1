@@ -57,7 +57,7 @@ public class BombTest {
 		bomb.pose(60, 60);
 		
 		bomb.update(new Avatar(), bomb.getTimeExplode() + bomb.getTimePose());
-		bomb.finishExplode();
+		//bomb.finishExplode();
 		
 		assertFalse(bomb.isExploding());	
 	}
