@@ -104,8 +104,8 @@ public class Monstre extends Personnage {
 	}	
 	
 	public void update(Avatar avatar, GameContainer container){
-		avatar.getBomb().hurt(this);
-		avatar.getSuperBomb().hurt(this);
+		avatar.getBomb().update(this, 0);
+		avatar.getSuperBomb().update(this, 0);
 		// gagné si monstre est mort
 		if(!this.IsAlive())
 		{

@@ -87,13 +87,11 @@ public class Avatar extends Personnage {
 		}
 	}
 	
-	public void update(Personnage perso, int delta, GameContainer container){
-		this.getBomb().hurt(perso);
-		this.getSuperBomb().hurt(perso);
-		this.getBomb().update(delta);
-		this.getSuperBomb().update(delta);
+	public void update(int delta, GameContainer container){
+		this.getBomb().update(this, delta);
+		this.getSuperBomb().update(this, delta);
 		// perdu si perso est mort
-		if(!perso.IsAlive())
+		if(!this.IsAlive())
 		{
 			javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
 			container.exit();

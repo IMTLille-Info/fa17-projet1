@@ -133,10 +133,10 @@ public class Bomb {
 	}
 	
 	// prise en compte du delta de update
-	public void update(int delta){
+	public void update(Personnage perso, int delta){
 		if(this.isPosed || this.exploding){
 			this.timeDelta += delta ;
-			this.explode();
+			this.explode(perso);
 			this.finishExplode();
 		}
 	}
@@ -150,11 +150,12 @@ public class Bomb {
 	}
 	
 	// passe de l'état posé à l'état explosion
-	public void explode(){
+	public void explode(Personnage perso){
 		if(this.timeDelta >= this.timePose){
 			this.exploding = true;
 			this.isPosed = false;
 			this.animPose.restart();
+			this.hurt(perso);
 		}
 	}
 	
@@ -209,7 +210,7 @@ public class Bomb {
 	}
 	
 	// attaquer l'adversaire
-	public void hurt(Personnage perso){
+	private void hurt(Personnage perso){
 		if(this.isExploding() && !this.hasHurted){
 			for(int i=0 ; i<this.nbExplode ; i++){
 				Vector2f vectorBomb = new Vector2f(this.champExplosion[i][0], this.champExplosion[i][1]);

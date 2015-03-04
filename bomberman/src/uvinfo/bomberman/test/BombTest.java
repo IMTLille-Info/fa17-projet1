@@ -40,34 +40,35 @@ public class BombTest {
 	}
 	
 	@Test
-	public void testExplode() throws InterruptedException{
+	public void testExplode() throws InterruptedException, SlickException{
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		bomb.update(bomb.getTimePose());
-		bomb.explode();
+		bomb.update(new Avatar(), bomb.getTimePose());
+		bomb.explode(new Avatar());
 		
 		assertFalse(bomb.isPosed());
 		assertTrue(bomb.isExploding());		
 	}
 	
 	@Test
-	public void testFinishExplode() throws InterruptedException{
+	public void testFinishExplode() throws InterruptedException, SlickException{
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		bomb.update(bomb.getTimeExplode() + bomb.getTimePose());
+		bomb.update(new Avatar(), bomb.getTimeExplode() + bomb.getTimePose());
 		bomb.finishExplode();
 		
 		assertFalse(bomb.isExploding());	
 	}
 	
+	
 	@Test
-	public void testEtat() throws InterruptedException{
+	public void testUpdate() throws InterruptedException, SlickException{
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		bomb.update(bomb.getTimeExplode() + bomb.getTimePose());
+		bomb.update(new Avatar(), bomb.getTimeExplode() + bomb.getTimePose());
 		
 		assertFalse(bomb.isPosed());
 		assertFalse(bomb.isExploding());
@@ -79,17 +80,14 @@ public class BombTest {
 		Bomb bomb = new Bomb();
 		bomb.pose(335, 305);
 		Personnage perso = new Avatar();
-		bomb.update(bomb.getTimePose());
-		bomb.explode();
-		bomb.hurt(perso);
+		bomb.update(perso, bomb.getTimePose()); // update contient explode qui contient la méthode hurt
 		
 		assertEquals(8, perso.getLife()); // points de vie avatar baissée de 2
 		
 		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
 		Personnage perso2 = new Avatar();
 		bomb.pose(102, 102);
-		bomb.update(bomb.getTimePose());
-		bomb.hurt(perso2);
+		bomb.update(perso2, bomb.getTimePose());
 		
 		// points de vie du avatar intacts
 		assertEquals(10, perso2.getLife());
@@ -98,18 +96,15 @@ public class BombTest {
 		Bomb bomb2 = new Bomb();
 		bomb2.pose(335, 305);
 		Personnage monstre = new Monstre();
-		bomb2.update(bomb2.getTimePose());
-		bomb2.explode();
-		bomb2.hurt(monstre);
+		bomb2.update(monstre, bomb2.getTimePose());
 		
 		assertEquals(8, monstre.getLife()); // points de vie monstre baissée de 2
 		
 		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
 		Personnage monstre2 = new Monstre();
 		bomb2.pose(102, 102);
-		bomb2.update(bomb2.getTimePose());
-		bomb2.hurt(monstre2);
-		
+		bomb2.update(monstre2, bomb2.getTimePose());
+	
 		// points de vie du avatar intacts
 		assertEquals(10, monstre2.getLife());
 	}

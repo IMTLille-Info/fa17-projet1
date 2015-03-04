@@ -88,14 +88,15 @@ public class MapGameState extends BasicGameState {
 		
 		if(!map.isCollision(monstre.getFuturX(), monstre.getFuturY(), monstre))
 			{
-				monstre.SetMoving(true);monstre.Move(perso);
+				monstre.SetMoving(true);
+				monstre.Move(perso);
 			}
 		
 		container.setTargetFrameRate((int) (200*difficult));
 		
-		perso.update(perso, delta, container);
+		// gestion des intéractions entre personnages
+		perso.update(delta, container);
 		monstre.update(perso, container);
-		
 	
 	}
 

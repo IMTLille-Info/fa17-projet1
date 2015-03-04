@@ -99,7 +99,7 @@ public class WindowGame extends BasicGame {
 		
 		monstre.Move(perso);
 		
-		perso.getBomb().hurt(monstre);
+		//perso.getBomb().hurt(monstre);
 
 	}
 
