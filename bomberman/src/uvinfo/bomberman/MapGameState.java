@@ -1,7 +1,5 @@
 package uvinfo.bomberman;
 
-import java.util.ArrayList;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -57,8 +55,6 @@ public class MapGameState extends BasicGameState {
 		// affichage de la map fond et l'avant
 		map.renderBackground();
 		map.renderForeground();
-		// faire une méthode render dans avatar et monstre
-	
 		
 		g.setColor(Color.red);
 		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des points de vie
@@ -116,6 +112,11 @@ public class MapGameState extends BasicGameState {
 	}
 
 	@Override
+	/** methode appelé à chaque appui sur une touche 
+	 * 
+	 * @param key 
+	 * @param c
+	 */
 	public void keyPressed(int key, char c) {
 
 		switch (key) {

@@ -24,7 +24,7 @@ public class Bomb {
 	
 	private int nbExplode = 5;
 	protected int[][] champExplosion; 
-	private int distanceExplode = 50;
+	private int distanceExplode = 70;
 	
 	/******* constructeurs *********/
 	public Bomb(){
@@ -118,8 +118,7 @@ public class Bomb {
 			this.animExplode.draw(this.getPosX(), this.getPosY()-70);
 			this.animExplode.draw(this.getPosX(), this.getPosY()+70);
 			this.animExplode.draw(this.getPosX()-70, this.getPosY());
-			this.animExplode.draw(this.getPosX()+70, this.getPosY());
-			
+			this.animExplode.draw(this.getPosX()+70, this.getPosY());		
 		}
 	}
 	
@@ -162,7 +161,6 @@ public class Bomb {
 		if(this.timeDelta >= this.timeExplode + this.timePose){
 			this.exploding = false;
 			this.animExplode.restart();
-			perso.setHasBeenHurted(false);
 		}
 	}
 	

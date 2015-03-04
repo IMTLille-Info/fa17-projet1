@@ -2,6 +2,7 @@ package uvinfo.bomberman;
 
 import java.util.Random;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
@@ -100,7 +101,11 @@ public class Monstre extends Personnage {
 	
 	public void render()
 	{
-		GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-50);	
+		if(this.getHasBeenHurted()){
+			GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-50, new Color(255,0,0));
+		}else{
+			GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-50);
+		}
 	}	
 	
 	public void update(Avatar avatar, GameContainer container){
