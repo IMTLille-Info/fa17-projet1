@@ -13,7 +13,7 @@ public class Monstre extends Personnage {
 	float difficult = 1;
 	
 	
-	public Monstre() throws SlickException {
+	public Monstre() {
 	}	
 
 

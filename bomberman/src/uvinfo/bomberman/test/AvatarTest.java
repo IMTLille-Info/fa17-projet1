@@ -1,16 +1,18 @@
 package uvinfo.bomberman.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
 import uvinfo.bomberman.Avatar;
+import uvinfo.bomberman.Bomb;
+import uvinfo.bomberman.SuperBomb;
 
 public class AvatarTest {
 
 	@Test
-	public void testMoveUp() throws SlickException {
+	public void testMoveUp() {
 		Avatar toto = new Avatar();
 		int x = toto.posX();
 		int y = toto.posY();
@@ -28,7 +30,7 @@ public class AvatarTest {
 	}
 
 	@Test
-	public void testMoveDown() throws SlickException {
+	public void testMoveDown() {
 		Avatar toto = new Avatar();
 		int x = toto.posX();
 		int y = toto.posY();
@@ -47,7 +49,7 @@ public class AvatarTest {
 	}
 
 	@Test
-	public void testMoveRight() throws SlickException {
+	public void testMoveRight() {
 		Avatar toto = new Avatar();
 		int x = toto.posX();
 		int y = toto.posY();
@@ -65,7 +67,7 @@ public class AvatarTest {
 	}
 
 	@Test
-	public void testMoveLeft() throws SlickException {
+	public void testMoveLeft() {
 		Avatar toto = new Avatar();
 		int x = toto.posX();
 		int y = toto.posY();
@@ -83,7 +85,7 @@ public class AvatarTest {
 	}
 
 	@Test
-	public void testIsMoving() throws SlickException {
+	public void testIsMoving() {
 		Avatar toto = new Avatar();
 		boolean moov;
 		boolean moov2 = true;
@@ -98,6 +100,23 @@ public class AvatarTest {
 		assertEquals(moov, true);
 	}
 
-
+	@Test
+	public void testPutBomb(){
+		Avatar av = new Avatar();
+		av.putBomb(new Bomb());
+		
+		assertTrue(av.hasPutBomb());
+		assertEquals(0, av.getTimeWaited());
+	}
+	
+	@Test
+	public void testPutSuperBomb(){
+		Avatar av = new Avatar();
+		av.putSuperBomb(new SuperBomb());
+		
+		assertTrue(av.hasPutBomb());
+		assertEquals(0, av.getTimeWaited());
+		assertEquals(9, av.getNbSuperBomb());
+	}
 
 }

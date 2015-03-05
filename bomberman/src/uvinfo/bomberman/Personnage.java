@@ -17,7 +17,7 @@ public abstract class Personnage {
 	
 	private Animation[] animations = new Animation[8];
 	
-	public Personnage() throws SlickException {
+	public Personnage() {
 		
 	}
 	

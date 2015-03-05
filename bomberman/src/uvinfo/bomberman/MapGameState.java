@@ -53,10 +53,9 @@ public class MapGameState extends BasicGameState {
 		listePersos.add(perso);
 		listePersos.add(monstre);
 		
-		/*bomb = new Bomb();
-		superBomb = new SuperBomb();*/
 		listeBombes.add(new Bomb());
 		listeBombes.add(new SuperBomb());
+		for(Bomb b : listeBombes) b.loadAnimations();
 		
 		son = new Musique();
 		son.FondSonore();
@@ -161,18 +160,10 @@ public class MapGameState extends BasicGameState {
 			perso.SetMoving(true);
 			break;
 		case Input.KEY_SPACE:
-			try {
-				perso.putBomb(this.listeBombes.get(0));
-			} catch (SlickException e) {
-				e.printStackTrace();
-			}
+			perso.putBomb(this.listeBombes.get(0));
 			break;
 		case Input.KEY_ENTER:
-			try {
-				perso.putSuperBomb(this.listeBombes.get(1));
-			} catch (SlickException e) {
-				e.printStackTrace();
-			}
+			perso.putSuperBomb(this.listeBombes.get(1));
 			break;
 		case Input.KEY_A:
 			difficult += 0.1;

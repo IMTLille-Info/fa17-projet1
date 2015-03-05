@@ -14,9 +14,7 @@ public class Avatar extends Personnage {
 	
 	/************* constructeur *****************/
 	
-	public Avatar() throws SlickException
-	{   
-		
+	public Avatar(){   	
 	}
 	
 	public void render() throws SlickException
@@ -52,20 +50,26 @@ public class Avatar extends Personnage {
 		this.hasPutBomb = hasPutBomb;
 	}
 
-	public void putBomb(Bomb bomb) throws SlickException{ 	
+	public int getTimeWaited() {
+		return timeWaited;
+	}
+
+	public void setTimeWaited(int timeWaited) {
+		this.timeWaited = timeWaited;
+	}
+
+	public void putBomb(Bomb bomb){ 	
 		if(!this.hasPutBomb){
 			this.hasPutBomb = true;
 			this.timeWaited = 0;
-			bomb.loadAnimations();
 			bomb.pose(this.posX()-32, this.posY()-60);
 		}
 	}
 	
-	public void putSuperBomb(Bomb bomb) throws SlickException{
+	public void putSuperBomb(Bomb bomb){
 		if(!this.hasPutBomb && this.nbSuperBomb >0){
 			this.hasPutBomb = true;
 			this.timeWaited = 0;
-			bomb.loadAnimations();
 			bomb.pose(this.posX()-32, this.posY()-60);
 			this.nbSuperBomb -= 1;
 		}
