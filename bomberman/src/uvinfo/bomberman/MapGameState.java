@@ -14,7 +14,7 @@ public class MapGameState extends BasicGameState {
 	private GameContainer container;
 
 	private Musique son;
-	private Avatar perso;
+	private Avatar avatar;
 	private Monstre monstre;
 	private Map map;
 	
@@ -36,8 +36,8 @@ public class MapGameState extends BasicGameState {
 		map = new Map();
 		map.init();
 		
-		perso = new Avatar();
-		perso.initAnimation();
+		avatar = new Avatar();
+		avatar.initAnimation();
 		
 		monstre = new Monstre();
 		monstre.initAnimation();
@@ -56,24 +56,24 @@ public class MapGameState extends BasicGameState {
 		// affichage de la map fond et l'avant
 		map.renderBackground();
 		map.renderForeground();
-		// faire une méthode render dans avatar et monstre
-	
 		
+		// infos sur le jeu
 		g.setColor(Color.red);
-		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des points de vie
+		g.drawString("Life : " + avatar.getLife(), 20, 20);// affichage des points de vie du avatar
 		
 		g.setColor(Color.yellow);
-
 		g.drawString("Difficulté : " + difficult, 150, 20);// affichage vitesse
 		
 		g.setColor(Color.white);
-		g.drawString("Life monstre : " + monstre.getLife(), 300, 20);
+		g.drawString("Life monstre : " + monstre.getLife(), 300, 20);// affichage des points de vie du monstre
 		
-		perso.render();
+		// animation des personnages
+		avatar.render();
 		monstre.render();
 		
-		perso.getBomb().render();
-		perso.getSuperBomb().render();
+		// animation des bombes
+		avatar.getBomb().render();
+		avatar.getSuperBomb().render();
 
 	}
 
@@ -85,25 +85,25 @@ public class MapGameState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta)
 		throws SlickException {
 	     // gestion des collisions
-		map.isCollision(perso.getFuturX(), perso.getFuturY(), perso);
+		map.isCollision(avatar.getFuturX(), avatar.getFuturY(), avatar);
 		map.isCollision(monstre.getFuturX(), monstre.getFuturY(), monstre);
 		container.setTargetFrameRate((int) (200*difficult));
 	/* Ancien Code à voir	
 		
  
 		Image tilePerso = this.map.getTileImage(
-				perso.getFuturX() / this.map.getTileWidth(), 
-				perso.getFuturY()/ this.map.getTileHeight(), 
+				avatar.getFuturX() / this.map.getTileWidth(), 
+				avatar.getFuturY()/ this.map.getTileHeight(), 
 				this.map.getLayerIndex("Logic"));			
 
 		boolean collisionPerso = tilePerso != null;
 
 		if (!collisionPerso) 
 		{
-			if (perso.isMoving()) 
+			if (avatar.isMoving()) 
 			{
-				perso.posX(perso.getFuturX());
-				perso.posY(perso.getFuturY());
+				avatar.posX(avatar.getFuturX());
+				avatar.posY(avatar.getFuturY());
 			}
 		}	
 
@@ -116,7 +116,7 @@ public class MapGameState extends BasicGameState {
 		if (!collisionmonstre) 
 		{
 			monstre.SetMoving(true);
-			monstre.Move(perso);
+			monstre.Move(avatar);
 		}
 		else 
 		{
@@ -125,17 +125,17 @@ public class MapGameState extends BasicGameState {
 		}			*/
 
 		// gère la pose et l'explosion de la bombe
-		perso.getBomb().update(delta);
-		perso.getSuperBomb().update(delta);
+		avatar.getBomb().update(delta);
+		avatar.getSuperBomb().update(delta);
 		
 		// gère l'attaque de la bombe
-		perso.getBomb().hurt(monstre);
-		perso.getSuperBomb().hurt(monstre);
-		perso.getBomb().hurt(perso);
-		perso.getSuperBomb().hurt(perso);
+		avatar.getBomb().hurt(monstre);
+		avatar.getSuperBomb().hurt(monstre);
+		avatar.getBomb().hurt(avatar);
+		avatar.getSuperBomb().hurt(avatar);
 	
 		// perdu si avatar est mort
-		if(!perso.IsAlive())
+		if(!avatar.IsAlive())
 		{
 			javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
 			container.exit();
@@ -157,7 +157,7 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void keyReleased(int key, char c) {
 
-		perso.SetMoving(false);
+		avatar.SetMoving(false);
 
 		if (Input.KEY_ESCAPE == key) {
 			game.enterState(MainScreenGameState.ID);
@@ -169,26 +169,26 @@ public class MapGameState extends BasicGameState {
 
 		switch (key) {
 		case Input.KEY_UP:
-			perso.SetDirection(0);
-			perso.SetMoving(true);
+			avatar.SetDirection(0);
+			avatar.SetMoving(true);
 			break;
 		case Input.KEY_LEFT:
-			perso.SetDirection(1);
-			perso.SetMoving(true);
+			avatar.SetDirection(1);
+			avatar.SetMoving(true);
 			break;
 		case Input.KEY_DOWN:
-			perso.SetDirection(2);
-			perso.SetMoving(true);
+			avatar.SetDirection(2);
+			avatar.SetMoving(true);
 			break;
 		case Input.KEY_RIGHT:
-			perso.SetDirection(3);
-			perso.SetMoving(true);
+			avatar.SetDirection(3);
+			avatar.SetMoving(true);
 			break;
 		case Input.KEY_SPACE:
-			perso.putBomb();
+			avatar.putBomb();
 			break;
 		case Input.KEY_ENTER:
-			perso.putSuperBomb();
+			avatar.putSuperBomb();
 			break;
 		case Input.KEY_A:
 			if(difficult > 0.1) difficult -= 0.1;
