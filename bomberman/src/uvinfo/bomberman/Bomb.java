@@ -161,9 +161,9 @@ public class Bomb {
 	// passe de l'état posé à l'état explosion
 	public void explode(ArrayList<Personnage> listePersos){
 		if(this.timeDelta >= this.timePose){
+			this.animPose.restart();
 			this.exploding = true;
 			this.isPosed = false;
-			this.animPose.restart();
 			for(Personnage p : listePersos){
 				this.hurt(p);
 			}	
