@@ -1,5 +1,9 @@
 package uvinfo.bomberman;
 
+import java.awt.List;
+import java.util.ArrayList;
+
+import org.hamcrest.core.IsNull;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,12 +18,16 @@ public class MapGameState extends BasicGameState {
 	private GameContainer container;
 
 	private Musique son;
-	private Avatar avatar;
+	private Avatar perso;
 	private Monstre monstre;
 	private Map map;
+	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
+	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
+	
+	private Bomb bomb;
+	private SuperBomb superBomb;
 	
 	float difficult = 1;
-	
 	
 	private StateBasedGame game;
 
@@ -36,11 +44,19 @@ public class MapGameState extends BasicGameState {
 		map = new Map();
 		map.init();
 		
-		avatar = new Avatar();
-		avatar.initAnimation();
+		perso = new Avatar();
+		perso.initAnimation();
 		
 		monstre = new Monstre();
 		monstre.initAnimation();
+		
+		listePersos.add(perso);
+		listePersos.add(monstre);
+		
+		bomb = new Bomb();
+		superBomb = new SuperBomb();
+		listeBombes.add(bomb);
+		listeBombes.add(superBomb);
 		
 		son = new Musique();
 		son.FondSonore();
@@ -56,24 +72,20 @@ public class MapGameState extends BasicGameState {
 		// affichage de la map fond et l'avant
 		map.renderBackground();
 		map.renderForeground();
+	
+		this.stats(g);
 		
-		// infos sur le jeu
-		g.setColor(Color.red);
-		g.drawString("Life : " + avatar.getLife(), 20, 20);// affichage des points de vie du avatar
+		// animations des persos de la map
+		for(Personnage p : listePersos){
+			p.render();
+		}
 		
-		g.setColor(Color.yellow);
-		g.drawString("Difficulté : " + difficult, 150, 20);// affichage vitesse
-		
-		g.setColor(Color.white);
-		g.drawString("Life monstre : " + monstre.getLife(), 300, 20);// affichage des points de vie du monstre
-		
-		// animation des personnages
-		avatar.render();
-		monstre.render();
-		
-		// animation des bombes
-		avatar.getBomb().render();
-		avatar.getSuperBomb().render();
+		// animations des bombes
+		if(perso.hasPutBomb()){
+			for(Bomb b : listeBombes){
+				b.render();
+			}
+		}
 
 	}
 
@@ -84,69 +96,28 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void update(GameContainer container, StateBasedGame game, int delta)
 		throws SlickException {
+		
 	     // gestion des collisions
-		map.isCollision(avatar.getFuturX(), avatar.getFuturY(), avatar);
-		map.isCollision(monstre.getFuturX(), monstre.getFuturY(), monstre);
-		container.setTargetFrameRate((int) (200*difficult));
-	/* Ancien Code à voir	
+		map.isCollision(perso.getFuturX(), perso.getFuturY(), perso);
 		
- 
-		Image tilePerso = this.map.getTileImage(
-				avatar.getFuturX() / this.map.getTileWidth(), 
-				avatar.getFuturY()/ this.map.getTileHeight(), 
-				this.map.getLayerIndex("Logic"));			
-
-		boolean collisionPerso = tilePerso != null;
-
-		if (!collisionPerso) 
-		{
-			if (avatar.isMoving()) 
+		if(!map.isCollision(monstre.getFuturX(), monstre.getFuturY(), monstre))
 			{
-				avatar.posX(avatar.getFuturX());
-				avatar.posY(avatar.getFuturY());
+				monstre.SetMoving(true);
+				monstre.Move(perso);
+			}	
+		
+		container.setTargetFrameRate((int) (200*difficult));
+		
+		// gestion des intéractions entre personnages
+		perso.update(delta, container);
+		monstre.update(perso, container);
+		
+		if(perso.hasPutBomb()){
+			for(Bomb b : listeBombes){
+				b.update(listePersos, delta);
 			}
-		}	
-
-		Image tilemonstre = this.map.getTileImage(
-				monstre.getFuturX() / this.map.getTileWidth(), 
-				monstre.getFuturY()/ this.map.getTileHeight(), 
-				this.map.getLayerIndex("Logic"));			
-
-		boolean collisionmonstre = tilemonstre != null;
-		if (!collisionmonstre) 
-		{
-			monstre.SetMoving(true);
-			monstre.Move(avatar);
 		}
-		else 
-		{
-			monstre.SetMoving(true);
-			monstre.OpposeDirection();
-		}			*/
-
-		// gère la pose et l'explosion de la bombe
-		avatar.getBomb().update(delta);
-		avatar.getSuperBomb().update(delta);
-		
-		// gère l'attaque de la bombe
-		avatar.getBomb().hurt(monstre);
-		avatar.getSuperBomb().hurt(monstre);
-		avatar.getBomb().hurt(avatar);
-		avatar.getSuperBomb().hurt(avatar);
 	
-		// perdu si avatar est mort
-		if(!avatar.IsAlive())
-		{
-			javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
-			container.exit();
-		}
-		
-		// gagné si monstre est mort
-		if(!monstre.IsAlive())
-		{
-			javax.swing.JOptionPane.showMessageDialog(null,"You Win"); 
-			container.exit();
-		}
 	}
 
 	@Override
@@ -157,7 +128,7 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void keyReleased(int key, char c) {
 
-		avatar.SetMoving(false);
+		perso.SetMoving(false);
 
 		if (Input.KEY_ESCAPE == key) {
 			game.enterState(MainScreenGameState.ID);
@@ -165,43 +136,71 @@ public class MapGameState extends BasicGameState {
 	}
 
 	@Override
+	/** methode appelé à chaque appui sur une touche 
+	 * 
+	 * @param key 
+	 * @param c
+	 */
 	public void keyPressed(int key, char c) {
 
 		switch (key) {
 		case Input.KEY_UP:
-			avatar.SetDirection(0);
-			avatar.SetMoving(true);
+			perso.SetDirection(0);
+			perso.SetMoving(true);
 			break;
 		case Input.KEY_LEFT:
-			avatar.SetDirection(1);
-			avatar.SetMoving(true);
+			perso.SetDirection(1);
+			perso.SetMoving(true);
 			break;
 		case Input.KEY_DOWN:
-			avatar.SetDirection(2);
-			avatar.SetMoving(true);
+			perso.SetDirection(2);
+			perso.SetMoving(true);
 			break;
 		case Input.KEY_RIGHT:
-			avatar.SetDirection(3);
-			avatar.SetMoving(true);
+			perso.SetDirection(3);
+			perso.SetMoving(true);
 			break;
 		case Input.KEY_SPACE:
-			avatar.putBomb();
+			try {
+				perso.putBomb(this.bomb);
+			} catch (SlickException e) {
+				e.printStackTrace();
+			}
 			break;
 		case Input.KEY_ENTER:
-			avatar.putSuperBomb();
+			try {
+				perso.putSuperBomb(this.superBomb);
+			} catch (SlickException e) {
+				e.printStackTrace();
+			}
 			break;
 		case Input.KEY_A:
-			if(difficult > 0.1) difficult -= 0.1;
-			break;
-		case Input.KEY_D:
 			difficult += 0.1;
 			break;
+		case Input.KEY_D:
+			if(difficult > 0.1) difficult -= 0.1;
+			break;
+		case Input.KEY_P:
+			if(container.isPaused())
+			{
+				container.resume();
+			} else container.pause();
+			break;
 		}
-
 	}
 
+	
 	@Override
 	public int getID() {
 		return ID;
+	}
+	
+	public void stats(Graphics g){
+		g.setColor(Color.red);
+		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des points de vie
+		g.setColor(Color.yellow);
+		g.drawString("Difficulté : " + difficult, 150, 20);// affichage vitesse
+		g.setColor(Color.white);
+		g.drawString("Life monstre : " + monstre.getLife(), 300, 20); // affichage vie monstre
 	}
 }

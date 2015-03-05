@@ -4,9 +4,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import org.newdawn.slick.util.pathfinding.TileBasedMap;
-
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 public class Map {
 	
@@ -46,9 +43,17 @@ public class Map {
 		int logicLayer = this.tiledMap.getLayerIndex("Logic");
 		Image tile = this.tiledMap.getTileImage((int) x / tileW, (int) y / tileH, logicLayer);
 		boolean collision = tile != null;
+				
 		if (collision) {
 			Color color = tile.getColor((int) x % tileW, (int) y % tileH);
 			collision = color.getAlpha() > 0;
+			
+			if(perso instanceof Monstre){
+				perso.SetMoving(true);
+				((Monstre)perso).OpposeDirection();
+			}
+			
+			
 		}else{
 			if(perso instanceof Avatar){
 				if (perso.isMoving()) 
@@ -56,10 +61,7 @@ public class Map {
 					perso.posX(perso.getFuturX());
 					perso.posY(perso.getFuturY());
 				}
-			}else if(perso instanceof Monstre){
-				perso.SetMoving(true);
-				//perso.Move(perso);
-			}
+		}
 		}
 		return collision;
 	}

@@ -1,16 +1,15 @@
 package uvinfo.bomberman;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 public class Avatar extends Personnage {
 
-	
-	
-	private Bomb bomb = new Bomb(); // bombe "normale", utilisation infinie
-	
-	private SuperBomb superBomb = new SuperBomb();
 	private int nbSuperBomb = 10;
-	
+	private boolean hasPutBomb = false;
+	private int timeForNewBomb = 3000; // temps que doit attendre l'avatar s'il veut reposer une bombe
+	private int timeWaited;
 	
 	
 	/************* constructeur *****************/
@@ -20,9 +19,13 @@ public class Avatar extends Personnage {
 		
 	}
 	
-	public void render()
+	public void render() throws SlickException
 	{
-		GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65);	
+		if(this.getHasBeenHurted()){
+			GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65, new Color(255,0,0));
+		}else{
+			GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65);
+		}
 	}	
 	
 	/***************  methodes  
@@ -31,28 +34,6 @@ public class Avatar extends Personnage {
 
 	public void initAnimation() throws SlickException{
 		CreateAnimation("sprites/drag.png", 96, 96,4);
-		this.getBomb().loadAnimationPose(); 
-		this.getBomb().loadAnimationExplode();
-		this.getSuperBomb().loadAnimationPose();
-		this.getSuperBomb().loadAnimationExplode();
-	}
-	
-	
-	
-	public Bomb getBomb() {
-		return bomb;
-	}
-	
-	public void setBomb(Bomb bomb) {
-		this.bomb = bomb;
-	}	
-	
-	public SuperBomb getSuperBomb() {
-		return superBomb;
-	}
-
-	public void setSuperBomb(SuperBomb superBomb) {
-		this.superBomb = superBomb;
 	}
 	
 	public int getNbSuperBomb() {
@@ -63,27 +44,47 @@ public class Avatar extends Personnage {
 		this.nbSuperBomb = nbSuperBomb;
 	}
 	
-	public void putBomb(){ 	
-		if(!this.checkBombPosed()){
-			this.bomb.pose(this.posX() - 32, this.posY() - 60);
+	public boolean hasPutBomb() {
+		return hasPutBomb;
+	}
+
+	public void setHasPutBomb(boolean hasPutBomb) {
+		this.hasPutBomb = hasPutBomb;
+	}
+
+	public void putBomb(Bomb bomb) throws SlickException{ 	
+		if(!this.hasPutBomb){
+			this.hasPutBomb = true;
+			this.timeWaited = 0;
+			bomb.loadAnimations();
+			bomb.pose(this.posX()-32, this.posY()-60);
 		}
 	}
 	
-	public void putSuperBomb(){
-		if(!this.checkBombPosed() && this.nbSuperBomb >0){
-			this.superBomb.pose(this.posX() - 32, this.posY() - 60);
+	public void putSuperBomb(SuperBomb bomb) throws SlickException{
+		if(!this.hasPutBomb && this.nbSuperBomb >0){
+			this.hasPutBomb = true;
+			this.timeWaited = 0;
+			bomb.loadAnimations();
+			bomb.pose(this.posX()-32, this.posY()-60);
 			this.nbSuperBomb -= 1;
 		}
 	}
 	
-	public boolean checkBombPosed(){
-		if(!this.bomb.isPosed() && !this.bomb.isExploding() && !this.superBomb.isPosed() && !this.superBomb.isExploding()){
-			return false;
-		}else{
-			return true;
+	public void update(int delta, GameContainer container){
+		if(this.hasPutBomb){
+			this.timeWaited += delta;
+			if(this.timeWaited >= this.timeForNewBomb){
+				this.hasPutBomb = false;
+			}
+		}
+		// perdu si perso est mort
+		if(!this.IsAlive())
+		{
+			javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
+			container.exit();
 		}
 	}
-	
 	
 
 }

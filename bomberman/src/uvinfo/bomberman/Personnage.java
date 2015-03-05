@@ -13,6 +13,7 @@ public abstract class Personnage {
 	private boolean moving = false;
 	
 	private int PointDeVie = 10;
+	private boolean hasBeenHurted = false;
 	
 	private Animation[] animations = new Animation[8];
 	
@@ -96,6 +97,14 @@ public abstract class Personnage {
 			this.PointDeVie = life;
 		}
 		
+		public boolean getHasBeenHurted(){
+			return this.hasBeenHurted;
+		}
+		
+		public void setHasBeenHurted(boolean b){
+			this.hasBeenHurted = b;
+		}
+		
 		/************** methodes *************/
 		
 		public void moveUp() {
@@ -136,6 +145,7 @@ public abstract class Personnage {
 		public void Hurted(int degats)
 		{
 			this.PointDeVie -= degats;
+			this.hasBeenHurted = true;
 		}
 		
 		public boolean IsAlive()
@@ -143,5 +153,7 @@ public abstract class Personnage {
 			if(PointDeVie>0)return true;
 			else return false;
 		}
+		
+		public abstract void render() throws SlickException;
 	
 }
