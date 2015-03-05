@@ -153,5 +153,7 @@ public abstract class Personnage {
 			if(PointDeVie>0)return true;
 			else return false;
 		}
+		
+		public abstract void render() throws SlickException;
 	
 }

@@ -1,5 +1,7 @@
 package uvinfo.bomberman;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -75,6 +77,7 @@ public class Bomb {
 	
 	// charge les animations
 	public void loadAnimations() throws SlickException{
+		this.emptyAnim();
 		this.loadAnimationPose();
 		this.loadAnimationExplode();
 	}
@@ -86,7 +89,7 @@ public class Bomb {
 		this.animPose.addFrame(bomb, 1000);
 		this.animPose.addFrame(bombRouge, 500);
 		this.animPose.addFrame(bomb, 500);
-		this.animPose.addFrame(bombRouge, 100); // faire looping pour setter le temps avant l'explosion
+		this.animPose.addFrame(bombRouge, 100);
 		this.animPose.addFrame(bomb, 100);
 		this.animPose.addFrame(bombRouge, 100);
 	}
@@ -130,11 +133,11 @@ public class Bomb {
 	}
 	
 	// prise en compte du delta de update
-	public void update(Personnage perso, int delta){
-		if(this.isPosed || this.exploding){
+	public void update(ArrayList<Personnage> listePersos, int delta){
+		if(this.isPosed || this.exploding){	
 			this.timeDelta += delta ;
-			this.explode(perso);
-			this.finishExplode(perso);
+			this.explode(listePersos);
+			this.finishExplode(listePersos);	
 		}
 	}
 	
@@ -147,20 +150,25 @@ public class Bomb {
 	}
 	
 	// passe de l'état posé à l'état explosion
-	public void explode(Personnage perso){
+	public void explode(ArrayList<Personnage> listePersos){
 		if(this.timeDelta >= this.timePose){
-			this.exploding = true;
-			this.isPosed = false;
-			this.animPose.restart();
-			this.hurt(perso);
+			for(Personnage p : listePersos){
+				this.exploding = true;
+				this.isPosed = false;
+				this.animPose.restart();
+				this.hurt(p);
+			}	
 		}
 	}
 	
 	// etat explosion finie
-	public void finishExplode(Personnage perso){
+	public void finishExplode(ArrayList<Personnage> listePersos){
 		if(this.timeDelta >= this.timeExplode + this.timePose){
-			this.exploding = false;
 			this.animExplode.restart();
+			this.exploding = false;
+			for(Personnage p : listePersos){
+				p.setHasBeenHurted(false);
+			}
 		}
 	}
 	

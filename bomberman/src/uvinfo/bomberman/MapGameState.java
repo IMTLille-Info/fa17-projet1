@@ -1,5 +1,9 @@
 package uvinfo.bomberman;
 
+import java.awt.List;
+import java.util.ArrayList;
+
+import org.hamcrest.core.IsNull;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -17,6 +21,11 @@ public class MapGameState extends BasicGameState {
 	private Avatar perso;
 	private Monstre monstre;
 	private Map map;
+	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
+	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
+	
+	private Bomb bomb;
+	private SuperBomb superBomb;
 	
 	float difficult = 1;
 	
@@ -41,6 +50,14 @@ public class MapGameState extends BasicGameState {
 		monstre = new Monstre();
 		monstre.initAnimation();
 		
+		listePersos.add(perso);
+		listePersos.add(monstre);
+		
+		bomb = new Bomb();
+		superBomb = new SuperBomb();
+		listeBombes.add(bomb);
+		listeBombes.add(superBomb);
+		
 		son = new Musique();
 		son.FondSonore();
 
@@ -55,19 +72,20 @@ public class MapGameState extends BasicGameState {
 		// affichage de la map fond et l'avant
 		map.renderBackground();
 		map.renderForeground();
-		
-		g.setColor(Color.red);
-		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des points de vie
-		
-		g.setColor(Color.yellow);
 
-		g.drawString("Difficulté : " + difficult, 150, 20);// affichage vitesse
+		this.stats(g);
 		
-		g.setColor(Color.white);
-		g.drawString("Life monstre : " + monstre.getLife(), 300, 20);
+		// animations des persos de la map
+		for(Personnage p : listePersos){
+			p.render();
+		}
 		
-		perso.render();
-		monstre.render();
+		// animations des bombes
+		if(perso.hasPutBomb()){
+			for(Bomb b : listeBombes){
+				b.render();
+			}
+		}
 
 	}
 
@@ -93,6 +111,12 @@ public class MapGameState extends BasicGameState {
 		// gestion des intéractions entre personnages
 		perso.update(delta, container);
 		monstre.update(perso, container);
+		
+		if(perso.hasPutBomb()){
+			for(Bomb b : listeBombes){
+				b.update(listePersos, delta);
+			}
+		}
 	
 	}
 
@@ -137,10 +161,18 @@ public class MapGameState extends BasicGameState {
 			perso.SetMoving(true);
 			break;
 		case Input.KEY_SPACE:
-			perso.putBomb();
+			try {
+				perso.putBomb(this.bomb);
+			} catch (SlickException e) {
+				e.printStackTrace();
+			}
 			break;
 		case Input.KEY_ENTER:
-			perso.putSuperBomb();
+			try {
+				perso.putSuperBomb(this.superBomb);
+			} catch (SlickException e) {
+				e.printStackTrace();
+			}
 			break;
 		case Input.KEY_A:
 			difficult += 0.1;
@@ -161,5 +193,14 @@ public class MapGameState extends BasicGameState {
 	@Override
 	public int getID() {
 		return ID;
+	}
+	
+	public void stats(Graphics g){
+		g.setColor(Color.red);
+		g.drawString("Life : " + perso.getLife(), 20, 20);// affichage des points de vie
+		g.setColor(Color.yellow);
+		g.drawString("Difficulté : " + difficult, 150, 20);// affichage vitesse
+		g.setColor(Color.white);
+		g.drawString("Life monstre : " + monstre.getLife(), 300, 20); // affichage vie monstre
 	}
 }

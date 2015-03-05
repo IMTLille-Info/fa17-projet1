@@ -13,7 +13,7 @@ import uvinfo.bomberman.Monstre;
 import uvinfo.bomberman.Personnage;
 
 public class BombTest {
-
+/*
 	@Test
 	public void testSetCoordonnees() throws SlickException {
 		Bomb bomb = new Bomb();
@@ -109,6 +109,6 @@ public class BombTest {
 		assertEquals(10, monstre2.getLife());
 	}
 	
-	
+*/	
 
 }
