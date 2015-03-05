@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
@@ -13,7 +15,7 @@ import uvinfo.bomberman.Monstre;
 import uvinfo.bomberman.Personnage;
 
 public class BombTest {
-/*
+
 	@Test
 	public void testSetCoordonnees() throws SlickException {
 		Bomb bomb = new Bomb();
@@ -44,8 +46,16 @@ public class BombTest {
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		bomb.update(new Avatar(), bomb.getTimePose());
-		bomb.explode(new Avatar());
+		// bombe pas encore en état d'explosion
+		bomb.setTimeDelta(100);
+		bomb.explode(new ArrayList<Personnage>());
+		
+		assertTrue(bomb.isPosed());
+		assertFalse(bomb.isExploding());
+		
+		// bombe en état d'explosion
+		bomb.setTimeDelta(2400);
+		bomb.explode(new ArrayList<Personnage>());
 		
 		assertFalse(bomb.isPosed());
 		assertTrue(bomb.isExploding());		
@@ -55,20 +65,41 @@ public class BombTest {
 	public void testFinishExplode() throws InterruptedException, SlickException{
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
+		bomb.setTimeDelta(2400);
+		bomb.explode(new ArrayList<Personnage>());
 		
-		bomb.update(new Avatar(), bomb.getTimeExplode() + bomb.getTimePose());
-		//bomb.finishExplode();
+		// encore en cours d'explosion
+		bomb.setTimeDelta(2400);
+		bomb.finishExplode(new ArrayList<Personnage>());
 		
-		assertFalse(bomb.isExploding());	
+		assertTrue(bomb.isExploding());	
+		
+		// bombe a fini d'exploser
+		bomb.setTimeDelta(3100);
+		bomb.finishExplode(new ArrayList<Personnage>());
+		
+		assertFalse(bomb.isExploding());
 	}
-	
 	
 	@Test
 	public void testUpdate() throws InterruptedException, SlickException{
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		
-		bomb.update(new Avatar(), bomb.getTimeExplode() + bomb.getTimePose());
+		// bombe posée en cours
+		bomb.update(new ArrayList<Personnage>(), 100);
+		
+		assertTrue(bomb.isPosed());
+		assertFalse(bomb.isExploding());
+		
+		// bombe en cours d'explosion
+		bomb.update(new ArrayList<Personnage>(), 2400);
+		
+		assertFalse(bomb.isPosed());
+		assertTrue(bomb.isExploding());
+		
+		// bombe finie d'exploser
+		bomb.update(new ArrayList<Personnage>(), 3100);
 		
 		assertFalse(bomb.isPosed());
 		assertFalse(bomb.isExploding());
@@ -79,36 +110,51 @@ public class BombTest {
 		// avatar a coté de la bombe
 		Bomb bomb = new Bomb();
 		bomb.pose(335, 305);
-		Personnage perso = new Avatar();
-		bomb.update(perso, bomb.getTimePose()); // update contient explode qui contient la méthode hurt
+		bomb.setExploding(true); // bombe en train d'exploser
+		Avatar av = new Avatar(); 
+		bomb.hurt(av);
 		
-		assertEquals(8, perso.getLife()); // points de vie avatar baissée de 2
+		assertEquals(8, av.getLife()); // points de vie avatar baissée de 2
 		
 		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
-		Personnage perso2 = new Avatar();
 		bomb.pose(102, 102);
-		bomb.update(perso2, bomb.getTimePose());
+		bomb.setExploding(true);
+		bomb.hurt(av);
 		
-		// points de vie du avatar intacts
-		assertEquals(10, perso2.getLife());
+		assertEquals(8, av.getLife()); 	// points de vie du avatar intacts
+		
+		// avatar a coté de la bombe mais déjà touché par la bombe
+		bomb.pose(335, 305);
+		bomb.setExploding(true);
+		av.setHasBeenHurted(true);
+		bomb.hurt(av);
+		
+		assertEquals(8, av.getLife()); // points de vie du avatar intacts
 		
 		// monstre a coté de la bombe
-		Bomb bomb2 = new Bomb();
-		bomb2.pose(335, 305);
+		bomb.pose(335, 305); 
+		bomb.setExploding(true);
 		Personnage monstre = new Monstre();
-		bomb2.update(monstre, bomb2.getTimePose());
+		bomb.hurt(monstre);
 		
 		assertEquals(8, monstre.getLife()); // points de vie monstre baissée de 2
 		
-		// avatar trop éloigné de la bombe ou hors de l'axe de l'explosion
-		Personnage monstre2 = new Monstre();
-		bomb2.pose(102, 102);
-		bomb2.update(monstre2, bomb2.getTimePose());
+		// monstre trop éloigné de la bombe ou hors de l'axe de l'explosion
+		bomb.pose(102, 102);
+		bomb.setExploding(true);
+		bomb.hurt(monstre);
 	
-		// points de vie du avatar intacts
-		assertEquals(10, monstre2.getLife());
+		assertEquals(8, monstre.getLife()); // points de vie du monstre intacts
+		
+		// monstre a coté de la bombe mais déjà toucgé par la bombe
+		bomb.pose(335, 305);
+		bomb.setExploding(true);
+		monstre.setHasBeenHurted(true);
+		bomb.hurt(monstre);
+		
+		assertEquals(8, monstre.getLife()); // points de vie du monstre intacts
 	}
 	
-*/	
+
 
 }

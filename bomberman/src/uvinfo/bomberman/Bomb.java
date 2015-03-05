@@ -57,6 +57,10 @@ public class Bomb {
 		return exploding;
 	}
 	
+	public void setExploding(boolean b){
+		this.exploding = b;
+	}
+	
 	public int getTimePose(){
 		return this.timePose;
 	}
@@ -71,6 +75,10 @@ public class Bomb {
 	
 	public void setNbExplode(int nb){
 		this.nbExplode = nb;
+	}
+	
+	public void setTimeDelta(int t){
+		this.timeDelta = t;
 	}
 	
 	/******** methodes *******/
@@ -145,6 +153,7 @@ public class Bomb {
 	public void pose(int x, int y){
 		this.setCoordonnees(x, y);
 		this.isPosed = true;
+		this.exploding = false;
 		this.timeDelta = 0;
 		this.setChampExplosion();
 	}
@@ -152,10 +161,10 @@ public class Bomb {
 	// passe de l'état posé à l'état explosion
 	public void explode(ArrayList<Personnage> listePersos){
 		if(this.timeDelta >= this.timePose){
+			this.exploding = true;
+			this.isPosed = false;
+			this.animPose.restart();
 			for(Personnage p : listePersos){
-				this.exploding = true;
-				this.isPosed = false;
-				this.animPose.restart();
 				this.hurt(p);
 			}	
 		}
@@ -213,7 +222,7 @@ public class Bomb {
 	}
 	
 	// attaquer l'adversaire
-	private void hurt(Personnage perso){
+	public void hurt(Personnage perso){
 		if(this.isExploding() && !perso.getHasBeenHurted()){
 			for(int i=0 ; i<this.nbExplode ; i++){
 				Vector2f vectorBomb = new Vector2f(this.champExplosion[i][0], this.champExplosion[i][1]);

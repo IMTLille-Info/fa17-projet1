@@ -61,7 +61,7 @@ public class Avatar extends Personnage {
 		}
 	}
 	
-	public void putSuperBomb(SuperBomb bomb) throws SlickException{
+	public void putSuperBomb(Bomb bomb) throws SlickException{
 		if(!this.hasPutBomb && this.nbSuperBomb >0){
 			this.hasPutBomb = true;
 			this.timeWaited = 0;

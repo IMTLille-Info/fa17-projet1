@@ -53,10 +53,10 @@ public class MapGameState extends BasicGameState {
 		listePersos.add(perso);
 		listePersos.add(monstre);
 		
-		bomb = new Bomb();
-		superBomb = new SuperBomb();
-		listeBombes.add(bomb);
-		listeBombes.add(superBomb);
+		/*bomb = new Bomb();
+		superBomb = new SuperBomb();*/
+		listeBombes.add(new Bomb());
+		listeBombes.add(new SuperBomb());
 		
 		son = new Musique();
 		son.FondSonore();
@@ -162,14 +162,14 @@ public class MapGameState extends BasicGameState {
 			break;
 		case Input.KEY_SPACE:
 			try {
-				perso.putBomb(this.bomb);
+				perso.putBomb(this.listeBombes.get(0));
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
 			break;
 		case Input.KEY_ENTER:
 			try {
-				perso.putSuperBomb(this.superBomb);
+				perso.putSuperBomb(this.listeBombes.get(1));
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
