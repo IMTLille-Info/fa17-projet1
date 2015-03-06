@@ -151,8 +151,20 @@ public class BombTest {
 		bomb.setExploding(true);
 		monstre.setHasBeenHurted(true);
 		bomb.hurt(monstre);
+		bomb.hurt(av);
 		
 		assertEquals(8, monstre.getLife()); // points de vie du monstre intacts
+		
+		// monstre et avatar touché en même temps
+		bomb.pose(335, 305);
+		bomb.setExploding(true);
+		monstre.setHasBeenHurted(false);
+		av.setHasBeenHurted(false);
+		bomb.hurt(monstre);
+		bomb.hurt(av);
+		
+		assertEquals(6, av.getLife());
+		assertEquals(6, monstre.getLife());
 	}
 	
 
