@@ -20,7 +20,7 @@ public class Avatar extends Personnage {
 	public void render() throws SlickException
 	{
 		if(this.getHasBeenHurted()){
-			GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65, new Color(255,0,0));
+			GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65, new Color(0,0,255,50));
 		}else{
 			GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65);
 		}

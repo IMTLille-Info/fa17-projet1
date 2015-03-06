@@ -146,7 +146,6 @@ public class Bomb {
 			this.timeDelta += delta ;
 			this.explode(listePersos);
 			this.finishExplode(listePersos);	
-			System.out.println(this.timeDelta);
 		}
 	}
 	
