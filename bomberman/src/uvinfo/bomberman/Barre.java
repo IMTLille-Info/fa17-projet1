@@ -10,8 +10,13 @@ public class Barre {
 	
 
 	private int taille;
-	private static final int P_BAR_X = 470;
+	private static final int P_BAR_X = 10;
 	private static final int P_BAR_Y = 23;
+	
+	private static Image coeur_plein;
+	private static Image coeur_vide;
+	
+	
 	
 	private ArrayList<Image> Barre = new ArrayList<Image>();
 
@@ -22,8 +27,12 @@ public class Barre {
 	
 	  public void init() throws SlickException {
 		  
+		  coeur_plein = new Image("sprites/coeur.png");
+		  coeur_vide = new Image("sprites/coeurN.png");
+		  
+		  
 		  for (int i = 0 ; i<taille;i++) {
-			Barre.add(i, new Image("sprites/coeur.png"));
+			Barre.add(i, coeur_plein);
 		}
 	  }	    
 
@@ -37,12 +46,10 @@ public class Barre {
 	  }
 	  
 	  public void update(int taille){
-		  
-		  while(taille<Barre.size() && taille > 0)
+		  		  
+		  for(int i = Barre.size()-1;i>=taille;i--)
 		  {
-			  int i = 1;
-			  Barre.remove(Barre.size()-i);
-			  i++;
+			  Barre.set(i,coeur_vide);
 		  }
 		}
 
