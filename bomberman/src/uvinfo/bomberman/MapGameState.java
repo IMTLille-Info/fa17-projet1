@@ -20,6 +20,7 @@ public class MapGameState extends BasicGameState {
 	private Musique son;
 	private Avatar perso;
 	private Monstre monstre;
+	private Barre life;
 	private Map map;
 	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
 	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
@@ -59,6 +60,9 @@ public class MapGameState extends BasicGameState {
 		
 		son = new Musique();
 		son.FondSonore();
+		
+		life = new Barre(perso.getLife());
+		life.init();
 
 	}
 
@@ -85,6 +89,8 @@ public class MapGameState extends BasicGameState {
 				b.render();
 			}
 		}
+		
+		life.render(g);
 
 	}
 
@@ -110,6 +116,9 @@ public class MapGameState extends BasicGameState {
 		// gestion des intéractions entre personnages
 		perso.update(delta, container);
 		monstre.update(perso, container);
+
+		
+		life.update(perso.getLife());
 		
 		if(perso.hasPutBomb()){
 			for(Bomb b : listeBombes){
