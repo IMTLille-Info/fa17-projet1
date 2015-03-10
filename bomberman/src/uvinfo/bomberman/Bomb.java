@@ -22,7 +22,9 @@ public class Bomb {
 	protected Animation animExplode = new Animation();
 	private long timeDelta;
 	private int timePose = 2300;
-	private int timeExplode = 690; // obligé de mettre un peu moins que la réalité car le delta de update de MapGameState pas toujours précis à + ou - 5ms, sinon finishExplode ne se lance pas toujours
+	private int timeExplode = 680; // obligé de mettre un peu moins que la réalité car le delta de update de MapGameState pas toujours précis à + ou - 5ms, sinon finishExplode ne se lance pas toujours
+	
+	// test sur branche
 	
 	private int nbExplode = 5;
 	protected int[][] champExplosion; 
