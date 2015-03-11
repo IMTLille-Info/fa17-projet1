@@ -10,11 +10,7 @@ import java.net.InetAddress;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
-
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -33,6 +29,8 @@ public class GameServer {
 		
 		server.addListener(new Listener() {
 			public void received (Connection c, Object object) {
+				
+				// vérifer le psudo du joueur qui se connecte
 				
 				if(object instanceof Avatar){
 					server.sendToAllTCP(object);
