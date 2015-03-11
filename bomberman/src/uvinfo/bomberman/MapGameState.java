@@ -91,7 +91,6 @@ public class MapGameState extends BasicGameState {
 		}
 		
 		life.render(g);
-
 	}
 
 	@Override

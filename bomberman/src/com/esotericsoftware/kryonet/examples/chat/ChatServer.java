@@ -1,13 +1,18 @@
 
 package com.esotericsoftware.kryonet.examples.chat;
 
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -96,10 +101,35 @@ public class ChatServer {
 				server.stop();
 			}
 		});
-		frame.getContentPane().add(new JLabel("Close to stop the chat server."));
-		frame.setSize(320, 200);
+		
+		
+		frame.setSize(320, 110);
 		frame.setLocationRelativeTo(null);
+		
+		Container c = frame.getContentPane();
+
+
+		FlowLayout miseEnFlot = new FlowLayout();
+		c.setLayout(miseEnFlot);
+		FlowLayout miseEnFlot1 = new FlowLayout();
+		c.setLayout(miseEnFlot1);
+		FlowLayout miseEnFlot2 = new FlowLayout();
+		c.setLayout(miseEnFlot2);
+
+
+		InetAddress IP=InetAddress.getLocalHost();		
+		
+		JLabel info = new JLabel("Close to stop the chat server.");
+		JLabel info1 = new JLabel("IP du serveur : "+IP.toString());
+		JLabel info2 = new JLabel("Port d'écoute du serveur : "+Network.port);
+
+		c.add(info);
+		c.add(info1);	
+		c.add(info2);		
+		
+
 		frame.setVisible(true);
+		
 	}
 
 	void updateNames () {
