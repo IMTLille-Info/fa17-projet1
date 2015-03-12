@@ -33,13 +33,15 @@ public class JeuClient {
 	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
 	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
 	
-	private Bomb bomb;
+	private Bomb bomb = new Bomb();
 	private SuperBomb superBomb;
 	
 	float difficult = 1;
-		
 	
 	public JeuClient () {
+		/**** pour test serveur ****/
+		//this.bomb = new Bomb();
+		
 		client = new Client();
 		client.start();
 
@@ -48,7 +50,11 @@ public class JeuClient {
 		Network.register(client);
 
 		client.addListener(new Listener() {
+			
 			public void connected (Connection connection) {
+				Bomb bomb = new Bomb();
+				bomb.setCoordonnees(10, 10);
+				client.sendTCP(" "+bomb.getNbExplode());
 				client.sendTCP(pseudo);
 			}
 
@@ -90,7 +96,7 @@ public class JeuClient {
 		if (input == null || input.trim().length() == 0) System.exit(1);
 		pseudo = input.trim();
 
-				client.sendTCP(pseudo);
+				client.sendTCP("ttt");
 
 		// We'll do the connect on a new thread so the ChatFrame can show a progress bar.
 		// Connecting to localhost is usually so fast you won't see the progress bar.
@@ -99,6 +105,7 @@ public class JeuClient {
 				try {
 					client.connect(5000, host, Network.port);
 					// Server communication after connection can go here, or in Listener#connected().
+					
 				} catch (IOException ex) {
 					ex.printStackTrace();
 					System.exit(1);
@@ -157,10 +164,10 @@ public class JeuClient {
 		Log.set(Log.LEVEL_DEBUG);
 		new JeuClient();
 		
-		AppGameContainer container = new AppGameContainer(new StateGame(), 704, 576, false);
+		/*AppGameContainer container = new AppGameContainer(new StateGame(), 704, 576, false);
 		container.setShowFPS(false);//on affiche pas les FPS
 		container.setTargetFrameRate(200);//on fixe le taux de rafraichissement a 200 pour ralentir le deplacement
-		container.start();
+		container.start();*/
 	}
 
 }

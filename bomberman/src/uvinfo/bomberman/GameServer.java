@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import org.newdawn.slick.SlickException;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -33,11 +34,11 @@ public class GameServer {
 				// vérifer le psudo du joueur qui se connecte
 				
 				if(object instanceof Avatar){
-					server.sendToAllTCP(object);
+					System.out.println("yes");
 				}
 				
 				if (object instanceof Bomb) {
-					
+					System.out.println("yes");
 				}
 				
 				if (object instanceof Monstre) {
@@ -74,6 +75,12 @@ public class GameServer {
 				
 				if (object instanceof SuperBomb) {
 					
+				}
+				
+				/***** tests ****/
+				if (object instanceof String){
+					String pseudo = (String)object;
+					System.out.println(pseudo);
 				}
 				
 			}

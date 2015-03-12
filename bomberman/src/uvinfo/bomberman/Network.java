@@ -20,6 +20,10 @@ public class Network {
 		kryo.register(Position.class);
 		kryo.register(StateGame.class);
 		kryo.register(SuperBomb.class);
+		kryo.register(org.newdawn.slick.Animation.class);
+		kryo.register(java.util.ArrayList.class);
+		kryo.register(int[][].class);
+		kryo.register(org.newdawn.slick.Animation[].class);
 	}
 
 }
