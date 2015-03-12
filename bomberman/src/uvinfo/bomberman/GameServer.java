@@ -23,7 +23,7 @@ public class GameServer {
 	public GameServer() throws IOException{
 		this.server = new Server();
 		this.server.start();
-		this.server.bind(5900);
+		this.server.bind(uvinfo.bomberman.Network.port);
 		
 		Network.register(server);
 		
