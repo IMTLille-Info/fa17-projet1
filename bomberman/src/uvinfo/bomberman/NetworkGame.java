@@ -346,7 +346,8 @@ public class NetworkGame extends BasicGameState {
 		case Input.KEY_ENTER:
 			perso.putSuperBomb(this.listeBombes.get(1));
 			break;
-		}		
+		}
+		
 	}
 
 	
