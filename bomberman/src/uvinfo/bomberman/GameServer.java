@@ -15,7 +15,6 @@ import org.newdawn.slick.SlickException;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import com.esotericsoftware.kryonet.examples.chat.Network;
 import com.esotericsoftware.minlog.Log;
 
 public class GameServer {
@@ -32,10 +31,11 @@ public class GameServer {
 			public void received (Connection c, Object object) {
 				
 				// vérifer le psudo du joueur qui se connecte
-				
-				if(object instanceof Avatar){
-					System.out.println("yes");
-				}
+								
+				if(object instanceof AvatarLight){
+					AvatarLight joueur = (AvatarLight)object;
+					server.sendToAllTCP(joueur);	
+				}				
 				
 				if (object instanceof Bomb) {
 					System.out.println("yes");
