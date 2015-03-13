@@ -91,14 +91,6 @@ public class NetworkGame extends BasicGameState {
 				
 				if (object instanceof AvatarLight) {
 					
-					if(listePseudoPersos.contains(((AvatarLight) object).Pseudo))
-					{
-						listePersos.get(listePseudoPersos.indexOf(pseudo)).posX(((AvatarLight) object).posX);//modification du personnage
-						listePersos.get(listePseudoPersos.indexOf(pseudo)).posY(((AvatarLight) object).posY);
-						listePersos.get(listePseudoPersos.indexOf(pseudo)).SetDirection(((AvatarLight) object).direction);
-					}
-					else
-					{
 					
 					Avatar newJoueur = new Avatar();
 					
@@ -115,8 +107,7 @@ public class NetworkGame extends BasicGameState {
 					}
 
 					AddJoueur(newJoueur,((AvatarLight)object).Pseudo);
-					}
-
+					
 					return;					
 				}				
 			}
