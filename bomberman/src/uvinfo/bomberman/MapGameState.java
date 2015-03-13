@@ -194,6 +194,11 @@ public class MapGameState extends BasicGameState {
 		return ID;
 	}
 	
+	public void addPerso(Personnage pers) throws SlickException
+	{
+		pers.render();
+	}
+	
 	public void stats(Graphics g){
 		g.setColor(Color.red);
 		g.drawString("Difficulté : " + difficult, 450, 20);// affichage vitesse

@@ -11,6 +11,7 @@ public class Network {
 		Kryo kryo = endPoint.getKryo();
 		kryo.register(Bomb.class);
 		kryo.register(Avatar.class);
+		kryo.register(AvatarLight.class);		
 		kryo.register(Monstre.class);
 		kryo.register(MapGameState.class);
 		kryo.register(Map.class);
@@ -20,6 +21,10 @@ public class Network {
 		kryo.register(Position.class);
 		kryo.register(StateGame.class);
 		kryo.register(SuperBomb.class);
+		kryo.register(org.newdawn.slick.Animation.class);
+		kryo.register(java.util.ArrayList.class);
+		kryo.register(int[][].class);
+		kryo.register(org.newdawn.slick.Animation[].class);		
 	}
-
+	
 }

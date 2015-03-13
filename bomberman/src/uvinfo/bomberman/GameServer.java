@@ -14,7 +14,6 @@ import org.newdawn.slick.SlickException;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import com.esotericsoftware.kryonet.examples.chat.Network;
 import com.esotericsoftware.minlog.Log;
 
 public class GameServer {
@@ -22,6 +21,9 @@ public class GameServer {
 	
 	public GameServer() throws IOException{
 		this.server = new Server();
+
+		this.server.start();
+		this.server.bind(uvinfo.bomberman.Network.port);
 		
 		Network.register(server);
 		
@@ -29,13 +31,16 @@ public class GameServer {
 			public void received (Connection c, Object object) {
 				
 				// vérifer le psudo du joueur qui se connecte
-				
-				if(object instanceof Avatar){
-					server.sendToAllTCP(object);
-				}
+								
+				if(object instanceof AvatarLight){
+					AvatarLight joueur = (AvatarLight)object;
+					server.sendToAllTCP(joueur);	
+				}				
 				
 				if (object instanceof Bomb) {
-					
+					Bomb bomb = (Bomb)object;
+					server.sendToAllTCP(bomb);
+					System.out.println("yes");
 				}
 				
 				if (object instanceof Monstre) {
@@ -74,11 +79,15 @@ public class GameServer {
 					
 				}
 				
+				/***** tests ****/
+				if (object instanceof String){
+					String pseudo = (String)object;
+					System.out.println(pseudo);
+				}
+				
 			}
 		});
 		
-		this.server.start();
-		this.server.bind(5900);
 		
 		/****************** Creation fenetre affichage *************************/
 		
