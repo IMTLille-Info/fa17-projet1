@@ -22,8 +22,6 @@ public class GameServer {
 	
 	public GameServer() throws IOException{
 		this.server = new Server();
-		this.server.start();
-		this.server.bind(5900);
 		
 		Network.register(server);
 		
@@ -79,8 +77,8 @@ public class GameServer {
 			}
 		});
 		
-		
-		
+		this.server.start();
+		this.server.bind(5900);
 		
 		/****************** Creation fenetre affichage *************************/
 		
