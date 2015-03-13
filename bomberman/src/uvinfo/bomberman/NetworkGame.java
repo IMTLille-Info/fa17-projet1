@@ -143,6 +143,7 @@ public class NetworkGame extends BasicGameState {
 			null, "Pseudo");
 		if (input == null || input.trim().length() == 0) System.exit(1);
 		pseudo = input.trim();
+		perso.setPseudo(input.trim());
 
 		// We'll do the connect on a new thread so the ChatFrame can show a progress bar.
 		// Connecting to localhost is usually so fast you won't see the progress bar.
@@ -351,12 +352,14 @@ public class NetworkGame extends BasicGameState {
 
 	
 	public void MAJAvatarlight()
-	{						
-		NetPerso.posX = perso.posX();
-		NetPerso.posY = perso.posY();
-	
-		NetPerso.direction = perso.GetDirection();
-		NetPerso.moving = true;
+	{	
+		if(perso.getPseudo() == pseudo){
+			NetPerso.posX = perso.posX();
+			NetPerso.posY = perso.posY();
+		
+			NetPerso.direction = perso.GetDirection();
+			NetPerso.moving = true;
+		}
 	}
 	
 	@Override
