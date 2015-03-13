@@ -38,6 +38,8 @@ public class GameServer {
 				}				
 				
 				if (object instanceof Bomb) {
+					Bomb bomb = (Bomb)object;
+					server.sendToAllTCP(bomb);
 					System.out.println("yes");
 				}
 				
