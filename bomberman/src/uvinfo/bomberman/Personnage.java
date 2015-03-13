@@ -11,7 +11,7 @@ public abstract class Personnage {
 	private int posX = 350;
 	private int posY = 300;
 	private int direction = 0;
-	private boolean moving = true;
+	private boolean moving;
 	
 	private int PointDeVie = 10;
 	private boolean hasBeenHurted = false;

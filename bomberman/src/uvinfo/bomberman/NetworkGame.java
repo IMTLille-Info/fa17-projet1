@@ -80,7 +80,8 @@ public class NetworkGame extends BasicGameState {
 				NetPerso.posY = perso.posY();
 
 				NetPerso.direction = perso.GetDirection();
-				NetPerso.PointDeVie = perso.getLife();				
+				NetPerso.PointDeVie = perso.getLife();		
+				NetPerso.moving = perso.isMoving();
 				
 				client.sendTCP(NetPerso);
 				
@@ -91,24 +92,32 @@ public class NetworkGame extends BasicGameState {
 				
 				if (object instanceof AvatarLight) {
 					
+					AvatarLight av = (AvatarLight)object;
 					
-					Avatar newJoueur = new Avatar();
+					if(listePseudoPersos.contains(av.Pseudo)){
+						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).SetDirection(av.direction); // ici pour l'animation de l'avatar recu
+						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).posX(av.posX);
+						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).posY(av.posY);
+						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).SetMoving(true);
+					}else{
+						Avatar newJoueur = new Avatar();
 					
-					newJoueur.posX(((AvatarLight) object).posX);
-					newJoueur.posY(((AvatarLight) object).posY);
-
-					newJoueur.SetDirection(((AvatarLight)object).direction);
-					newJoueur.SetMoving(((AvatarLight)object).moving);
-					newJoueur.setLife((((AvatarLight) object).PointDeVie));
-					
-					try {
-						newJoueur.initAnimation();
-					} catch (SlickException e) {
-						e.printStackTrace();
+						newJoueur.posX(((AvatarLight) object).posX);
+						newJoueur.posY(((AvatarLight) object).posY);
+	
+						newJoueur.SetDirection(((AvatarLight)object).direction);
+						newJoueur.SetMoving(((AvatarLight)object).moving);
+						newJoueur.setLife((((AvatarLight) object).PointDeVie));
+						
+						try {
+							newJoueur.initAnimation();
+						} catch (SlickException e) {
+							e.printStackTrace();
+						}
+	
+						AddJoueur(newJoueur,((AvatarLight)object).Pseudo);
 					}
-
-					AddJoueur(newJoueur,((AvatarLight)object).Pseudo);
-					
+						
 					return;					
 				}				
 			}
@@ -349,7 +358,7 @@ public class NetworkGame extends BasicGameState {
 			NetPerso.posY = perso.posY();
 		
 			NetPerso.direction = perso.GetDirection();
-			NetPerso.moving = true;
+			//NetPerso.moving = true;
 	}
 	
 	@Override
