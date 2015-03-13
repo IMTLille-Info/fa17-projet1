@@ -5,6 +5,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 public class Avatar extends Personnage {
+	
+	private String pseudo;
 
 	private int nbSuperBomb = 10;
 	private boolean hasPutBomb = false;
@@ -36,6 +38,14 @@ public class Avatar extends Personnage {
 	
 	public int getNbSuperBomb() {
 		return nbSuperBomb;
+	}
+
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
 	}
 
 	public void setNbSuperBomb(int nbSuperBomb) {
