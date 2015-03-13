@@ -34,7 +34,7 @@ public class GameServer {
 								
 				if(object instanceof AvatarLight){
 					AvatarLight joueur = (AvatarLight)object;
-					server.sendToAllTCP(joueur);	
+					server.sendToAllExceptTCP(c.getID(), joueur);
 				}				
 				
 				if (object instanceof Bomb) {
