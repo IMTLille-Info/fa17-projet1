@@ -251,6 +251,8 @@ public class NetworkGame extends BasicGameState {
 			p.update(delta, container);
 		}			
 		
+		MAJAvatarlight();
+		client.sendTCP(NetPerso);
 	}
 	
 	public void AddJoueur(Avatar pers, String pseudo)
