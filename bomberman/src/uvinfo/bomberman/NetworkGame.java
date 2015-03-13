@@ -98,6 +98,7 @@ public class NetworkGame extends BasicGameState {
 					newJoueur.posY(((AvatarLight) object).posY);
 
 					newJoueur.SetDirection(((AvatarLight)object).direction);
+					newJoueur.SetMoving(((AvatarLight)object).moving);
 					newJoueur.setLife((((AvatarLight) object).PointDeVie));
 					
 					try {
@@ -262,8 +263,7 @@ public class NetworkGame extends BasicGameState {
 	
 	
 	public void afficheMessage(String mess)
-	{
-	
+	{	
 		JFrame frame = new JFrame("Connexion");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
