@@ -38,6 +38,7 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		uvinfo.bomberman
 		// initialisation des objets
 		this.game = game;
 		this.container = container;

@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 
 
 
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -25,18 +26,21 @@ public class MainScreenGameState extends BasicGameState {
 	public static final int ID = 1;
 	private Image background;
 	private StateBasedGame game;
-	Shape cercle;
-	Shape rect;
+	public String bombe1;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		this.game = game;
 		this.background = new Image("res/accueilDragon.png");
-		//String Bombe = JOptionPane.showInputDialog("Combien voulez vous de bombe ? ");
-		//String nbBombe = JOptionPane.showInputDialog("Combien voulez vous de bombe  a? ");
-		rect = new Rectangle(50, 50, 400, 200);
-		cercle = new Circle(70, 70, 32);
+		String Bombe = JOptionPane.showInputDialog("Combien voulez vous de bombe ? ");
+		String nbBombe = JOptionPane.showInputDialog("Combien voulez vous de bombe  a? ");
+		
+		bombe1 = nbBombe;
+		
+		System.out.println(bombe1);
+		
+		
 		
 	}
 
