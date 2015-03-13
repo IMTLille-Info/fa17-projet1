@@ -1,6 +1,7 @@
 package uvinfo.bomberman;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -155,5 +156,8 @@ public abstract class Personnage {
 		}
 		
 		public abstract void render() throws SlickException;
+
+
+		public abstract void update(int delta, GameContainer container);
 	
 }

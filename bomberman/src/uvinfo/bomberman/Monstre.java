@@ -118,4 +118,11 @@ public class Monstre extends Personnage {
 			container.exit();
 		}
 	}
+
+
+	@Override
+	public void update(int delta, GameContainer container) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -44,7 +44,8 @@ public class GameServer {
 				}
 				
 				if (object instanceof Monstre) {
-					
+					Monstre monstre = (Monstre)object;
+					server.sendToAllTCP(monstre);
 				}
 				
 				if (object instanceof MapGameState) {

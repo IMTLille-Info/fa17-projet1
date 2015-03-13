@@ -37,7 +37,7 @@ public class NetworkGame extends BasicGameState {
 	private Map map;
 
 	private ArrayList<String> listePseudoPersos = new ArrayList<String>();//temporaire
-	private ArrayList<Avatar> listePersos = new ArrayList<Avatar>();
+	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
 	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
 	
 	private Bomb bomb;
@@ -198,7 +198,7 @@ public class NetworkGame extends BasicGameState {
 		this.stats(g);
 		
 		// animations des persos de la map
-		for(Avatar p : listePersos)		
+		for(Personnage p : listePersos)		
 		{
 			p.render();
 		}
@@ -232,13 +232,13 @@ public class NetworkGame extends BasicGameState {
 		
 		life.update(perso.getLife());
 		
-		/*if(perso.hasPutBomb()){
+		if(perso.hasPutBomb()){
 			for(Bomb b : listeBombes){
 				b.update(listePersos, delta);
 			}
-		}*/
+		}
 		
-		for(Avatar p : listePersos){
+		for(Personnage p : listePersos){
 			p.update(delta, container);
 		}			
 		
