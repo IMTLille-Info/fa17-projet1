@@ -111,7 +111,6 @@ public class NetworkGame extends BasicGameState {
 					try {
 						newJoueur.initAnimation();
 					} catch (SlickException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -308,8 +307,7 @@ public class NetworkGame extends BasicGameState {
 
 		perso.SetMoving(false);
 
-		MAJAvatarlight();	
-		client.sendTCP(NetPerso);
+		MAJAvatarlight();
 
 		if (Input.KEY_ESCAPE == key) {
 			game.enterState(MainScreenGameState.ID);
@@ -349,18 +347,18 @@ public class NetworkGame extends BasicGameState {
 			break;
 		}
 		
+		MAJAvatarlight();
+		
 	}
 
 	
 	public void MAJAvatarlight()
 	{	
-		if(perso.getPseudo() == pseudo){
 			NetPerso.posX = perso.posX();
 			NetPerso.posY = perso.posY();
 		
 			NetPerso.direction = perso.GetDirection();
 			NetPerso.moving = true;
-		}
 	}
 	
 	@Override
