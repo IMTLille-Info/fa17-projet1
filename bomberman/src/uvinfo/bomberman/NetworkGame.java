@@ -84,13 +84,21 @@ public class NetworkGame extends BasicGameState {
 				
 				client.sendTCP(NetPerso);
 				
-				//AddJoueur(perso, pseudo);
 			}
 
 			public void received (Connection connection, Object object) {
 				
 				
 				if (object instanceof AvatarLight) {
+					
+					if(listePseudoPersos.contains(((AvatarLight) object).Pseudo))
+					{
+						listePersos.get(listePseudoPersos.indexOf(pseudo)).posX(((AvatarLight) object).posX);//modification du personnage
+						listePersos.get(listePseudoPersos.indexOf(pseudo)).posY(((AvatarLight) object).posY);
+						listePersos.get(listePseudoPersos.indexOf(pseudo)).SetDirection(((AvatarLight) object).direction);
+					}
+					else
+					{
 					
 					Avatar newJoueur = new Avatar();
 					
@@ -108,6 +116,7 @@ public class NetworkGame extends BasicGameState {
 					}
 					
 					AddJoueur(newJoueur,((AvatarLight)object).Pseudo);
+					}
 
 					return;					
 				}				
@@ -248,11 +257,11 @@ public class NetworkGame extends BasicGameState {
 	{			
 		if(listePseudoPersos.contains(pseudo))
 		{
-			listePersos.set(listePseudoPersos.indexOf(pseudo), pers);
+			listePersos.set(listePseudoPersos.indexOf(pseudo), pers);//modification du personnage
 		}
 		else
 		{
-			listePersos.add(pers);
+			listePersos.add(pers);//ajout du personnage
 			listePseudoPersos.add(pseudo);
 		}
 	}
@@ -262,7 +271,7 @@ public class NetworkGame extends BasicGameState {
 	public void afficheMessage(String mess)
 	{
 	
-		JFrame frame = new JFrame("Test");
+		JFrame frame = new JFrame("Connexion");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 		});				
@@ -295,6 +304,9 @@ public class NetworkGame extends BasicGameState {
 	public void keyReleased(int key, char c) {
 
 		perso.SetMoving(false);
+
+		MAJAvatarlight();	
+		client.sendTCP(NetPerso);
 
 		if (Input.KEY_ESCAPE == key) {
 			game.enterState(MainScreenGameState.ID);
