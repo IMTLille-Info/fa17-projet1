@@ -4,9 +4,7 @@ import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -58,25 +56,13 @@ public class NetworkGame extends BasicGameState {
 		perso = new Avatar();		
 		perso.initAnimation();
 		
-		// For consistency, the classes to be sent over the network are
-		// registered by the same method for both the client and server.
 		Network.register(client);
 
 		client.addListener(new Listener() {
 			
 			public void connected (Connection connection) {
 				
-				
-				NetPerso.Pseudo = pseudo;
-				
-				NetPerso.posX = perso.posX();
-				NetPerso.posY = perso.posY();
-
-				NetPerso.direction = perso.GetDirection();
-				NetPerso.PointDeVie = perso.getLife();		
-				NetPerso.moving = perso.isMoving();
-				NetPerso.hasPutBomb = perso.hasPutBomb();
-				
+				NetPerso.copy(perso, pseudo);
 				client.sendTCP(NetPerso);
 				
 				if(perso.hasPutBomb()){
@@ -91,32 +77,16 @@ public class NetworkGame extends BasicGameState {
 				
 				if (object instanceof AvatarLight) {
 					
-					AvatarLight av = (AvatarLight)object;
+					AvatarLight avl = (AvatarLight)object;
+					Avatar newJoueur = new Avatar(avl);
 					
-					if(listePseudoPersos.contains(av.Pseudo)){
-						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).SetDirection(av.direction); // ici pour l'animation de l'avatar recu
-						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).posX(av.posX);
-						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).posY(av.posY);
-						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).SetMoving(av.moving);
-					}else{
-						Avatar newJoueur = new Avatar();
-					
-						newJoueur.posX(((AvatarLight) object).posX);
-						newJoueur.posY(((AvatarLight) object).posY);
-	
-						newJoueur.SetDirection(((AvatarLight)object).direction);
-						newJoueur.SetMoving(((AvatarLight)object).moving);
-						newJoueur.setLife((((AvatarLight) object).PointDeVie));
-						newJoueur.setHasPutBomb((((AvatarLight) object).hasPutBomb));
-						
-						try {
-							newJoueur.initAnimation();
-						} catch (SlickException e) {
-							e.printStackTrace();
-						}
-	
-						AddJoueur(newJoueur,((AvatarLight)object).Pseudo);
+					try {
+						newJoueur.initAnimation();
+					} catch (SlickException e) {
+						e.printStackTrace();
 					}
+
+					AddJoueur(newJoueur,avl.Pseudo);
 						
 					return;					
 				}
@@ -150,8 +120,6 @@ public class NetworkGame extends BasicGameState {
 		pseudo = input.trim();
 		perso.setPseudo(input.trim());
 
-		// We'll do the connect on a new thread so the ChatFrame can show a progress bar.
-		// Connecting to localhost is usually so fast you won't see the progress bar.
 		new Thread("Connect") {
 			public void run () {
 				try {
@@ -187,11 +155,7 @@ public class NetworkGame extends BasicGameState {
 		life = new Barre(perso.getLife());
 		life.init();
 		
-		
-		NetPerso.posX = perso.posX();
-		NetPerso.posY = perso.posY();
-		NetPerso.moving = perso.isMoving();
-		NetPerso.hasPutBomb = perso.hasPutBomb();
+		NetPerso.copy(perso, pseudo);
 		
 		client.sendTCP(NetPerso);
 		
@@ -256,7 +220,8 @@ public class NetworkGame extends BasicGameState {
 			p.update(delta, container);
 		}			
 		
-		MAJAvatarlight();
+		
+		NetPerso.copy(perso, pseudo);
 		client.sendTCP(NetPerso);
 		
 	}
@@ -312,7 +277,8 @@ public class NetworkGame extends BasicGameState {
 
 		perso.SetMoving(false);
 
-		MAJAvatarlight();
+		
+		NetPerso.copy(perso, pseudo);
 
 		if (Input.KEY_ESCAPE == key) {
 			game.enterState(MainScreenGameState.ID);
@@ -352,19 +318,11 @@ public class NetworkGame extends BasicGameState {
 			break;
 		}
 		
-		MAJAvatarlight();
+		
+		NetPerso.copy(perso, pseudo);
 		
 	}
 
-	
-	public void MAJAvatarlight()
-	{	
-			NetPerso.posX = perso.posX();
-			NetPerso.posY = perso.posY();
-		
-			NetPerso.direction = perso.GetDirection();
-			//NetPerso.moving = true;
-	}
 	
 	@Override
 	public int getID() {

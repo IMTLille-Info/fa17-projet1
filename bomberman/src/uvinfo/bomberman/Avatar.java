@@ -19,6 +19,15 @@ public class Avatar extends Personnage {
 	public Avatar(){   	
 	}
 	
+	public Avatar(AvatarLight avl){
+		this.posX(avl.posX);
+		this.posY(avl.posY);
+		this.SetDirection(avl.direction);
+		this.SetMoving(avl.moving);
+		this.setLife(avl.PointDeVie);
+		this.setHasPutBomb(avl.hasPutBomb);
+	}
+	
 	public void render() throws SlickException
 	{
 		if(this.getHasBeenHurted()){
@@ -100,6 +109,7 @@ public class Avatar extends Personnage {
 			container.exit();
 		}
 	}
+	
 	
 
 }
