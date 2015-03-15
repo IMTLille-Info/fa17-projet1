@@ -83,6 +83,14 @@ public class Bomb {
 		this.timeDelta = t;
 	}
 	
+	public long getTimeDelta() {
+		return timeDelta;
+	}
+	
+	public int[][] getChampExplosion() {
+		return champExplosion;
+	}
+
 	/******** methodes *******/
 	
 	// charge les animations
@@ -235,5 +243,14 @@ public class Bomb {
 				}
 			}
 		}
+	}
+	
+	public void copyLight(BombLight bbl){
+		this.posX = bbl.posX;
+		this.posY = bbl.posY;
+		this.isPosed = bbl.isPosed;
+		this.exploding = bbl.exploding;
+		this.timeDelta = bbl.timeDelta;
+		this.champExplosion = bbl.champExplosion;
 	}
 }

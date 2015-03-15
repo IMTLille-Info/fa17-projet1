@@ -28,10 +28,9 @@ public class JeuClient  extends StateBasedGame {
 	public static void main(String[] args) throws SlickException {
 		
 		Log.set(Log.LEVEL_DEBUG);
-		//new JeuClient();
 		
 		AppGameContainer container = new AppGameContainer(new JeuClient(), 704, 576, false);
-		container.setAlwaysRender(true);
+		container.setAlwaysRender(true); 
 		container.setShowFPS(false);//on affiche pas les FPS
 		container.setTargetFrameRate(200);//on fixe le taux de rafraichissement a 200 pour ralentir le deplacement
 		container.start();

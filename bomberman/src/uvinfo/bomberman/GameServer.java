@@ -37,10 +37,9 @@ public class GameServer {
 					server.sendToAllExceptTCP(c.getID(), joueur);
 				}				
 				
-				if (object instanceof Bomb) {
-					Bomb bomb = (Bomb)object;
-					server.sendToAllTCP(bomb);
-					System.out.println("yes");
+				if (object instanceof BombLight) {
+					BombLight bbl = (BombLight)object;
+					server.sendToAllExceptTCP(c.getID(),bbl);
 				}
 				
 				if (object instanceof Monstre) {

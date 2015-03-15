@@ -10,7 +10,7 @@ public class Avatar extends Personnage {
 
 	private int nbSuperBomb = 10;
 	private boolean hasPutBomb = false;
-	private int timeForNewBomb = 3000; // temps que doit attendre l'avatar s'il veut reposer une bombe
+	private int timeForNewBomb = 6000; // temps que doit attendre l'avatar s'il veut reposer une bombe
 	private int timeWaited;
 	
 	

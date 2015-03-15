@@ -7,6 +7,7 @@ public class AvatarLight {
 	public int direction = 0;
 	public boolean moving;
 	public String Pseudo;
+	public boolean hasPutBomb;
 	
 	public int PointDeVie = 10;	
 

@@ -40,9 +40,6 @@ public class NetworkGame extends BasicGameState {
 	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
 	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
 	
-	private Bomb bomb;
-	private SuperBomb superBomb;
-	
 	float difficult = 1;
 	
 	private StateBasedGame game;
@@ -51,16 +48,12 @@ public class NetworkGame extends BasicGameState {
 	
 	Client client;
 	
-	public NetworkGame() throws SlickException {
-		
-		/**** pour test serveur ****/
-		//this.bomb = new Bomb();		
+	public NetworkGame() throws SlickException {	
 		
 		client = new Client();
 		client.start();
 
 		NetPerso = new AvatarLight();
-		
 		
 		perso = new Avatar();		
 		perso.initAnimation();
@@ -82,8 +75,14 @@ public class NetworkGame extends BasicGameState {
 				NetPerso.direction = perso.GetDirection();
 				NetPerso.PointDeVie = perso.getLife();		
 				NetPerso.moving = perso.isMoving();
+				NetPerso.hasPutBomb = perso.hasPutBomb();
 				
 				client.sendTCP(NetPerso);
+				
+				if(perso.hasPutBomb()){
+					BombLight bbl = new BombLight(listeBombes.get(0));
+					client.sendTCP(bbl);
+				}
 				
 			}
 
@@ -98,7 +97,7 @@ public class NetworkGame extends BasicGameState {
 						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).SetDirection(av.direction); // ici pour l'animation de l'avatar recu
 						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).posX(av.posX);
 						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).posY(av.posY);
-						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).SetMoving(true);
+						listePersos.get(listePseudoPersos.indexOf(av.Pseudo)).SetMoving(av.moving);
 					}else{
 						Avatar newJoueur = new Avatar();
 					
@@ -108,6 +107,7 @@ public class NetworkGame extends BasicGameState {
 						newJoueur.SetDirection(((AvatarLight)object).direction);
 						newJoueur.SetMoving(((AvatarLight)object).moving);
 						newJoueur.setLife((((AvatarLight) object).PointDeVie));
+						newJoueur.setHasPutBomb((((AvatarLight) object).hasPutBomb));
 						
 						try {
 							newJoueur.initAnimation();
@@ -119,7 +119,12 @@ public class NetworkGame extends BasicGameState {
 					}
 						
 					return;					
-				}				
+				}
+				
+				if(object instanceof BombLight){
+					BombLight bbl = (BombLight)object;
+					listeBombes.get(0).copyLight(bbl);
+				}
 			}
 
 			public void disconnected (Connection connection) {
@@ -175,9 +180,6 @@ public class NetworkGame extends BasicGameState {
 		map = new Map();
 		map.init();
 		
-		perso = new Avatar();
-		perso.initAnimation();
-		
 		listeBombes.add(new Bomb());
 		listeBombes.add(new SuperBomb());
 		for(Bomb b : listeBombes) b.loadAnimations();
@@ -187,7 +189,9 @@ public class NetworkGame extends BasicGameState {
 		
 		
 		NetPerso.posX = perso.posX();
-		NetPerso.posY = perso.posY();		
+		NetPerso.posY = perso.posY();
+		NetPerso.moving = perso.isMoving();
+		NetPerso.hasPutBomb = perso.hasPutBomb();
 		
 		client.sendTCP(NetPerso);
 		
@@ -254,6 +258,7 @@ public class NetworkGame extends BasicGameState {
 		
 		MAJAvatarlight();
 		client.sendTCP(NetPerso);
+		
 	}
 	
 	public void AddJoueur(Avatar pers, String pseudo)
