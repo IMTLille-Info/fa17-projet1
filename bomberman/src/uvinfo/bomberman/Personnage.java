@@ -12,6 +12,7 @@ public abstract class Personnage {
 	private int posY = 300;
 	private int direction = 0;
 	private boolean moving;
+	private String pseudo;
 	
 	private int PointDeVie = 10;
 	private boolean hasBeenHurted = false;
@@ -84,6 +85,16 @@ public abstract class Personnage {
 			return this.moving;
 		}
 		
+		public String getPseudo() {
+			return pseudo;
+		}
+
+
+		public void setPseudo(String pseudo) {
+			this.pseudo = pseudo;
+		}
+
+
 		public Animation GetAnimation(int anim)
 		{
 			return this.animations[anim];

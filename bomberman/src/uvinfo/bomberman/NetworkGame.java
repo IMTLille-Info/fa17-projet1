@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +23,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.sun.xml.internal.bind.v2.runtime.reflect.ListIterator;
 
 public class NetworkGame extends BasicGameState {
 	public static final int ID = 2;
@@ -181,6 +183,13 @@ public class NetworkGame extends BasicGameState {
 			p.render();
 		}
 		
+		/*Iterator it = listePersos.iterator();
+		while(it.hasNext()){
+			Personnage p = (Personnage)it.next();
+			p.render();
+			
+		}*/
+		
 		// animations des bombes
 		if(perso.hasPutBomb()){
 			for(Bomb b : listeBombes){
@@ -218,10 +227,19 @@ public class NetworkGame extends BasicGameState {
 		
 		for(Personnage p : listePersos){
 			p.update(delta, container);
-		}			
+		}	
 		
+		/*Iterator it = listePersos.iterator();
+		while(it.hasNext()){
+			Personnage p = (Personnage)it.next();
+			p.update(delta, container);
+			
+		}*/
 		
 		NetPerso.copy(perso, pseudo);
+		//if(NetPerso.moving==true) System.out.println("yes"); //ça passe !
+		//if(perso.isMoving()) System.out.println("yes");  // ca passe !
+		//if(listePersos.get(0).isMoving()) System.out.println("yes");  // ca passe 
 		client.sendTCP(NetPerso);
 		
 	}
@@ -231,12 +249,39 @@ public class NetworkGame extends BasicGameState {
 		if(listePseudoPersos.contains(pseudo))
 		{
 			listePersos.set(listePseudoPersos.indexOf(pseudo), pers);//modification du personnage
+			//if(listePersos.get(listePersos.indexOf(pseudo)).isMoving()) System.out.println("yes"); // marche pas arrayoutofbound..pb sur listepseudoperso
+			//if(pers.isMoving()) System.out.println("yes"); passe !
 		}
 		else
 		{
 			listePersos.add(pers);//ajout du personnage
 			listePseudoPersos.add(pseudo);
 		}
+		
+		/*boolean find = false;
+		int index = 0;
+		for(Personnage p : listePersos){
+			if(p.getPseudo() == pseudo){
+				index = listePersos.indexOf(p);
+				find = true;
+			}
+		}*/
+		
+		/*ListIterator<Personnage> it = (ListIterator<Personnage>) listePersos.iterator();
+		while(it.hasNext()){
+			Personnage p = it.next();
+			if(p.getPseudo() == pseudo){
+				//find = true;
+			}
+		}*/
+		
+		
+		/*if(find){
+			listePersos.set(index, pers);
+		}else{
+			listePersos.add(pers);
+		}*/
+		
 	}
 	
 	
