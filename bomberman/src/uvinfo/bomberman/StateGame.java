@@ -12,7 +12,7 @@ public class StateGame extends StateBasedGame {
 		container.setShowFPS(false);//on affiche pas les FPS
 		container.setTargetFrameRate(200);//on fixe le taux de rafraichissement a 200 pour ralentir le deplacement
 		container.start();
-
+		
 	}
 
 	public StateGame() {

@@ -2,13 +2,6 @@ package uvinfo.bomberman;
 
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
-
- 
-
-
-
-
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -33,10 +26,7 @@ public class MainScreenGameState extends BasicGameState {
 			throws SlickException {
 		this.game = game;
 		this.background = new Image("res/accueilDragon.png");
-		String Bombe = JOptionPane.showInputDialog("Combien voulez vous de bombe ? ");
-		String nbBombe = JOptionPane.showInputDialog("Combien voulez vous de bombe  a? ");
 		
-		bombe1 = nbBombe;
 		
 		System.out.println(bombe1);
 		
