@@ -1,21 +1,10 @@
 package uvinfo.bomberman;
 
-import java.awt.EventQueue;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 
 public class JeuClient  extends StateBasedGame {		
