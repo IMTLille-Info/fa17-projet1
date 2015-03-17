@@ -1,5 +1,7 @@
 package uvinfo.bomberman;
 
+import javax.swing.table.AbstractTableModel;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 
@@ -24,7 +26,10 @@ public class Network {
 		kryo.register(org.newdawn.slick.Animation.class);
 		kryo.register(java.util.ArrayList.class);
 		kryo.register(int[][].class);
-		kryo.register(org.newdawn.slick.Animation[].class);		
+		kryo.register(org.newdawn.slick.Animation[].class);	
+		kryo.register(PageAttente.class);
+		kryo.register(ModeleDynamiqueObjet.class);
+		kryo.register(AbstractTableModel.class);
 	}
 	
 }

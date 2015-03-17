@@ -18,6 +18,12 @@ public class JeuClient  extends StateBasedGame {
 		
 		Log.set(Log.LEVEL_DEBUG);
 		
+		//PageAttente page = new PageAttente();
+		
+		//page.show();
+		
+		
+		
 		AppGameContainer container = new AppGameContainer(new JeuClient(), 704, 576, false);
 		container.setAlwaysRender(true); 
 		container.setShowFPS(false);//on affiche pas les FPS
@@ -28,7 +34,20 @@ public class JeuClient  extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
 
+		
+		
+		//WaitingForPlayers();
+		
 		addState(new NetworkGame());
 	}
-
+	
+	public void WaitingForPlayers() {
+        
+		boolean aJoue = false;
+	    while(!aJoue) {
+	    //on attend le clic sur un bouton
+	    }	
+	
+	}
+	
 }

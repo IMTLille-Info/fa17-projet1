@@ -36,7 +36,7 @@ public class NetworkGame extends BasicGameState {
 	private Barre life;
 	private Map map;
 
-	private ArrayList<String> listePseudoPersos = new ArrayList<String>();//temporaire
+	//private ArrayList<String> listePseudoPersos = new ArrayList<String>();//temporaire
 	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
 	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
 	
@@ -246,10 +246,11 @@ public class NetworkGame extends BasicGameState {
 	
 	public void AddJoueur(Avatar pers, String pseudo)
 	{			
-		if(listePseudoPersos.contains(pseudo))
+		/*if(listePseudoPersos.contains(pseudo))
 		{
 			listePersos.set(listePseudoPersos.indexOf(pseudo), pers);//modification du personnage
-			//if(listePersos.get(listePersos.indexOf(pseudo)).isMoving()) System.out.println("yes"); // marche pas arrayoutofbound..pb sur listepseudoperso
+			
+			if(listePersos.get(listePersos.indexOf(pseudo)).isMoving()) System.out.println("yes"); // marche pas arrayoutofbound..pb sur listepseudoperso
 			//if(pers.isMoving()) System.out.println("yes"); passe !
 		}
 		else
@@ -257,15 +258,18 @@ public class NetworkGame extends BasicGameState {
 			listePersos.add(pers);//ajout du personnage
 			listePseudoPersos.add(pseudo);
 		}
+		*/
 		
-		/*boolean find = false;
+		boolean find = false;
 		int index = 0;
+		
 		for(Personnage p : listePersos){
 			if(p.getPseudo() == pseudo){
 				index = listePersos.indexOf(p);
 				find = true;
+				break;
 			}
-		}*/
+		}
 		
 		/*ListIterator<Personnage> it = (ListIterator<Personnage>) listePersos.iterator();
 		while(it.hasNext()){
@@ -276,11 +280,11 @@ public class NetworkGame extends BasicGameState {
 		}*/
 		
 		
-		/*if(find){
+		if(find){
 			listePersos.set(index, pers);
 		}else{
 			listePersos.add(pers);
-		}*/
+		}
 		
 	}
 	
@@ -321,7 +325,6 @@ public class NetworkGame extends BasicGameState {
 	public void keyReleased(int key, char c) {
 
 		perso.SetMoving(false);
-
 		
 		NetPerso.copy(perso, pseudo);
 
@@ -379,10 +382,11 @@ public class NetworkGame extends BasicGameState {
 		
 		int i = 1;
 		
-		for(String ps : listePseudoPersos)
+		//for(String ps : listePseudoPersos)
+		/*for(Personnage ps : listePersos)
 		{
-			g.drawString("pseudo" +i + " : " + ps, 450, 20*i);// affichage vitesse
+			g.drawString("pseudo" +i + " : " + ps.getPseudo(), 450, 20*i);// affichage vitesse
 			i++;
-		}
+		}*/
 	}
 }
