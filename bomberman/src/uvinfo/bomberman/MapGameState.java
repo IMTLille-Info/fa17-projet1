@@ -101,7 +101,6 @@ public class MapGameState extends BasicGameState {
 	 */
 	public void update(GameContainer container, StateBasedGame game, int delta)
 		throws SlickException {
-		
 	     // gestion des collisions
 		map.isCollision(perso.getFuturX(), perso.getFuturY(), perso);
 		
@@ -125,7 +124,6 @@ public class MapGameState extends BasicGameState {
 				b.update(listePersos, delta);
 			}
 		}
-	
 	}
 
 	@Override

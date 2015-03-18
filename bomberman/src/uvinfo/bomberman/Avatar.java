@@ -3,6 +3,7 @@ package uvinfo.bomberman;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Avatar extends Personnage {
 
@@ -10,8 +11,8 @@ public class Avatar extends Personnage {
 	private boolean hasPutBomb = false;
 	private int timeForNewBomb = 3000; // temps que doit attendre l'avatar s'il veut reposer une bombe
 	private int timeWaited;
-	
-	
+	MapGameState GameMap = new MapGameState();
+	private StateBasedGame game;
 	/************* constructeur *****************/
 	
 	public Avatar(){   	
@@ -75,7 +76,7 @@ public class Avatar extends Personnage {
 		}
 	}
 	
-	public void update(int delta, GameContainer container){
+	public void update(int delta, GameContainer container) throws SlickException{
 		if(this.hasPutBomb){
 			this.timeWaited += delta;
 			if(this.timeWaited >= this.timeForNewBomb){
@@ -85,8 +86,10 @@ public class Avatar extends Personnage {
 		// perdu si perso est mort
 		if(!this.IsAlive())
 		{
-			javax.swing.JOptionPane.showMessageDialog(null,"Game Over"); 
+			javax.swing.JOptionPane.showMessageDialog(null,"Game Over");	
 			container.exit();
+			
+			
 		}
 	}
 	

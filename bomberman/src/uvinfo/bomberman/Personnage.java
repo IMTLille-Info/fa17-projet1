@@ -12,7 +12,7 @@ public abstract class Personnage {
 	private int direction = 0;
 	private boolean moving = false;
 	
-	private int PointDeVie = 10;
+	private int PointDeVie = 1;
 	private boolean hasBeenHurted = false;
 	
 	private Animation[] animations = new Animation[8];
