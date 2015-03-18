@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="11" height="9" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" name="tilea45" tilewidth="32" tileheight="32">
-  <image source="tilea45.png" width="512" height="384"/>
- </tileset>
- <tileset firstgid="193" name="tuto-slick2d-037-tuile-logic" tilewidth="32" tileheight="32">
-  <image source="tuto-slick2d-037-tuile-logic.png" width="160" height="160"/>
- </tileset>
- <tileset firstgid="218" name="tilea3" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="11" height="9" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="tilea3" tilewidth="64" tileheight="64">
   <image source="tilea3.png" width="512" height="256"/>
  </tileset>
- <layer name="Logic" width="11" height="9">
+ <tileset firstgid="33" name="tilea45" tilewidth="64" tileheight="64">
+  <image source="tilea45.png" width="512" height="384"/>
+ </tileset>
+ <tileset firstgid="81" name="chibihikaru-tilea2" tilewidth="64" tileheight="64">
+  <image source="chibihikaru-tilea2.png" width="512" height="384"/>
+ </tileset>
+ <layer name="Logic" width="11" height="9" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC3vFwMDwigSMD5yCYmS1r5DE0GkGNLWnCJgPU4uuH52PrhYfxmYuIRqfudjcSywGAPBpgpyMAQAA
+   H4sIAAAAAAAAC2NmYGBgJgETA5DVEjKLGubi4w8G9xKLATDTSR+MAQAA
   </data>
  </layer>
  <layer name="Calque de Tile 1" width="11" height="9">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNlYGAQJQEzEYGR1QoToEeCucRiAMiTjxOMAQAA
+   H4sIAAAAAAAAC2NkYGBgJAFbEoGR1QrjwehqyTUXG38wuZdYDADKOWP1jAEAAA==
   </data>
  </layer>
 </map>
