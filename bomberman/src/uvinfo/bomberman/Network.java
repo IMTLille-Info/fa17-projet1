@@ -28,7 +28,6 @@ public class Network {
 		kryo.register(int[][].class);
 		kryo.register(org.newdawn.slick.Animation[].class);	
 		kryo.register(PageAttente.class);
-		kryo.register(ModeleDynamiqueObjet.class);
 		kryo.register(AbstractTableModel.class);
 	}
 	

@@ -1,14 +1,18 @@
 package uvinfo.bomberman;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,6 +23,7 @@ import org.newdawn.slick.SlickException;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.sun.xml.internal.ws.api.pipe.ClientTubeAssemblerContext;
 
 public class PageAttente extends JFrame {
 	
@@ -27,55 +32,40 @@ public class PageAttente extends JFrame {
 	Client client;
 	
 	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
+	
+	private ArrayList<AvatarLight> listePersosLight = new ArrayList<AvatarLight>();
 		
 	private static final long serialVersionUID = 1L;
 	
-	private ModeleDynamiqueObjet  modele = new ModeleDynamiqueObjet();
-	
-	    private JTable tableau;
 	 
 	    public PageAttente() {
-	        super();
-	        	        
+	        super();	        
+	        
+	        
+	        this.setSize(200, 320);
+	        this.setLocationRelativeTo(null);
+	        
 	        client = new Client();
-			client.start();		
-			
+			client.start();					
 			perso = new Avatar();
-
-	        RecupInfos();
-	        
-	        LaunchNetwork();
-	        
+			
+			LaunchNetwork();
+	        RecupInfos();	         
 	        
 	        setTitle("Attente de connexion des joueurs");
-	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        
-	        modele.addjoueur(listePersos.get(listePersos.size()-1).getPseudo());	                
-	        	        
-	        tableau = new JTable(modele);	        
-		   	 
-	        getContentPane().add(new JScrollPane(tableau), BorderLayout.CENTER);
-	 
+	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	                        
+	        	        	 
 	        JPanel boutons = new JPanel();
 	 
 	        boutons.add(new JButton(new AddAction()));
 	 
 	        getContentPane().add(boutons, BorderLayout.SOUTH);
-	 
-	        pack(); 
+	        
+	        AffichageNewJoueur("Joueurs connectés : ");
+	        
+	       pack(); 
 	        
 	    }
-	    
-	    
-	    
-	    private void MajTab() {
-	    	
-	    	
-	        
-	        //modele.fireTableDataChanged();
-	        			
-		}
-
 
 
 		private class AddAction extends AbstractAction {
@@ -96,6 +86,7 @@ public class PageAttente extends JFrame {
 	 
 	    public static void main(String[] args) {
 	        new PageAttente().setVisible(true);
+	        
 	    }
 	    
 	    
@@ -113,24 +104,32 @@ public class PageAttente extends JFrame {
 	    			
 	    			client.sendTCP(avl);// envoi du perso local	
 	    			
-	    			MajTab();
+	    			AddJoueur(avl);
+	    			
 	    		}
 
 	    		public void received (Connection connection, Object object) {	    			
 	    			
 	    			if (object instanceof AvatarLight) {
 	    				
-	    				AvatarLight avl = (AvatarLight)object;
-	    				Avatar newJoueur = new Avatar(avl);
-	    				
-	    				try {
-	    					newJoueur.initAnimation();
-	    				} catch (SlickException e) {
-	    					e.printStackTrace();
-	    				}
+	    				AvatarLight avl = (AvatarLight)object;	  
 
-	    				AddJoueur(newJoueur,avl.Pseudo);	    				
-	    					
+	    				AddJoueur(avl);
+	    				
+	    				/*Avatar newJoueur = new Avatar(avl);
+
+	    				AddJoueur(newJoueur,avl.Pseudo);
+	    				
+	    				try 
+	    				{
+	    					newJoueur.initAnimation();
+	    				}
+	    				catch (SlickException e)
+	    				{
+	    					e.printStackTrace();
+	    				} 				
+	    					*/
+	    				
 	    				return;					
 	    			}
 	    		}
@@ -146,28 +145,36 @@ public class PageAttente extends JFrame {
 	    	
 	    }
 	    
-	    public void AddJoueur(Avatar pers, String pseudo)
+	    public void AffichageNewJoueur(String pseudo)
+	    {	 
+
+	    	Container c = this.getContentPane();
+
+	    	JLabel info = new JLabel(pseudo);
+	    	c.add(info);
+
+	    	this.pack();
+	    	
+	    }
+	    
+	    public void AddJoueur(AvatarLight joueur)
 		{		
 			boolean find = false;
-			int index = 0;
 			
-			for(Personnage p : listePersos){
-				if(p.getPseudo() == pseudo){
-					index = listePersos.indexOf(p);
+			for(AvatarLight p : listePersosLight){
+				if(p.Pseudo.equals(joueur.Pseudo)){
 					find = true;
 					break;
 				}
 			}			
 			
-			if(find){
-				listePersos.set(index, pers);
-			}else{
-				listePersos.add(pers);
-				javax.swing.JOptionPane.showMessageDialog(null,listePersos.get(listePersos.size()-1).getPseudo() +  " vient de se connecter"); 
-				modele.addjoueur(listePersos.get(listePersos.size()-1).getPseudo());
-				MajTab();  
-			}
-			
+			if(!find)
+			{
+				listePersosLight.add(joueur);
+				AffichageNewJoueur(joueur.Pseudo);
+				client.sendTCP(listePersosLight.get(0));//je dis au ptit nouveau que je suis la
+				javax.swing.JOptionPane.showMessageDialog(null,listePersos.get(listePersos.size()-1).getPseudo() +  " vient de se connecter");
+			}			
 		}
 	    
 	    
