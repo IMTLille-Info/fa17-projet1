@@ -76,7 +76,7 @@ public class MapGameState extends BasicGameState {
 		map.renderBackground();
 		map.renderForeground();
 	
-		this.stats(g);
+		//this.stats(g);
 		
 		// animations des persos de la map
 		for(Personnage p : listePersos){
@@ -119,11 +119,11 @@ public class MapGameState extends BasicGameState {
 		
 		life.update(perso.getLife());
 		
-		if(perso.hasPutBomb()){
+		/*if(perso.hasPutBomb()){
 			for(Bomb b : listeBombes){
 				b.update(listePersos, delta);
 			}
-		}
+		}*/
 	
 	}
 
@@ -199,10 +199,10 @@ public class MapGameState extends BasicGameState {
 		pers.render();
 	}
 	
-	public void stats(Graphics g){
+	/*public void stats(Graphics g){
 		g.setColor(Color.red);
 		g.drawString("Difficulté : " + difficult, 450, 20);// affichage vitesse
 		g.setColor(Color.white);
 		g.drawString("Life monstre : " + monstre.getLife(), 280, 20); // affichage vie monstre
-	}
+	}*/
 }

@@ -26,6 +26,16 @@ public class Avatar extends Personnage {
 		this.setHasPutBomb(avl.hasPutBomb);
 	}
 	
+	public void copy(Avatar av){
+		this.posX(av.posX());
+		this.posY(av.posY());
+		this.SetDirection(av.GetDirection());
+		this.SetMoving(av.isMoving());
+		this.setLife(av.getLife());
+		this.setHasPutBomb(av.hasPutBomb);
+	}
+	
+	
 	public void MaJAvatar(AvatarLight avl)
 	{
 		this.SetDirection(avl.direction);

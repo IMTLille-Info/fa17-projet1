@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
@@ -48,14 +49,14 @@ public class BombTest {
 		
 		// bombe pas encore en état d'explosion
 		bomb.setTimeDelta(100);
-		bomb.explode(new ArrayList<Personnage>());
+		bomb.explode(new HashMap<String, Personnage>());
 		
 		assertTrue(bomb.isPosed());
 		assertFalse(bomb.isExploding());
 		
 		// bombe en état d'explosion
 		bomb.setTimeDelta(2400);
-		bomb.explode(new ArrayList<Personnage>());
+		bomb.explode(new HashMap<String, Personnage>());
 		
 		assertFalse(bomb.isPosed());
 		assertTrue(bomb.isExploding());		
@@ -66,17 +67,17 @@ public class BombTest {
 		Bomb bomb = new Bomb();
 		bomb.pose(60, 60);
 		bomb.setTimeDelta(2400);
-		bomb.explode(new ArrayList<Personnage>());
+		bomb.explode(new HashMap<String, Personnage>());
 		
 		// encore en cours d'explosion
 		bomb.setTimeDelta(2400);
-		bomb.finishExplode(new ArrayList<Personnage>());
+		bomb.finishExplode(new HashMap<String, Personnage>());
 		
 		assertTrue(bomb.isExploding());	
 		
 		// bombe a fini d'exploser
 		bomb.setTimeDelta(3100);
-		bomb.finishExplode(new ArrayList<Personnage>());
+		bomb.finishExplode(new HashMap<String, Personnage>());
 		
 		assertFalse(bomb.isExploding());
 	}
@@ -87,19 +88,19 @@ public class BombTest {
 		bomb.pose(60, 60);
 		
 		// bombe posée en cours
-		bomb.update(new ArrayList<Personnage>(), 100);
+		bomb.update(new HashMap<String, Personnage>(), 100);
 		
 		assertTrue(bomb.isPosed());
 		assertFalse(bomb.isExploding());
 		
 		// bombe en cours d'explosion
-		bomb.update(new ArrayList<Personnage>(), 2400);
+		bomb.update(new HashMap<String, Personnage>(), 2400);
 		
 		assertFalse(bomb.isPosed());
 		assertTrue(bomb.isExploding());
 		
 		// bombe finie d'exploser
-		bomb.update(new ArrayList<Personnage>(), 3100);
+		bomb.update(new HashMap<String, Personnage>(), 3100);
 		
 		assertFalse(bomb.isPosed());
 		assertFalse(bomb.isExploding());

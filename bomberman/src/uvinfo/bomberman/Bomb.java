@@ -1,6 +1,7 @@
 package uvinfo.bomberman;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
@@ -151,7 +152,7 @@ public class Bomb {
 	}
 	
 	// prise en compte du delta de update
-	public void update(ArrayList<Personnage> listePersos, int delta){
+	public void update(HashMap<String, Personnage> listePersos, int delta){
 		if(this.isPosed || this.exploding){	
 			this.timeDelta += delta ;
 			this.explode(listePersos);
@@ -169,24 +170,24 @@ public class Bomb {
 	}
 	
 	// passe de l'état posé à l'état explosion
-	public void explode(ArrayList<Personnage> listePersos){
+	public void explode(HashMap<String, Personnage> listePersos){
 		if(this.timeDelta >= this.timePose){
 			this.animPose.restart();
 			this.exploding = true;
 			this.isPosed = false;
-			for(Personnage p : listePersos){
-				this.hurt(p);
+			for(String p : listePersos.keySet()){
+				this.hurt(listePersos.get(p));
 			}	
 		}
 	}
 	
 	// etat explosion finie
-	public void finishExplode(ArrayList<Personnage> listePersos){
+	public void finishExplode(HashMap<String, Personnage> listePersos){
 		if(this.timeDelta >= this.timeExplode + this.timePose){
 			this.animExplode.restart();
 			this.exploding = false;
-			for(Personnage p : listePersos){
-				p.setHasBeenHurted(false);
+			for(String p : listePersos.keySet()){
+				listePersos.get(p).setHasBeenHurted(false);
 			}
 		}
 	}

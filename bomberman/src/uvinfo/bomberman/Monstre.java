@@ -125,4 +125,8 @@ public class Monstre extends Personnage {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void copy(Avatar av){
+		
+	}
 }

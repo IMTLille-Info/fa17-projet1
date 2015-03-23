@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
@@ -37,8 +38,9 @@ public class NetworkGame extends BasicGameState {
 	private Map map;
 
 	private ArrayList<ArrayList<Object>> listeGlobale = new ArrayList<ArrayList<Object>>();
-	private ArrayList<String> listePseudoPersos = new ArrayList<String>();//temporaire
-	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
+	private ArrayList<String> listePseudoPersos = new ArrayList<String>();
+	private HashMap<String, Personnage> listePersos = new HashMap<String, Personnage>();
+	//private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
 	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
 	
 	public ArrayList<Bomb> getListeBombes() {
@@ -166,9 +168,9 @@ public class NetworkGame extends BasicGameState {
 		this.stats(g);
 		
 		// animations des persos de la map
-		for(Personnage p : listePersos)		
+		for(String p : listePersos.keySet())		
 		{
-			p.render();
+			listePersos.get(p).render();
 		}
 		
 		/*Iterator it = listePersos.iterator();
@@ -213,8 +215,8 @@ public class NetworkGame extends BasicGameState {
 			}
 		}
 		
-		for(Personnage p : listePersos){
-			p.update(delta, container);
+		for(String p : listePersos.keySet()){
+			listePersos.get(p).update(delta, container);
 		}	
 		
 		/*Iterator it = listePersos.iterator();
@@ -234,7 +236,7 @@ public class NetworkGame extends BasicGameState {
 	
 	public void AddJoueur(Avatar pers, String pseudo)
 	{			
-		if(listePseudoPersos.contains(pseudo))
+		/*if(listePersos.containsValue(pseudo))
 		{
 			listePersos.set(listePseudoPersos.indexOf(pseudo), pers);//modification du personnage
 			
@@ -245,7 +247,16 @@ public class NetworkGame extends BasicGameState {
 		{
 			listePersos.add(pers);//ajout du personnage
 			listePseudoPersos.add(pseudo);
+		}*/
+		
+		if(listePersos.containsValue(pseudo)){
+		//listePersos.put(pseudo, pers);
+		listePersos.get(pseudo).copy(pers);
+		}else{
+			listePersos.put(pseudo, pers);
 		}
+		
+		
 		
 		/*
 		boolean find = false;

@@ -170,5 +170,7 @@ public abstract class Personnage {
 
 
 		public abstract void update(int delta, GameContainer container);
+		
+		public abstract void copy(Avatar av);
 	
 }
