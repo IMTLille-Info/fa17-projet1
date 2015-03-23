@@ -26,6 +26,16 @@ public class Avatar extends Personnage {
 		this.setHasPutBomb(avl.hasPutBomb);
 	}
 	
+	public void MaJAvatar(AvatarLight avl)
+	{
+		this.SetDirection(avl.direction);
+		this.hasPutBomb = avl.hasPutBomb;
+		this.SetMoving(avl.moving);
+		this.setLife(avl.PointDeVie);
+		this.posX(avl.posX);
+		this.posY(avl.posY);
+	}
+	
 	public void render() throws SlickException
 	{
 		if(this.getHasBeenHurted()){

@@ -80,9 +80,23 @@ public class PageAttente extends JFrame {
 	 
 	        public void actionPerformed(ActionEvent e) {
 
+	        	ChangementFenetre();        	
 	        }
 	    }
 	    
+		public void ChangementFenetre()
+		{
+			JeuClient jeu = new JeuClient();
+        	
+        	try {
+				jeu.launch(listePersos);
+			} catch (SlickException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
+        	
+        	this.setVisible(false);
+		}
 	 
 	    public static void main(String[] args) {
 	        new PageAttente().setVisible(true);
