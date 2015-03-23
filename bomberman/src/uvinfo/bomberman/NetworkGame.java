@@ -37,10 +37,14 @@ public class NetworkGame extends BasicGameState {
 	private Map map;
 
 	private ArrayList<ArrayList<Object>> listeGlobale = new ArrayList<ArrayList<Object>>();
-	//private ArrayList<String> listePseudoPersos = new ArrayList<String>();//temporaire
+	private ArrayList<String> listePseudoPersos = new ArrayList<String>();//temporaire
 	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
 	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
 	
+	public ArrayList<Bomb> getListeBombes() {
+		return listeBombes;
+	}
+
 	float difficult = 1;
 	
 	private StateBasedGame game;
@@ -77,31 +81,10 @@ public class NetworkGame extends BasicGameState {
 
 			public void received (Connection connection, Object object) {
 				
-				/*if(object instanceof BombermanTransmissible){
-					((BombermanTransmissible)object).handleReception(this);
-				}*/
-				
-				
-				if (object instanceof AvatarLight) {
-					
-					AvatarLight avl = (AvatarLight)object;
-					Avatar newJoueur = new Avatar(avl);
-					
-					try {
-						newJoueur.initAnimation();
-					} catch (SlickException e) {
-						e.printStackTrace();
-					}
-
-					AddJoueur(newJoueur,avl.Pseudo);
-						
-					return;					
+				if(object instanceof BombermanTransmissible){
+					((BombermanTransmissible)object).handleReception(NetworkGame.this);
 				}
 				
-				if(object instanceof BombLight){
-					BombLight bbl = (BombLight)object;
-					listeBombes.get(0).copyLight(bbl);
-				}
 			}
 
 			public void disconnected (Connection connection) {
@@ -251,11 +234,11 @@ public class NetworkGame extends BasicGameState {
 	
 	public void AddJoueur(Avatar pers, String pseudo)
 	{			
-		/*if(listePseudoPersos.contains(pseudo))
+		if(listePseudoPersos.contains(pseudo))
 		{
 			listePersos.set(listePseudoPersos.indexOf(pseudo), pers);//modification du personnage
 			
-			if(listePersos.get(listePersos.indexOf(pseudo)).isMoving()) System.out.println("yes"); // marche pas arrayoutofbound..pb sur listepseudoperso
+			//if(listePersos.get(listePersos.indexOf(pseudo)).isMoving()) System.out.println("yes"); // marche pas arrayoutofbound..pb sur listepseudoperso
 			//if(pers.isMoving()) System.out.println("yes"); passe !
 		}
 		else
@@ -263,8 +246,8 @@ public class NetworkGame extends BasicGameState {
 			listePersos.add(pers);//ajout du personnage
 			listePseudoPersos.add(pseudo);
 		}
-		*/
 		
+		/*
 		boolean find = false;
 		int index = 0;
 		
@@ -276,20 +259,20 @@ public class NetworkGame extends BasicGameState {
 			}
 		}
 		
-		/*ListIterator<Personnage> it = (ListIterator<Personnage>) listePersos.iterator();
+		ListIterator<Personnage> it = (ListIterator<Personnage>) listePersos.iterator();
 		while(it.hasNext()){
 			Personnage p = it.next();
 			if(p.getPseudo() == pseudo){
 				//find = true;
 			}
-		}*/
+		}
 		
 		
 		if(find){
 			listePersos.set(index, pers);
 		}else{
 			listePersos.add(pers);
-		}
+		}*/
 		
 	}
 	

@@ -40,7 +40,7 @@ public class JeuClient  extends StateBasedGame {
 		
 		addState(new NetworkGame());
 	}
-	
+	/*
 	public void WaitingForPlayers() {
         
 		boolean aJoue = false;
@@ -48,6 +48,6 @@ public class JeuClient  extends StateBasedGame {
 	    //on attend le clic sur un bouton
 	    }	
 	
-	}
+	}*/
 	
 }
