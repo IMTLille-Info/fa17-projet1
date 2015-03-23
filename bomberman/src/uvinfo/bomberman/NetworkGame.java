@@ -36,6 +36,7 @@ public class NetworkGame extends BasicGameState {
 	private Barre life;
 	private Map map;
 
+	private ArrayList<ArrayList<Object>> listeGlobale = new ArrayList<ArrayList<Object>>();
 	//private ArrayList<String> listePseudoPersos = new ArrayList<String>();//temporaire
 	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
 	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
@@ -75,6 +76,10 @@ public class NetworkGame extends BasicGameState {
 			}
 
 			public void received (Connection connection, Object object) {
+				
+				/*if(object instanceof BombermanTransmissible){
+					((BombermanTransmissible)object).handleReception(this);
+				}*/
 				
 				
 				if (object instanceof AvatarLight) {

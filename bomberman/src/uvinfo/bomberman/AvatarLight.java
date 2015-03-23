@@ -1,6 +1,8 @@
 package uvinfo.bomberman;
 
-public class AvatarLight {
+import org.newdawn.slick.SlickException;
+
+public class AvatarLight implements BombermanTransmissible{
 	
 	public int posX = 350;
 	public int posY = 300;
@@ -22,4 +24,18 @@ public class AvatarLight {
 		this.hasPutBomb = av.hasPutBomb();
 	}
 
+	public void handleReception(NetworkGame ng){
+		
+		Avatar newJoueur = new Avatar(this);
+		
+		try {
+			newJoueur.initAnimation();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+
+		ng.AddJoueur(newJoueur,this.Pseudo);
+			
+		return;	
+	}
 }
