@@ -2,7 +2,7 @@ package uvinfo.bomberman;
 
 import org.newdawn.slick.Animation;
 
-public class BombLight {
+public class BombLight implements BombermanTransmissible{
 	public int posX;
 	public int posY;
 	public boolean isPosed;
@@ -18,5 +18,13 @@ public class BombLight {
 		this.timeDelta = b.getTimeDelta();
 		this.champExplosion = b.getChampExplosion();
 	}
+
+	@Override
+	public void handleReception(NetworkGame ng) {
+		ng.getListeBombes().get(0).copyLight(this);
+		
+	}
+	
+	
 
 }

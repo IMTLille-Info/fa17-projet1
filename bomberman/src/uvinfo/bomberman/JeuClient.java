@@ -333,7 +333,6 @@ public class JeuClient  extends BasicGameState {
 	public int getID() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-	
+	}	
 	
 }
