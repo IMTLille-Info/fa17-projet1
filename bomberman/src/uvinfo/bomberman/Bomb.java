@@ -35,6 +35,15 @@ public class Bomb {
 	public Bomb(){
 	}
 	
+	public Bomb(BombLight bbl){
+		this.posX = bbl.posX;
+		this.posY = bbl.posY;
+		this.isPosed = bbl.isPosed;
+		this.exploding = bbl.exploding;
+		this.timeDelta = bbl.timeDelta;
+		this.champExplosion = bbl.champExplosion;
+	}
+	
 	/******** getter, setter ********/
 	public int getPuissance() {
 		return puissance;
@@ -244,6 +253,15 @@ public class Bomb {
 				}
 			}
 		}
+	}
+	
+	public void copy(Bomb bbl){
+		this.posX = bbl.posX;
+		this.posY = bbl.posY;
+		this.isPosed = bbl.isPosed;
+		this.exploding = bbl.exploding;
+		this.timeDelta = bbl.timeDelta;
+		this.champExplosion = bbl.champExplosion;
 	}
 	
 	public void copyLight(BombLight bbl){

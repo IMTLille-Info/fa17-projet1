@@ -35,12 +35,14 @@ public class NetworkGame extends BasicGameState {
 	private AvatarLight NetPerso;
 	private Barre life;
 	private Map map;
+	private BombLight bbl;
 
 	private HashMap<String, Personnage> listePersos = new HashMap<String, Personnage>();
-	//private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
-	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
+	private HashMap<String, Bomb> listeBombes = new HashMap<String, Bomb>();
+	private HashMap<String, SuperBomb> listeSuperBombes = new HashMap<String, SuperBomb>();
+	//private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
 	
-	public ArrayList<Bomb> getListeBombes() {
+	public HashMap<String, Bomb> getListeBombes() {
 		return listeBombes;
 	}
 
@@ -58,6 +60,7 @@ public class NetworkGame extends BasicGameState {
 		client.start();
 
 		NetPerso = new AvatarLight();
+		bbl = new BombLight();
 		
 		perso = new Avatar();		
 		perso.initAnimation();
@@ -69,11 +72,6 @@ public class NetworkGame extends BasicGameState {
 			public void connected (Connection connection) {
 				NetPerso.copy(perso, pseudo);
 				client.sendTCP(NetPerso);
-				
-				if(perso.hasPutBomb()){
-					BombLight bbl = new BombLight(listeBombes.get(0));
-					client.sendTCP(bbl);
-				}
 				
 			}
 
@@ -139,9 +137,14 @@ public class NetworkGame extends BasicGameState {
 		map = new Map();
 		map.init();
 		
-		listeBombes.add(new Bomb());
+		/*listeBombes.add(new Bomb());
 		listeBombes.add(new SuperBomb());
-		for(Bomb b : listeBombes) b.loadAnimations();
+		for(Bomb b : listeBombes) b.loadAnimations();*/
+		
+		Bomb bb = new Bomb();
+		bb.loadAnimations();
+		SuperBomb spb = new SuperBomb();
+		spb.loadAnimations();
 		
 		life = new Barre(perso.getLife());
 		life.init();
@@ -151,8 +154,11 @@ public class NetworkGame extends BasicGameState {
 		client.sendTCP(NetPerso);
 		
 		AddJoueur(perso, pseudo);
+		addBomb(bb, pseudo);
+		addSuperBomb(spb, pseudo);
 
 	}
+
 
 	@Override
 	/**render(GameContainer, Graphics) : doit afficher le 
@@ -173,10 +179,18 @@ public class NetworkGame extends BasicGameState {
 		}
 		
 		// animations des bombes
-		if(perso.hasPutBomb()){
+		/*if(perso.hasPutBomb()){
 			for(Bomb b : listeBombes){
 				b.render();
 			}
+		}*/
+		
+		for(String s : listeBombes.keySet()){
+			listeBombes.get(s).render();
+		}
+		
+		for(String s : listeSuperBombes.keySet()){
+			listeSuperBombes.get(s).render();
 		}
 		
 		life.render(g);
@@ -201,10 +215,18 @@ public class NetworkGame extends BasicGameState {
 		
 		life.update(perso.getLife());
 		
-		if(perso.hasPutBomb()){
+		/*if(perso.hasPutBomb()){
 			for(Bomb b : listeBombes){
 				b.update(listePersos, delta);
 			}
+		}*/
+		
+		for(String s : listeBombes.keySet()){
+			listeBombes.get(s).update(listePersos, delta);
+		}
+		
+		for(String s : listeSuperBombes.keySet()){
+			listeSuperBombes.get(s).update(listePersos, delta);
 		}
 		
 		for(String p : listePersos.keySet()){
@@ -214,17 +236,34 @@ public class NetworkGame extends BasicGameState {
 		NetPerso.copy(perso, pseudo); 
 		client.sendTCP(NetPerso);
 		
+		
 	}
 	
-	public void AddJoueur(Avatar pers, String pseudo) throws SlickException
-	{			
+	public void AddJoueur(Avatar pers, String pseudo) throws SlickException{			
 		if(listePersos.containsKey(pseudo)){
 			listePersos.get(pseudo).copy(pers);
 		}else{
 			pers.initAnimation();
-			listePersos.put(pseudo, pers);
-			
+			listePersos.put(pseudo, pers);	
 		}
+	}
+	
+	public void addBomb(Bomb bomb, String ps) throws SlickException{
+		if(listeBombes.containsKey(ps)){
+			listeBombes.get(ps).copy(bomb);
+		}else{
+			bomb.loadAnimations();
+			listeBombes.put(ps,bomb);
+		}
+	}
+	
+	private void addSuperBomb(SuperBomb spBomb, String ps) throws SlickException {
+		if(listeSuperBombes.containsKey(ps)){
+			listeSuperBombes.get(ps).copy(spBomb);
+		}else{
+			spBomb.loadAnimations();
+			listeSuperBombes.put(ps,spBomb);
+		}	
 	}
 	
 	
@@ -298,10 +337,13 @@ public class NetworkGame extends BasicGameState {
 			perso.SetMoving(true);
 			break;
 		case Input.KEY_SPACE:
-			perso.putBomb(this.listeBombes.get(0));
+			perso.putBomb(this.listeBombes.get(pseudo));
+			this.bbl.copy(listeBombes.get(pseudo), pseudo);
+			client.sendTCP(bbl);
 			break;
 		case Input.KEY_ENTER:
-			perso.putSuperBomb(this.listeBombes.get(1));
+			perso.putSuperBomb(this.listeSuperBombes.get(pseudo));
+			client.sendTCP(new BombLight(listeBombes.get(pseudo), pseudo));
 			break;
 		}
 		
