@@ -14,28 +14,16 @@ public class AvatarLight implements BombermanTransmissible{
 	
 	public void copy(Avatar av, String pseudo){
 		this.Pseudo = pseudo;
-		
 		this.posX = av.posX();
 		this.posY = av.posY();
-
 		this.direction = av.GetDirection();
 		this.PointDeVie = av.getLife();		
 		this.moving = av.isMoving();
 		this.hasPutBomb = av.hasPutBomb();
 	}
 
-	public void handleReception(NetworkGame ng){
-		
-		Avatar newJoueur = new Avatar(this);
-		
-		try {
-			newJoueur.initAnimation();
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-
-		ng.AddJoueur(newJoueur,this.Pseudo);
-			
+	public void handleReception(NetworkGame ng) throws SlickException{
+		ng.AddJoueur(new Avatar(this),this.Pseudo);	
 		return;	
 	}
 }

@@ -30,15 +30,12 @@ public class NetworkGame extends BasicGameState {
 	public static final int ID = 2;
 	// déclaration des autres objets
 	private GameContainer container;
-
 	private Musique son;
 	private Avatar perso;
 	private AvatarLight NetPerso;
 	private Barre life;
 	private Map map;
 
-	private ArrayList<ArrayList<Object>> listeGlobale = new ArrayList<ArrayList<Object>>();
-	private ArrayList<String> listePseudoPersos = new ArrayList<String>();
 	private HashMap<String, Personnage> listePersos = new HashMap<String, Personnage>();
 	//private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
 	private ArrayList<Bomb> listeBombes = new ArrayList<Bomb>();
@@ -70,7 +67,6 @@ public class NetworkGame extends BasicGameState {
 		client.addListener(new Listener() {
 			
 			public void connected (Connection connection) {
-				
 				NetPerso.copy(perso, pseudo);
 				client.sendTCP(NetPerso);
 				
@@ -82,9 +78,12 @@ public class NetworkGame extends BasicGameState {
 			}
 
 			public void received (Connection connection, Object object) {
-				
 				if(object instanceof BombermanTransmissible){
-					((BombermanTransmissible)object).handleReception(NetworkGame.this);
+					try {
+						((BombermanTransmissible)object).handleReception(NetworkGame.this);
+					} catch (SlickException e) {
+						e.printStackTrace();
+					}
 				}
 				
 			}
@@ -212,65 +211,20 @@ public class NetworkGame extends BasicGameState {
 			listePersos.get(p).update(delta, container);
 		}	
 		
-		NetPerso.copy(perso, pseudo);
-		//if(NetPerso.moving==true) System.out.println("yes"); //ça passe !
-		//if(perso.isMoving()) System.out.println("yes");  // ca passe !
-		//if(listePersos.get(0).isMoving()) System.out.println("yes");  // ca passe 
+		NetPerso.copy(perso, pseudo); 
 		client.sendTCP(NetPerso);
 		
 	}
 	
-	public void AddJoueur(Avatar pers, String pseudo)
+	public void AddJoueur(Avatar pers, String pseudo) throws SlickException
 	{			
-		/*if(listePersos.containsValue(pseudo))
-		{
-			listePersos.set(listePseudoPersos.indexOf(pseudo), pers);//modification du personnage
-			
-			//if(listePersos.get(listePersos.indexOf(pseudo)).isMoving()) System.out.println("yes"); // marche pas arrayoutofbound..pb sur listepseudoperso
-			//if(pers.isMoving()) System.out.println("yes"); passe !
-		}
-		else
-		{
-			listePersos.add(pers);//ajout du personnage
-			listePseudoPersos.add(pseudo);
-		}*/
-		
-		if(listePersos.containsValue(pseudo)){
-		//listePersos.put(pseudo, pers);
-		listePersos.get(pseudo).copy(pers);
+		if(listePersos.containsKey(pseudo)){
+			listePersos.get(pseudo).copy(pers);
 		}else{
+			pers.initAnimation();
 			listePersos.put(pseudo, pers);
+			
 		}
-		
-		
-		
-		/*
-		boolean find = false;
-		int index = 0;
-		
-		for(Personnage p : listePersos){
-			if(p.getPseudo() == pseudo){
-				index = listePersos.indexOf(p);
-				find = true;
-				break;
-			}
-		}
-		
-		ListIterator<Personnage> it = (ListIterator<Personnage>) listePersos.iterator();
-		while(it.hasNext()){
-			Personnage p = it.next();
-			if(p.getPseudo() == pseudo){
-				//find = true;
-			}
-		}
-		
-		
-		if(find){
-			listePersos.set(index, pers);
-		}else{
-			listePersos.add(pers);
-		}*/
-		
 	}
 	
 	

@@ -41,34 +41,34 @@ public class GameServer {
 		/****************** Creation fenetre affichage *************************/
 		
 		// Open a window to provide an easy way to stop the server.
-				JFrame frame = new JFrame("Game Server");
-				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				frame.addWindowListener(new WindowAdapter() {
-					public void windowClosed (WindowEvent evt) {
-						server.stop();
-					}
-				});				
-				
-				frame.setSize(320, 110);
-				frame.setLocationRelativeTo(null);				
-				Container c = frame.getContentPane();
-				FlowLayout miseEnFlot = new FlowLayout();
-				c.setLayout(miseEnFlot);
-				FlowLayout miseEnFlot1 = new FlowLayout();
-				c.setLayout(miseEnFlot1);
-				FlowLayout miseEnFlot2 = new FlowLayout();
-				c.setLayout(miseEnFlot2);
-				InetAddress IP=InetAddress.getLocalHost();		
-				
-				JLabel info = new JLabel("Close to stop the game server.");
-				JLabel info1 = new JLabel("IP du serveur : "+IP.toString());
-				JLabel info2 = new JLabel("Port d'écoute du serveur : "+Network.port);
+		JFrame frame = new JFrame("Game Server");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosed (WindowEvent evt) {
+				server.stop();
+			}
+		});				
+		
+		frame.setSize(320, 110);
+		frame.setLocationRelativeTo(null);				
+		Container c = frame.getContentPane();
+		FlowLayout miseEnFlot = new FlowLayout();
+		c.setLayout(miseEnFlot);
+		FlowLayout miseEnFlot1 = new FlowLayout();
+		c.setLayout(miseEnFlot1);
+		FlowLayout miseEnFlot2 = new FlowLayout();
+		c.setLayout(miseEnFlot2);
+		InetAddress IP=InetAddress.getLocalHost();		
+		
+		JLabel info = new JLabel("Close to stop the game server.");
+		JLabel info1 = new JLabel("IP du serveur : "+IP.toString());
+		JLabel info2 = new JLabel("Port d'écoute du serveur : "+Network.port);
 
-				c.add(info);
-				c.add(info1);	
-				c.add(info2);			
+		c.add(info);
+		c.add(info1);	
+		c.add(info2);			
 
-				frame.setVisible(true);		
+		frame.setVisible(true);		
 		
 	}
 	

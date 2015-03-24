@@ -34,17 +34,7 @@ public class Avatar extends Personnage {
 		this.setLife(av.getLife());
 		this.setHasPutBomb(av.hasPutBomb);
 	}
-	
-	
-	public void MaJAvatar(AvatarLight avl)
-	{
-		this.SetDirection(avl.direction);
-		this.hasPutBomb = avl.hasPutBomb;
-		this.SetMoving(avl.moving);
-		this.setLife(avl.PointDeVie);
-		this.posX(avl.posX);
-		this.posY(avl.posY);
-	}
+
 	
 	public void render() throws SlickException
 	{
@@ -52,7 +42,6 @@ public class Avatar extends Personnage {
 			GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65, new Color(0,0,255,50));
 		}else{
 			GetAnimation(GetDirection()+(isMoving() ? 4 : 0)).draw(this.posX()-40, this.posY()-65);
-			//GetAnimation(GetDirection()+ 4).draw(this.posX()-40, this.posY()-65);
 		}
 	}	
 	
