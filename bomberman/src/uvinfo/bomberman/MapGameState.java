@@ -20,6 +20,7 @@ public class MapGameState extends BasicGameState {
 	private Musique son;
 	private Avatar perso;
 	private Monstre monstre;
+	private Block block;
 	private Barre life;
 	private Map map;
 	private ArrayList<Personnage> listePersos = new ArrayList<Personnage>();
@@ -51,8 +52,12 @@ public class MapGameState extends BasicGameState {
 		monstre = new Monstre();
 		monstre.initAnimation();
 		
+	//	block = new Block();
+	//	block.initAnimation();
+		
 		listePersos.add(perso);
 		listePersos.add(monstre);
+	//	listePersos.add(block);
 		
 		listeBombes.add(new Bomb());
 		listeBombes.add(new SuperBomb());
@@ -103,19 +108,19 @@ public class MapGameState extends BasicGameState {
 		throws SlickException {
 	     // gestion des collisions
 		map.isCollision(perso.getFuturX(), perso.getFuturY(), perso);
-		
+	
 		if(!map.isCollision(monstre.getFuturX(), monstre.getFuturY(), monstre))
 			{
 				monstre.SetMoving(true);
 				monstre.Move(perso);
 			}	
 		
+	
 		container.setTargetFrameRate((int) (200*difficult));
 		
 		// gestion des intéractions entre personnages
 		perso.update(delta, container);
 		monstre.update(perso, container);
-
 		
 		life.update(perso.getLife());
 		

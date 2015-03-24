@@ -15,6 +15,7 @@ public class Map {
 	private int Map = 2;
 	private TiledMap tiledMap;
 	private String ChoixMap;
+	Block block = new Block();
 
 	/*******
 	 * initialisation de la Map
@@ -60,17 +61,28 @@ public class Map {
 
 	/******* Gestion des collisions ******/
 	public boolean isCollision(float x, float y, Personnage perso) {
+	
 		int tileW = this.tiledMap.getTileWidth();
-		int tileH = this.tiledMap.getTileHeight();
+		int tileH = this.tiledMap.getTileHeight();	
 		int logicLayer = this.tiledMap.getLayerIndex("Logic");
+		boolean collisionB = false ;
+		if(block.getPositionX() == x && block.getPositionY()  == y)
+		{
+			System.out.println(block.getPositionX());
+			 collisionB = true ;
+		}
+		System.out.println(block.getPositionX());
+		System.out.println(block.getPositionY());
 		Image tile = this.tiledMap.getTileImage((int) x / tileW, (int) y
 				/ tileH, logicLayer);
-		boolean collision = tile != null;
-
+		boolean collision = tile  != null;
+		if (collisionB == true)
+		{
+			perso.SetMoving(false);
+		}
 		if (collision) {
 			Color color = tile.getColor((int) x % tileW, (int) y % tileH);
 			collision = color.getAlpha() > 0;
-
 			if (perso instanceof Monstre) {
 				perso.SetMoving(true);
 				((Monstre) perso).OpposeDirection();
