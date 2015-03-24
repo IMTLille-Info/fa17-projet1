@@ -173,13 +173,6 @@ public class NetworkGame extends BasicGameState {
 			listePersos.get(p).render();
 		}
 		
-		/*Iterator it = listePersos.iterator();
-		while(it.hasNext()){
-			Personnage p = (Personnage)it.next();
-			p.render();
-			
-		}*/
-		
 		// animations des bombes
 		if(perso.hasPutBomb()){
 			for(Bomb b : listeBombes){
@@ -218,13 +211,6 @@ public class NetworkGame extends BasicGameState {
 		for(String p : listePersos.keySet()){
 			listePersos.get(p).update(delta, container);
 		}	
-		
-		/*Iterator it = listePersos.iterator();
-		while(it.hasNext()){
-			Personnage p = (Personnage)it.next();
-			p.update(delta, container);
-			
-		}*/
 		
 		NetPerso.copy(perso, pseudo);
 		//if(NetPerso.moving==true) System.out.println("yes"); //ça passe !

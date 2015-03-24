@@ -30,59 +30,8 @@ public class GameServer {
 		server.addListener(new Listener() {
 			public void received (Connection c, Object object) {
 				
-				// vérifer le psudo du joueur qui se connecte
-								
-				if(object instanceof AvatarLight){
-					AvatarLight joueur = (AvatarLight)object;
-					server.sendToAllExceptTCP(c.getID(), joueur);
-				}				
-				
-				if (object instanceof BombLight) {
-					BombLight bbl = (BombLight)object;
-					server.sendToAllExceptTCP(c.getID(),bbl);
-				}
-				
-				if (object instanceof Monstre) {
-					Monstre monstre = (Monstre)object;
-					server.sendToAllTCP(monstre);
-				}
-				
-				if (object instanceof MapGameState) {
-					
-				}
-				
-				if (object instanceof Map) {
-					
-				}
-				
-				if (object instanceof MainScreenGameState) {									
-					
-				}
-				
-				if (object instanceof Musique) {
-					
-				}
-				
-				if (object instanceof Personnage) {
-					
-				}
-				
-				if (object instanceof Position) {
-					
-				}
-				
-				if (object instanceof StateGame) {
-					
-				}
-				
-				if (object instanceof SuperBomb) {
-					
-				}
-				
-				/***** tests ****/
-				if (object instanceof String){
-					String pseudo = (String)object;
-					System.out.println(pseudo);
+				if(object instanceof BombermanTransmissible){
+					server.sendToAllExceptTCP(c.getID(), object);
 				}
 				
 			}
