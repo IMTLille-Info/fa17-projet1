@@ -18,7 +18,7 @@ public class Map {
 	
 	/******* initialisation de la Map ******/
 	public void init() throws SlickException {
-		this.tiledMap = new TiledMap("res/terrain2.tmx");
+		this.tiledMap = new TiledMap("res/terrain.tmx");
 	}
 	
 	

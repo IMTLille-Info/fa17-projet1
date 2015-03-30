@@ -9,14 +9,14 @@
  <tileset firstgid="81" name="chibihikaru-tilea2" tilewidth="64" tileheight="64">
   <image source="chibihikaru-tilea2.png" width="512" height="384"/>
  </tileset>
- <layer name="Calque de Tile 1" width="11" height="9" visible="0" opacity="0.88">
+ <layer name="Logic" width="11" height="9" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NhYGBgIQGrE4GR1aoiYXUsNLpaZHOIUUuMubgwLnPR3atKorno4UAsBgCA1XWCjAEAAA==
+   H4sIAAAAAAAAC2NmYGBgJgETA5DVEjKLGubi4w8G9xKLATDTSR+MAQAA
   </data>
  </layer>
- <layer name="Logic" width="11" height="9" opacity="0.94">
+ <layer name="Calque de Tile 1" width="11" height="9">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NmYGBgJgETA5DVouvFRqOLMZCglhhz8bmTGPdi4xMDSAlXEAYAqMNyO4wBAAA=
+   H4sIAAAAAAAAC2NkYGBgJAFbEoGR1QrjwehqyTUXG38wuZdYDADKOWP1jAEAAA==
   </data>
  </layer>
 </map>
